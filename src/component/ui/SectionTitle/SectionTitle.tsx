@@ -10,7 +10,7 @@ export default function SectionTitle({
     className,
 }: SectionTitleProps) {
     return (
-        <h2 className={`text-[72px] leading-[1.1] font-light ${className ?? ""}`}>
+        <h2 className={`text-[56px] leading-[1.1] font-light ${className ?? ""}`}>
             <span className="text-dark">{darkText} </span>
             <span className="text-primary">{primaryText}</span>
         </h2>

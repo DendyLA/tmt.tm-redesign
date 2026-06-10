@@ -3,7 +3,8 @@ import Promo from "@/component/sections/Home/Promo";
 import Ticker from "@/component/ui/Ticker/Ticker";
 import Header from "@/component/ui/Header/Header";
 import About from "@/component/sections/About/About";
-
+import Advertising from "@/component/ui/Advertising/Advertising";
+import OurServices from "@/component/sections/OurServices/OurServices";
 
 const features = [
     "Инвестиционный консалтинг",
@@ -23,6 +24,8 @@ export default function Home() {
             <Ticker items={features} />
             <Header />
 			<About />
+			<Advertising imgSrc="/images/adv.png" className="mt-10" />
+			<OurServices/>
         </div>
     );
 }
