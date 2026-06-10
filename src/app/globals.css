@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #e8650a;
+    --color-primary-hover: #c95408;
+
+    --color-dark: #091540;
+    --color-muted: #eef2ff;
+
+    --color-bg: #f4f7ff;
+    --color-card: #ffffff;
+    --color-soft-orange: #e3c2a8;
+
+    --font-main: var(--font-manrope);
+    --font-second: var(--font-avenir);
+}
+
+@layer components {
+    .bg-main-gradient-bottom {
+        background: linear-gradient(
+            180deg,
+            rgba(230, 231, 235, 0.25) 0%,
+            rgba(23, 54, 166, 0.25) 100%
+        );
+    }
+
+    .bg-main-gradient-top {
+        background: linear-gradient(
+            360deg,
+            rgba(255, 255, 255, 0.42) 59.65%,
+            rgba(197, 205, 235, 0.5) 100%
+        );
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    /* height: auto; */
+}
+
+
+
+button {
+    cursor: pointer;
+}
+
+@keyframes ticker {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-ticker {
+    animation: ticker 30s linear infinite;
+}
