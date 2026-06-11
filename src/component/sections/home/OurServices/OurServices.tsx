@@ -39,7 +39,7 @@ const services = [
 
 export default function OurServices() {
     return (
-        <section className="bg-main-gradient-bottom py-17">
+        <section className="bg-main-gradient-white-bottom py-17">
             <Container>
                 <div className="flex flex-col items-center justify-center gap-4">
                     <SectionLabel>Наши услуги</SectionLabel>

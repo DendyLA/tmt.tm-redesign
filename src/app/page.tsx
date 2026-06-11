@@ -7,6 +7,7 @@ import Advertising from "@/component/ui/Advertising/Advertising";
 import OurServices from "@/component/sections/home/OurServices/OurServices";
 import Projects from "@/component/sections/home/Projects/Projects";
 import News from '@/component/sections/home/News/News'
+import Contact from "@/component/sections/home/Contact/Contact";
 
 
 const features = [
@@ -31,6 +32,7 @@ export default function Home() {
             <OurServices />
             <Projects />
 			<News/>
+			<Contact/>
         </div>
     );
 }
