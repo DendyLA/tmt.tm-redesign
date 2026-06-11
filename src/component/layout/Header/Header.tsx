@@ -24,7 +24,7 @@ export default function Header() {
                     <a
                         key={index}
                         href="#"
-                        className="text-sm text-manrope font-bold text-dark transition duration-300 hover:opacity-60"
+                        className="text-manrope text-dark text-sm font-bold transition duration-300 hover:opacity-60"
                     >
                         {item}
                     </a>
@@ -40,10 +40,10 @@ export default function Header() {
                             <button
                                 type="button"
                                 onClick={() => setActiveLang(lang)}
-                                className={`cursor-pointer rounded-[5px] border border-solid border-primary px-2.5 py-1 text-sm font-bold transition duration-300 ${
+                                className={`border-primary cursor-pointer rounded-[5px] border border-solid px-2.5 py-1 text-sm font-bold transition duration-300 ${
                                     isActive
                                         ? "bg-primary text-white"
-                                        : "bg-white text-dark hover:bg-primary hover:text-white"
+                                        : "text-dark hover:bg-primary bg-white hover:text-white"
                                 }`}
                             >
                                 {lang}

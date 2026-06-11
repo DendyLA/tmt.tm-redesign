@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Container from "../../ui/Container/Container";
+import Container from "../../../layout/Container/Container";
 import PromoContent from "./PromoContent";
-import CircleNav from "../../ui/CircleNav/CircleNav";
+import CircleNav from "../../../layout/CircleNav/CircleNav";
 
 export default function Promo() {
     return (
-        <section className="bg-main-gradient-top relative flex min-h-300 flex-col pt-7">
+        <section className="bg-main-gradient-top relative flex min-h-300 flex-col overflow-hidden pt-7">
             <Container>
                 <div className="relative h-1/2">
                     <Image

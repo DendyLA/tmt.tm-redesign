@@ -1,8 +1,8 @@
 import Image from "next/image";
 import PromoBadge from "./PromoBadge";
 import PromoTitle from "./PromoTitle";
-import Slogan from "../../ui/Slogan/Slogan";
-import Button from "../../ui/Button/Button";
+import Slogan from "../../../ui/Slogan/Slogan";
+import Button from "../../../ui/Button/Button";
 import { Play } from "lucide-react";
 
 export default function PromoContent() {

@@ -1,10 +1,13 @@
-import Container from "@/component/ui/Container/Container";
-import Promo from "@/component/sections/Home/Promo";
+import Container from "@/component/layout/Container/Container";
+import Promo from "@/component/sections/home/Promo/Promo";
 import Ticker from "@/component/ui/Ticker/Ticker";
-import Header from "@/component/ui/Header/Header";
-import About from "@/component/sections/About/About";
+import Header from "@/component/layout/Header/Header";
+import About from "@/component/sections/home/About/About";
 import Advertising from "@/component/ui/Advertising/Advertising";
-import OurServices from "@/component/sections/OurServices/OurServices";
+import OurServices from "@/component/sections/home/OurServices/OurServices";
+import Projects from "@/component/sections/home/Projects/Projects";
+import News from '@/component/sections/home/News/News'
+
 
 const features = [
     "Инвестиционный консалтинг",
@@ -23,9 +26,11 @@ export default function Home() {
             <Promo />
             <Ticker items={features} />
             <Header />
-			<About />
-			<Advertising imgSrc="/images/adv.png" className="mt-10" />
-			<OurServices/>
+            <About />
+            <Advertising imgSrc="/images/adv.png" className="mt-10" />
+            <OurServices />
+            <Projects />
+			<News/>
         </div>
     );
 }
