@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 type labelProps = {
     children: ReactNode;
-	className?: string;
+    className?: string;
 };
 
 export default function SectionLabel({ children, className }: labelProps) {

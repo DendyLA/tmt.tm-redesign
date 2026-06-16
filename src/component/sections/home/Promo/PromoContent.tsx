@@ -4,8 +4,15 @@ import PromoTitle from "./PromoTitle";
 import Slogan from "../../../ui/Slogan/Slogan";
 import Button from "../../../ui/Button/Button";
 import { Play } from "lucide-react";
+import PromoVideoButton from "./PromoVideoButton";
+import { getPromoSettings } from "@/services/promos/promo.service";
 
-export default function PromoContent() {
+import { mediaUrl } from "@/constants/constants";
+
+export default async function PromoContent() {
+	const promos = await getPromoSettings('companySlug=tmt-consulting-group');
+	const promoUrl = `${mediaUrl}${promos[0].media?.url}`;
+
     return (
         <div className="relative z-10 flex max-w-fit flex-col">
             <div className="h-full w-87.5">
@@ -40,12 +47,7 @@ export default function PromoContent() {
                     Начать сотрудничество
                 </Button>
 
-                <Button
-                    variant="outline"
-                    icon={<Play size={30} fill="currentColor" />}
-                >
-                    Смотреть IFT 2026
-                </Button>
+                <PromoVideoButton videoUrl={promoUrl} />
             </div>
         </div>
     );

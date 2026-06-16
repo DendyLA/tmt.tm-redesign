@@ -1,3 +1,5 @@
+import Footer from "@/component/layout/Footer/Footer";
+
 import type { Metadata } from "next";
 import { avenir, manrope } from "@/lib/fonts/fonts";
 import "./globals.css";
@@ -17,7 +19,10 @@ export default function RootLayout({
             lang="en"
             className={`${manrope.variable} ${avenir.variable} h-full antialiased`}
         >
-            <body className="flex min-h-full flex-col">{children}</body>
+            <body className="flex min-h-full flex-col">
+				{children}
+				<Footer/>
+				</body>
         </html>
     );
 }

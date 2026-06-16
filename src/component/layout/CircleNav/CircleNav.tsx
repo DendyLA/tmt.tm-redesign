@@ -12,7 +12,7 @@ const navItems = [
 
 export default function CircleNav() {
     return (
-        <nav className="pointer-events-none absolute top-0 right-0 z-20 h-full w-[42vw] min-w-105 overflow-visible">
+        <nav className="pointer-events-none absolute top-0 right-0 h-full w-[42vw] min-w-105 overflow-visible">
             <Image
                 src="/images/navLogo.png"
                 alt=""
@@ -22,13 +22,13 @@ export default function CircleNav() {
                 className="pointer-events-none absolute top-1/2 right-[-18%] h-[120vh] w-auto -translate-y-1/2 object-contain select-none"
             />
 
-            <div className="relative z-10 ml-auto flex h-full w-[55%] flex-col items-center justify-center">
+            <div className="relative ml-auto flex h-full w-[55%] flex-col items-center justify-center">
                 {navItems.map((item, index) => (
                     <a
                         key={item}
                         href="#"
                         className={[
-                            "group pointer-events-auto relative flex w-full -translate-y-11.5 items-center justify-center transition-all duration-400 ease-out hover:-translate-x-14",
+                            "group pointer-events-auto relative flex w-full -translate-y-11.5 items-center justify-center transition-all duration-400 ease-out hover:-translate-x-14 ",
                             index % 2 === 1 ? "h-11" : "h-9.5",
                         ].join(" ")}
                     >

@@ -15,7 +15,12 @@ type ServiceProps = {
 
 export default function ServiceList({ services, className }: ServiceProps) {
     return (
-        <ul className={cn("grid grid-cols-2 gap-5", className)}>
+        <ul
+            className={cn(
+                "grid grid-cols-1 gap-5 md:grid-cols-2 2xl:grid-cols-2",
+                className,
+            )}
+        >
             {services.map((service, index) => {
                 return (
                     <li

@@ -6,8 +6,11 @@ import About from "@/component/sections/home/About/About";
 import Advertising from "@/component/ui/Advertising/Advertising";
 import OurServices from "@/component/sections/home/OurServices/OurServices";
 import Projects from "@/component/sections/home/Projects/Projects";
-import News from '@/component/sections/home/News/News'
+import News from "@/component/sections/home/News/News";
 import Contact from "@/component/sections/home/Contact/Contact";
+import Partners from "@/component/sections/home/Partners/Partners";
+import Footer from "@/component/layout/Footer/Footer";
+
 
 
 const features = [
@@ -23,16 +26,21 @@ const features = [
 
 export default function Home() {
     return (
-        <div className="overflow-hidden">
+        <div >
             <Promo />
             <Ticker items={features} />
-            <Header />
-            <About />
-            <Advertising imgSrc="/images/adv.png" className="mt-10" />
-            <OurServices />
-            <Projects />
-			<News/>
-			<Contact/>
+			<div className="relative pt-10">
+				<Header className="sticky top-7.5 "/>
+				<About />
+				<Advertising className="mt-10" />
+				<OurServices />
+				<Projects />
+				<News />
+				<Contact />
+				<Partners />
+			</div>
+            
+            
         </div>
     );
 }

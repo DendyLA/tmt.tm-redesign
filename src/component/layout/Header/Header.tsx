@@ -1,5 +1,5 @@
 "use client";
-
+import cn from "@/lib/utils/cn";
 import { useState } from "react";
 
 const navItems = [
@@ -14,17 +14,21 @@ const navItems = [
 
 const languages = ["RU", "EN", "TM"];
 
-export default function Header() {
+type HeaderProps = {
+	className?: string;
+}
+
+export default function Header({className = 'fixed top-5 '}: HeaderProps) {
     const [activeLang, setActiveLang] = useState("RU");
 
     return (
-        <header className="fixed top-5 left-1/2 z-50 flex h-15 w-max -translate-x-1/2 items-center justify-center gap-11.25 rounded-3xl bg-white px-7.25 py-3.75 shadow-[0px_4px_4px_rgba(232,101,10,0.2)]">
+        <header className={cn("left-1/2 z-10 flex h-15 w-max -translate-x-1/2 items-center justify-center gap-11.25 rounded-3xl bg-white px-7.25 py-3.75 shadow-[0px_4px_4px_rgba(232,101,10,0.2)]", className)}>
             <nav className="flex items-center justify-center gap-7.5">
                 {navItems.map((item, index) => (
                     <a
                         key={index}
                         href="#"
-                        className="text-manrope text-dark text-sm font-bold transition duration-300 hover:opacity-60"
+                        className="text-manrope text-dark text-sm font-bold transition-colors ease-in-out duration-300 hover:text-primary"
                     >
                         {item}
                     </a>
