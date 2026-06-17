@@ -11,21 +11,21 @@ type AdvertisingProps = {
 
 export default async function Advertising({ className }: AdvertisingProps) {
 	const ads = await getAds({company: 'tmt-consulting-group', location: 'home.about', lang: 'RU'})
-
+	console.log(ads)
 	const adImg = ads[0]?.ad.translation?.imageUrl
 
 
     return (
         <Container>
-            <Link href={"#"} className="max-h-54">
+            <a href={ads[0].ad.targetUrl ? ads[0].ad.targetUrl : '#' } target="_blank" className="h-54 w-full block ">
                 <Image
                     src={`${mediaUrl}${adImg}`}
                     width={1796}
-                    height={216}
+                    height={216} 
                     alt="advertising"
-                    className={cn("h-full w-full object-cover", className)}
+                    className={cn("h-full w-full object-contain", className)}
                 />
-            </Link>
+            </a>
         </Container>
     );
 }

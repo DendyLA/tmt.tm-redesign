@@ -13,11 +13,12 @@ export default function Features({ features, className }: featuresProps) {
                 return (
                     <div key={index} className="flex items-center gap-4">
                         <Image
-                            src="/icons/right-arrow.svg"
-                            alt="right-arrow"
-                            width={35}
-                            height={35}
-                        />
+							src="/icons/right-arrow.svg"
+							alt="right-arrow"
+							width={35}
+							height={35}
+							className="h-auto w-8.75"
+						/>
                         <p className="font-main text-[24px] font-semibold">
                             {feature}
                         </p>

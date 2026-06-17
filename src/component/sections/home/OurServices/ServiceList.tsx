@@ -2,6 +2,8 @@ import Image from "next/image";
 import Tag from "@/component/ui/Tag/Tag";
 import cn from "@/lib/utils/cn";
 
+import { getOurService } from "@/services/ourService/ourService.service";
+
 type Service = {
     title: string;
     text: string;
@@ -10,10 +12,14 @@ type Service = {
 
 type ServiceProps = {
     className?: string;
-    services: Service[];
 };
 
-export default function ServiceList({ services, className }: ServiceProps) {
+
+
+export default async function ServiceList({ className }: ServiceProps) {
+	const data = await getOurService({company: 'tmt-consulting-group', lang: 'RU'});
+
+
     return (
         <ul
             className={cn(
@@ -21,7 +27,7 @@ export default function ServiceList({ services, className }: ServiceProps) {
                 className,
             )}
         >
-            {services.map((service, index) => {
+            {data.map((service, index) => {
                 return (
                     <li
                         key={index}
@@ -38,9 +44,9 @@ export default function ServiceList({ services, className }: ServiceProps) {
                             {service.title}
                         </h3>
                         <p className="font-main text-dark text-[16px]">
-                            {service.text}
+                            {service.description}
                         </p>
-                        <Tag>{service.tag}</Tag>
+                        <Tag>{service.category.name}</Tag>
                     </li>
                 );
             })}
