@@ -3,7 +3,7 @@ export type Promo = {
     title: string;
     subtitle?: string;
     ButtonURL?: string;
-	ButtonLabelL?: string;
+    ButtonLabelL?: string;
     media?: {
         id: string;
         url: string;

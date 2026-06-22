@@ -6,24 +6,21 @@ import Button from "../../../ui/Button/Button";
 import { Play } from "lucide-react";
 import PromoVideoButton from "./PromoVideoButton";
 import { getPromoSettings } from "@/services/promos/promo.service";
-
+import Logo from "@/component/ui/Logo/Logo";
 import { mediaUrl } from "@/constants/constants";
 
+import getCompany from "@/services/company/company.service";
+
 export default async function PromoContent() {
-	const promos = await getPromoSettings('companySlug=tmt-consulting-group');
-	const promoUrl = `${mediaUrl}${promos[0].media?.url}`;
+    const promos = await getPromoSettings("companySlug=tmt-consulting-group");
+    const promoUrl = `${mediaUrl}${promos[0].media?.url}`;
+
+    const logo = await getCompany("tmt-consulting-group", "RU");
+    const logoUrl = `${mediaUrl}${logo.logo}`;
 
     return (
         <div className="relative z-10 flex max-w-fit flex-col">
-            <div className="h-full w-87.5">
-                <Image
-                    src="/images/logo.png"
-                    alt="TMT Consulting Group"
-                    width={378}
-                    height={100}
-                    className="relative object-cover"
-                />
-            </div>
+            <Logo />
             <PromoBadge
                 text="Ашхабад · Центральная Азия · Глобальный охват"
                 className="mt-28.5"

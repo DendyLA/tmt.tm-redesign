@@ -52,7 +52,9 @@ export default function Contact() {
                         className="fixed inset-0 z-20 flex items-center justify-center bg-black/50"
                         onClick={() => setIsOpen(false)}
                     >
-                        <ContactForm />
+                        <div onClick={(event) => event.stopPropagation()}>
+                            <ContactForm />
+                        </div>
                     </div>
                 )}
             </Container>

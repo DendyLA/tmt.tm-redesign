@@ -1,14 +1,6 @@
 import Image from "next/image";
-
-const navItems = [
-    "О НАС",
-    "УСЛУГИ",
-    "ТУРИЗМ",
-    "БЛОГ",
-    "НОВОСТИ",
-    "ВАКАНСИИ",
-    "КОНТАКТЫ",
-];
+import { menuItems } from "@/constants/constants";
+import Link from "next/link";
 
 export default function CircleNav() {
     return (
@@ -23,12 +15,12 @@ export default function CircleNav() {
             />
 
             <div className="relative ml-auto flex h-full w-[55%] flex-col items-center justify-center">
-                {navItems.map((item, index) => (
-                    <a
-                        key={item}
-                        href="#"
+                {menuItems.map((item, index) => (
+                    <Link
+                        key={index}
+                        href={item.link}
                         className={[
-                            "group pointer-events-auto relative flex w-full -translate-y-11.5 items-center justify-center transition-all duration-400 ease-out hover:-translate-x-14 ",
+                            "group pointer-events-auto relative flex w-full -translate-y-11.5 items-center justify-center transition-all duration-400 ease-out hover:-translate-x-14",
                             index % 2 === 1 ? "h-11" : "h-9.5",
                         ].join(" ")}
                     >
@@ -41,9 +33,9 @@ export default function CircleNav() {
                         />
 
                         <span className="font-second text-primary relative z-10 text-left text-[17px] font-bold tracking-[0.28em] transition-colors duration-300 group-hover:text-white">
-                            {item}
+                            {item.name}
                         </span>
-                    </a>
+                    </Link>
                 ))}
             </div>
         </nav>

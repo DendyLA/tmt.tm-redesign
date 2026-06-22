@@ -6,8 +6,11 @@ type GetOurServiceProps = {
     lang?: string;
 };
 
-export async function getOurService({company, lang}: GetOurServiceProps): Promise<OurService[]>{
-	try {
+export async function getOurService({
+    company,
+    lang,
+}: GetOurServiceProps): Promise<OurService[]> {
+    try {
         return await apiClient<OurService[]>(
             `/companies/${company}/services${lang ? `?locale=${lang.toUpperCase()}` : ""}`,
         );

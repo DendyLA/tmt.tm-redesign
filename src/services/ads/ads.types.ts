@@ -4,9 +4,9 @@ export type Ad = {
         id: string;
         title: string;
         type: "IMAGE" | "VIDEO" | "HTML";
-		translation: {
-			imageUrl: string;
-		};
+        translation: {
+            imageUrl: string;
+        };
         imageUrl: string;
         targetUrl: string | null;
     };

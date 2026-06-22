@@ -8,7 +8,6 @@ export async function apiClient<T>(
     endpoint: string,
     options: RequestOptions = {},
 ): Promise<T> {
-
     const response = await fetch(`${API_URL}${endpoint}`, {
         ...options,
         headers: {

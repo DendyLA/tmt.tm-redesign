@@ -10,18 +10,24 @@ type AdvertisingProps = {
 };
 
 export default async function Advertising({ className }: AdvertisingProps) {
-	const ads = await getAds({company: 'tmt-consulting-group', location: 'home.about', lang: 'RU'})
-	console.log(ads)
-	const adImg = ads[0]?.ad.translation?.imageUrl
-
+    const ads = await getAds({
+        company: "tmt-consulting-group",
+        location: "home.about",
+        lang: "RU",
+    });
+    const adImg = ads[0]?.ad.translation?.imageUrl;
 
     return (
         <Container>
-            <a href={ads[0].ad.targetUrl ? ads[0].ad.targetUrl : '#' } target="_blank" className="h-54 w-full block ">
+            <a
+                href={ads[0].ad.targetUrl ? ads[0].ad.targetUrl : "#"}
+                target="_blank"
+                className="block h-54 w-full"
+            >
                 <Image
                     src={`${mediaUrl}${adImg}`}
                     width={1796}
-                    height={216} 
+                    height={216}
                     alt="advertising"
                     className={cn("h-full w-full object-contain", className)}
                 />

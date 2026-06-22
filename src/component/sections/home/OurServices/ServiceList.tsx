@@ -4,21 +4,15 @@ import cn from "@/lib/utils/cn";
 
 import { getOurService } from "@/services/ourService/ourService.service";
 
-type Service = {
-    title: string;
-    text: string;
-    tag: string;
-};
-
 type ServiceProps = {
     className?: string;
 };
 
-
-
 export default async function ServiceList({ className }: ServiceProps) {
-	const data = await getOurService({company: 'tmt-consulting-group', lang: 'RU'});
-
+    const data = await getOurService({
+        company: "tmt-consulting-group",
+        lang: "RU",
+    });
 
     return (
         <ul

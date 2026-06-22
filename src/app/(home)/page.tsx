@@ -11,8 +11,6 @@ import Contact from "@/component/sections/home/Contact/Contact";
 import Partners from "@/component/sections/home/Partners/Partners";
 import Footer from "@/component/layout/Footer/Footer";
 
-
-
 const features = [
     "Инвестиционный консалтинг",
     "Деловые форумы",
@@ -26,21 +24,19 @@ const features = [
 
 export default function Home() {
     return (
-        <div >
+        <div>
             <Promo />
             <Ticker items={features} />
-			<div className="relative pt-10">
-				<Header className="sticky top-7.5 "/>
-				<About />
-				<Advertising className="mt-10" />
-				<OurServices />
-				<Projects />
-				<News />
-				<Contact />
-				<Partners />
-			</div>
-            
-            
+            <div className="relative pt-10">
+                <Header className="sticky top-7.5" />
+                <About />
+                <Advertising className="mt-10" />
+                <OurServices />
+                <Projects />
+                <News />
+                <Contact />
+                <Partners />
+            </div>
         </div>
     );
 }

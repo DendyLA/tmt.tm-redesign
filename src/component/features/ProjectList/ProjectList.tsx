@@ -1,17 +1,17 @@
 import Image from "next/image";
-
+import getProject from "@/services/projects/projects.service";
 import cn from "@/lib/utils/cn";
 import { Project } from "@/types/services";
+import { mediaUrl } from "@/constants/constants";
 
 type projectsListProps = {
     projects: Project[];
     className?: string;
 };
 
-export default function ProjectList({
-    projects,
-    className,
-}: projectsListProps) {
+export default async function ProjectList({ className }: projectsListProps) {
+    const projects = await getProject("tmt-consulting-group", "RU");
+
     return (
         <ul className="grid grid-cols-1 gap-14 md:grid-cols-2 xl:grid-cols-5">
             {projects.map((project, index) => {
@@ -28,7 +28,7 @@ export default function ProjectList({
                     >
                         <div className="relative h-37.5 w-full">
                             <Image
-                                src={project.imgSrc}
+                                src={`${mediaUrl}${project.coverImage}`}
                                 alt={project.title}
                                 fill
                                 className="object-contain"

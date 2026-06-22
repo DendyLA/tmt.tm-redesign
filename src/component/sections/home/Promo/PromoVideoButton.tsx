@@ -39,7 +39,7 @@ export default function PromoVideoButton({ videoUrl }: PromoVideoButtonProps) {
                 <button
                     type="button"
                     onClick={() => setIsOpen(false)}
-                    className="absolute -right-4 -top-4 z-10 flex size-10 items-center justify-center rounded-full bg-white text-dark"
+                    className="text-dark absolute -top-4 -right-4 z-10 flex size-10 items-center justify-center rounded-full bg-white"
                 >
                     <X size={24} />
                 </button>

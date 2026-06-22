@@ -12,20 +12,25 @@ export default function PartnersList({
     className,
 }: PartnersListProps) {
     return (
-        <ul className={cn("flex flex-wrap gap-6.5 items-center justify-center", className)}>
+        <ul
+            className={cn(
+                "flex flex-wrap items-center justify-center gap-6.5",
+                className,
+            )}
+        >
             {partners.map((partner, index) => {
                 return (
                     <li key={index}>
                         <a
                             href={partner.link ? partner.link : "#"}
-                            className="relative w-full h-12"
+                            className="relative h-12 w-full"
                         >
                             <Image
                                 src={partner.logoSrc}
                                 height={50}
-								width={120}
+                                width={120}
                                 alt={partner.name ? partner.name : "logo image"}
-								className="grayscale brightness-500 transition duration-300 ease-in-out hover:scale-105 hover:brightness-800"
+                                className="brightness-500 grayscale transition duration-300 ease-in-out hover:scale-105 hover:brightness-800"
                             />
                         </a>
                     </li>

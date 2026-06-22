@@ -39,6 +39,13 @@
             rgba(197, 205, 235, 0.5) 100%
         );
     }
+	.bg-second-gradient-bottom {
+        background: linear-gradient(
+            360deg,
+            rgba(242, 150, 87, 0.2) 6.75%,
+            rgba(255, 255, 255, 0.42) 100%
+        );
+    }
 }
 
 html {
