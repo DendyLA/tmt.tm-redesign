@@ -14,7 +14,7 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
     return (
         <header
             className={cn(
-                "left-1/2 z-10 flex h-15 w-max -translate-x-1/2 items-center justify-center gap-11.25 rounded-3xl bg-white px-7.25 py-3.75 shadow-[0px_4px_4px_rgba(232,101,10,0.2)]",
+                "left-1/2 z-20 flex h-15 w-max -translate-x-1/2 items-center justify-center gap-11.25 rounded-3xl bg-white px-7.25 py-3.75 shadow-[0px_4px_4px_rgba(232,101,10,0.2)]",
                 className,
             )}
         >

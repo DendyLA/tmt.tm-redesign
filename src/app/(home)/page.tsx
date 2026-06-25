@@ -30,7 +30,7 @@ export default function Home() {
             <div className="relative pt-10">
                 <Header className="sticky top-7.5" />
                 <About />
-                <Advertising className="mt-10" />
+                {/* <Advertising className="mt-10" /> */}
                 <OurServices />
                 <Projects />
                 <News />

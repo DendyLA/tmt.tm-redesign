@@ -34,7 +34,7 @@ export default function NewsCard({ item, className }: NewsCardProps) {
             </Link>
 
             <div className="flex flex-col justify-between gap-6 bg-[#EEF2FF] px-5 py-8 h-[40%]">
-                <Link href={`/news/${item.slug}`} className="font-main text-[20px] font-semibold text-dark transition-colors duration-300 ease-in-out hover:text-primary w-max">{title}</Link>
+                <Link href={`/news/${item.slug}`} className="font-main text-[20px] font-semibold text-dark transition-colors duration-300 ease-in-out hover:text-primary w-max"><h3>{title}</h3></Link>
 
                 <div className="flex items-center justify-between">
                     <Link href={`/news/${item.slug}`}>

@@ -1,22 +1,20 @@
 import cn from "@/lib/utils/cn";
 import Image from "next/image";
 
-type featuresProps = {
+type AboutFeaturesProps = {
     features: string[];
     className?: string;
 };
 
-export default function Features({ features, className }: featuresProps) {
+export default function AboutFeatures({ features, className }: AboutFeaturesProps) {
     return (
         <div className={cn("flex flex-col gap-10", className)}>
             {features.map((feature, index) => {
                 return (
                     <div key={index} className="flex items-center gap-4">
-                        <Image
-                            src="/icons/right-arrow.svg"
+                        <img
+                            src="/icons/right-arrow-dark.svg"
                             alt="right-arrow"
-                            width={35}
-                            height={35}
                             className="h-auto w-8.75"
                         />
                         <p className="font-main text-[24px] font-semibold">

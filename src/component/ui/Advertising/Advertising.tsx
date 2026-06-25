@@ -16,7 +16,7 @@ export default async function Advertising({ className }: AdvertisingProps) {
         lang: "RU",
     });
     const adImg = ads[0]?.ad.translation?.imageUrl;
-
+	console.log(`${mediaUrl}/uploads/media/adv.png`)
     return (
         <Container>
             <a

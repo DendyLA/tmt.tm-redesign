@@ -9,7 +9,7 @@ type NewsPageProps = {
     }>;
 };
 
-export default async function Home({ searchParams }: NewsPageProps) {
+export default async function News({ searchParams }: NewsPageProps) {
     const { page } = await searchParams;
 
     return (
@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: NewsPageProps) {
                 <div className="flex">
                     <Logo />
                 </div>
-                <SectionTop />
+                <SectionTop titleTop="НОВОСТИ" titleBottom="Будьте в курсе последних событий в Туркменистане."/>
                 <NewsAll page={Number(page) || 1} />
             </Container>
         </div>

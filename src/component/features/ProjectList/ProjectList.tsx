@@ -5,7 +5,6 @@ import { Project } from "@/types/services";
 import { mediaUrl } from "@/constants/constants";
 
 type projectsListProps = {
-    projects: Project[];
     className?: string;
 };
 
@@ -44,6 +43,7 @@ export default async function ProjectList({ className }: projectsListProps) {
                         </h3>
                         {/*Объяснить это заменив на .text чтобы пкоазать суть типов*/}
                     </li>
+					
                 );
             })}
         </ul>

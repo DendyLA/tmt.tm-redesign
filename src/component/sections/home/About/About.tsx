@@ -1,7 +1,7 @@
 import SectionLabel from "@/component/ui/SectionLabel/SectionLabel";
 import Container from "@/component/layout/Container/Container";
 import SectionTitle from "@/component/ui/SectionTitle/SectionTitle";
-import Features from "@/component/sections/home/About/Features";
+import AboutFeatures from "@/component/features/AboutFeatures/AboutFeatures";
 
 const advantages = [
     "Прямой доступ к государственным структурам Туркменистана",
@@ -33,7 +33,7 @@ export default function About() {
                             региональные рынки.
                         </p>
                     </div>
-                    <Features features={advantages} className="justify-end" />
+                    <AboutFeatures features={advantages} className="justify-end" />
                 </div>
             </Container>
         </section>

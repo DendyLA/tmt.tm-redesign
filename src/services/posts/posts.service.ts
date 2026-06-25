@@ -1,5 +1,5 @@
 import { apiClient } from "../api/api-client";
-import type { PostResponse } from "./posts.types";
+import type { PostResponse, Post } from "./posts.types";
 
 type GetPostsProps = {
     page?: number;
@@ -27,5 +27,21 @@ export function getPosts({
 
     return apiClient<PostResponse>(
         `/posts/public?${params.toString()}`
+    );
+}
+
+type GetPostBySlugProps = {
+    slug: string;
+    lang?: string;
+    deleted?: boolean;
+};
+
+export function getPostBySlug({
+    slug,
+    lang = "RU",
+    deleted = false,
+}: GetPostBySlugProps): Promise<Post> {
+    return apiClient<Post>(
+        `/posts/public/${slug}?locale=${lang.toUpperCase()}&deleted=${deleted}`
     );
 }

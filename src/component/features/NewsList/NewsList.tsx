@@ -18,7 +18,7 @@ export default async function NewsList({ className }: NewsListProps) {
     return (
         <div
             className={cn(
-                "grid grid-cols-1 gap-14 md:grid-cols-2 2xl:grid-cols-5",
+                "grid grid-cols-1 gap-14 md:grid-cols-2 2xl:grid-cols-5 w-full",
                 className,
             )}
         >
