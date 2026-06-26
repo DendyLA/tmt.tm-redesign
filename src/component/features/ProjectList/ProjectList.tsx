@@ -10,39 +10,41 @@ type projectsListProps = {
 
 export default async function ProjectList({ className }: projectsListProps) {
     const projects = await getProject("tmt-consulting-group", "RU");
-
+	console.log(projects)
     return (
         <ul className="grid grid-cols-1 gap-14 md:grid-cols-2 xl:grid-cols-5">
             {projects.map((project, index) => {
                 return (
-                    <li
-                        key={index}
-                        className={cn(
-                            "flex min-h-75 max-w-[320px] flex-col items-center justify-end rounded-lg px-12 py-10 shadow-[0_4px_4.5px_rgba(0,0,0,0.25)]",
-                            index % 2 === 0
-                                ? "bg-primary/10 border-primary/20 border"
-                                : "border border-[rgba(0,21,255,0.2)] bg-[#EEF2FF]",
-                            className,
-                        )}
-                    >
-                        <div className="relative h-37.5 w-full">
-                            <Image
-                                src={`${mediaUrl}${project.coverImage}`}
-                                alt={project.title}
-                                fill
-                                className="object-contain"
-                            />
-                        </div>
-                        <h3
-                            className={cn(
-                                "font-maintext-sm text-center",
-                                index % 2 === 0 ? "text-primary" : "text-dark",
-                            )}
-                        >
-                            {project.title}
-                        </h3>
-                        {/*Объяснить это заменив на .text чтобы пкоазать суть типов*/}
-                    </li>
+					<a href="" className="transition-transform duration-300 ease-in-out hover:scale-105">
+						<li
+							key={index}
+							className={cn(
+								"flex min-h-75 max-w-[320px] flex-col items-center justify-end rounded-lg px-12 py-10 shadow-[0_4px_4.5px_rgba(0,0,0,0.25)]",
+								index % 2 === 0
+									? "bg-primary/10 border-primary/20 border"
+									: "border border-[rgba(0,21,255,0.2)] bg-[#EEF2FF]",
+								className,
+							)}
+						>
+							<div className="relative h-37.5 w-full">
+								<Image
+									src={`${mediaUrl}${project.coverImage}`}
+									alt={project.title}
+									fill
+									className="object-contain"
+								/>
+							</div>
+							<h3
+								className={cn(
+									"font-maintext-sm text-center",
+									index % 2 === 0 ? "text-primary" : "text-dark",
+								)}
+							>
+								{project.title}
+							</h3>
+							{/*Объяснить это заменив на .text чтобы пкоазать суть типов*/}
+						</li>
+					</a>
 					
                 );
             })}

@@ -1,10 +1,19 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
 import NewsInfo from "@/component/sections/news/NewsInfo/NewsInfo";
 import NewsExtra from "@/component/sections/news/NewsExtra/NewsExtra";
+import NewsArticleJsonLd from "@/component/seo/NewsArticleJsonLd";
+import { getPostBySlug } from "@/services/posts/posts.service";
+import { absoluteMediaUrl, siteConfig } from "@/lib/seo/site";
+import {
+    createPageMetadata,
+    stripHtml,
+    truncateText,
+} from "@/lib/seo/metadata";
 
 type NewsPageProps = {
 	searchParams: Promise<{
@@ -15,11 +24,67 @@ type NewsPageProps = {
     }>;
 };
 
-export default async function NewsCurrent({ searchParams, params }: NewsPageProps) {
+export async function generateMetadata({
+    params,
+}: NewsPageProps): Promise<Metadata> {
+    const { slug } = await params;
+
+    try {
+        const post = await getPostBySlug({ slug, lang: "RU" });
+        const title = post.translation?.title || post.title;
+        const description = truncateText(
+            stripHtml(
+                post.translation?.excerpt ||
+                    post.excerpt ||
+                    post.translation?.content ||
+                    post.content ||
+                    siteConfig.description,
+            ),
+        );
+        const image = absoluteMediaUrl(
+            post.translation?.coverMedia?.url ||
+                post.coverMedia?.url ||
+                post.translation?.coverImageUrl ||
+                post.coverImageUrl,
+        );
+
+        return createPageMetadata({
+            title: `${title} | ${siteConfig.name}`,
+            description,
+            path: `/news/${slug}`,
+            type: "article",
+            publishedTime: post.publishedAt,
+            modifiedTime: post.updatedAt,
+            images: image
+                ? [
+                      {
+                          url: image,
+                          width: 1200,
+                          height: 630,
+                          alt:
+                              post.translation?.coverAltText ||
+                              post.coverAltText ||
+                              title,
+                      },
+                  ]
+                : undefined,
+            keywords: [title, "новости TMT Consulting Group"],
+        });
+    } catch {
+        return createPageMetadata({
+            title: `Новости | ${siteConfig.name}`,
+            description: siteConfig.description,
+            path: `/news/${slug}`,
+        });
+    }
+}
+
+export default async function NewsCurrent({ params }: NewsPageProps) {
 	const { slug } = await params;
 
 	return (
 		<div className="py-12.5 bg-second-gradient-bottom">
+			<NewsArticleJsonLd slug={slug} />
 			<Container>
 				<div className="flex">
 					<Logo />

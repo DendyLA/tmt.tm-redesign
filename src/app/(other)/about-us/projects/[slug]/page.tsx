@@ -1,16 +1,7 @@
-import type { Metadata } from "next";
 
 import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
-import AboutMain from "@/component/sections/aboutUs/AboutMain";
-import ProjectList from "@/component/features/ProjectList/ProjectList";
-import { createPageMetadata } from "@/lib/seo/metadata";
-import { seoRoutes } from "@/lib/seo/site";
-
-const aboutRoute = seoRoutes.find((route) => route.path === "/about-us")!;
-
-export const metadata: Metadata = createPageMetadata(aboutRoute);
 
 export default async function AboutUs() {
 
@@ -22,9 +13,7 @@ export default async function AboutUs() {
 					<Logo />
 				</div>
 				<SectionTop titleTop="О НАС" titleBottom="Мост между капиталом и возможностью"/>
-				<AboutMain className="mt-10"/>
 				<SectionTop titleTop="НАШИ ПРОЕКТЫ" titleBottom="Реализованные проекты, которыми мы гордимся." className="mt-14"/>
-				<ProjectList className="mt-10"/>
 			</Container>
 		</div>
 	);

@@ -4,34 +4,7 @@ import SectionTitle from "@/component/ui/SectionTitle/SectionTitle";
 import NewsList from "@/component/features/NewsList/NewsList";
 import Button from "@/component/ui/Button/Button";
 import type { News } from "@/types/news";
-
-const allNews: News[] = [
-    {
-        title: "В Ашхабаде прошёл инженерно-технический конкурс «Молодой инженер 2026»",
-        date: "",
-        imgSrc: "/images/news.png",
-    },
-    {
-        title: "В Ашхабаде прошёл инженерно-технический конкурс «Молодой инженер 2026»",
-        date: "",
-        imgSrc: "/images/news.png",
-    },
-    {
-        title: "В Ашхабаде прошёл инженерно-технический конкурс «Молодой инженер 2026»",
-        date: "",
-        imgSrc: "/images/news.png",
-    },
-    {
-        title: "В Ашхабаде прошёл инженерно-технический конкурс «Молодой инженер 2026»",
-        date: "",
-        imgSrc: "/images/news.png",
-    },
-    {
-        title: "В Ашхабаде прошёл инженерно-технический конкурс «Молодой инженер 2026»",
-        date: "",
-        imgSrc: "/images/news.png",
-    },
-];
+import Link from "next/link";
 
 export default function News() {
     return (
@@ -44,10 +17,13 @@ export default function News() {
                         primaryText="Нового"
                         className="mt-4.5"
                     />
-                    <NewsList allNews={allNews} className="mt-16" />
-                    <Button className="bg-dark mt-20.5 px-10 hover:bg-[#1E2F5A]">
-                        Все новости
-                    </Button>
+                    <NewsList className="mt-16" />
+					<Link href={'/news'}>
+						<Button className="bg-dark mt-20.5 px-10 hover:bg-[#1E2F5A]">
+							Все новости
+						</Button>
+					</Link>
+                    
                 </div>
             </Container>
         </section>

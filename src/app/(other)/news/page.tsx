@@ -1,13 +1,21 @@
+import type { Metadata } from "next";
+
 import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
 import NewsAll from "@/component/sections/news/NewsAll/NewsAll";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { seoRoutes } from "@/lib/seo/site";
 
 type NewsPageProps = {
     searchParams: Promise<{
         page?: string;
     }>;
 };
+
+const newsRoute = seoRoutes.find((route) => route.path === "/news")!;
+
+export const metadata: Metadata = createPageMetadata(newsRoute);
 
 export default async function News({ searchParams }: NewsPageProps) {
     const { page } = await searchParams;

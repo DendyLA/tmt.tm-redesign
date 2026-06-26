@@ -30,7 +30,7 @@ export default async function Tours({className}: ToursProps){
 						return(
 							<div key={index} className="flex relative">
 								<div  className="py-10.5 px-10 bg-white shadow-[0px_5px_6px_0px_rgba(0,0,0,0.1)] border border-primary rounded-xl relative max-w-225 z-10">
-									<div className="text-primary font-second text-[33px] flex gap-3.75 items-center max-w-[600px]"><span className="bg-primary h-0.5 w-8.75"></span>{item?.translation?.title}</div>
+									<div className="text-primary font-second text-[33px] flex gap-3.75 items-center max-w-150"><span className="bg-primary h-0.5 w-8.75"></span>{item?.translation?.title}</div>
 									<div className="text-dark font-main text-base font-medium mt-6.25 max-w-187.5"><RichText content={item?.translation?.description}/></div>
 
 									<div className="absolute top-0 right-6.5 font-second text-[96px] text-primary/10 font-black">{String(index + 1).padStart(2, "0")}</div>
