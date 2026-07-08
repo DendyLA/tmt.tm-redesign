@@ -6,6 +6,22 @@ export const manrope = localFont({
 });
 
 export const avenir = localFont({
-    src: "../../../public/fonts/Avenir_Next.ttf",
+    src: [
+        {
+            path: "../../../public/fonts/AvenirNextCyr-Regular.ttf",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../../../public/fonts/AvenirNextCyr-Medium.ttf",
+            weight: "500",
+            style: "normal",
+        },
+        {
+            path: "../../../public/fonts/AvenirNextCyr-Bold.ttf",
+            weight: "700",
+            style: "normal",
+        },
+    ],
     variable: "--font-avenir",
 });

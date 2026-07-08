@@ -19,4 +19,5 @@ export type Project = {
     status: string;
     translations: ProjectsTranslation;
     tags: ProjectsTags[];
+	slug: string;
 };

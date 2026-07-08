@@ -29,14 +29,8 @@ export function createPageMetadata({
     modifiedTime,
 }: PageMetadataOptions): Metadata {
     const canonical = absoluteUrl(path);
-    const openGraphImages = images ?? [
-        {
-            url: "/opengraph-image",
-            width: 1200,
-            height: 630,
-            alt: `${siteConfig.name} — консалтинг в Туркменистане`,
-        },
-    ];
+    const openGraphImages = images;
+    const metadataKeywords = Array.from(new Set([...seoKeywords, ...keywords]));
 
     const openGraph: NonNullable<Metadata["openGraph"]> =
         type === "article"
@@ -50,7 +44,7 @@ export function createPageMetadata({
                   publishedTime: publishedTime ?? undefined,
                   modifiedTime: modifiedTime ?? undefined,
                   authors: [siteConfig.name],
-                  images: openGraphImages,
+                  ...(openGraphImages ? { images: openGraphImages } : {}),
               }
             : {
                   title,
@@ -59,7 +53,7 @@ export function createPageMetadata({
                   siteName: siteConfig.name,
                   locale: siteConfig.locale,
                   type: "website",
-                  images: openGraphImages,
+                  ...(openGraphImages ? { images: openGraphImages } : {}),
               };
 
     return {
@@ -69,7 +63,7 @@ export function createPageMetadata({
         applicationName: siteConfig.name,
         generator: "Next.js",
         referrer: "origin-when-cross-origin",
-        keywords: [...seoKeywords, ...keywords],
+        keywords: metadataKeywords,
         authors: [{ name: siteConfig.name, url: siteConfig.url }],
         creator: siteConfig.name,
         publisher: siteConfig.name,
@@ -78,6 +72,10 @@ export function createPageMetadata({
             "Consulting, investment consulting, web development, design, events, foreign business representation in Turkmenistan",
         alternates: {
             canonical,
+            languages: {
+                "ru-RU": canonical,
+                "x-default": canonical,
+            },
         },
         robots: {
             index: true,
@@ -126,7 +124,9 @@ export function createPageMetadata({
             card: "summary_large_image",
             title,
             description,
-            images: openGraphImages.map((image) => image.url),
+            ...(openGraphImages
+                ? { images: openGraphImages.map((image) => image.url) }
+                : {}),
         },
         formatDetection: {
             email: false,

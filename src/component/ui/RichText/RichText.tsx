@@ -7,6 +7,10 @@ type RichTextProps = {
 };
 
 export default function RichText({ content }: RichTextProps) {
+	if (!content) {
+		return null;
+	}
+
     const parsedContent = content.replace(/\n/g, "<br />");
 
     return (

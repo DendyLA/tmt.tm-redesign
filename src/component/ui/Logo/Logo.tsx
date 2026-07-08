@@ -10,7 +10,9 @@ type LogoProps = {
 
 export default async function Logo({ className }: LogoProps) {
     const logo = await getCompany("tmt-consulting-group", "RU");
-    const logoUrl = `${mediaUrl}${logo.logo}`;
+    const logoUrl = logo?.logo
+        ? `${mediaUrl}${logo.logo}`
+        : "/images/logo.png";
 
     return (
         <Link href="/" className="h-full w-87.5">

@@ -9,20 +9,21 @@ import { getPromoSettings } from "@/services/promos/promo.service";
 import Logo from "@/component/ui/Logo/Logo";
 import { mediaUrl } from "@/constants/constants";
 
-import getCompany from "@/services/company/company.service";
-
 export default async function PromoContent() {
     const promos = await getPromoSettings("companySlug=tmt-consulting-group");
-    const promoUrl = `${mediaUrl}${promos[0].media?.url}`;
+    const promoMediaUrl = promos?.[0]?.media?.url;
 
-    const logo = await getCompany("tmt-consulting-group", "RU");
-    const logoUrl = `${mediaUrl}${logo.logo}`;
+	const promoUrl = promoMediaUrl
+		? `${mediaUrl}${promoMediaUrl}`
+		: undefined;
+
+
 
     return (
         <div className="relative z-10 flex max-w-fit flex-col">
             <Logo />
             <PromoBadge
-                text="Ашхабад · Центральная Азия · Глобальный охват"
+                text="Туркменистан · Центральная Азия · Глобальный охват"
                 className="mt-28.5"
             />
             <PromoTitle
@@ -44,7 +45,7 @@ export default async function PromoContent() {
                     Начать сотрудничество
                 </Button>
 
-                <PromoVideoButton videoUrl={promoUrl} />
+                <PromoVideoButton videoUrl={promoUrl ? promoUrl : undefined} />
             </div>
         </div>
     );

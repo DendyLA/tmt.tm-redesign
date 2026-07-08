@@ -2,15 +2,18 @@ import cn from "@/lib/utils/cn";
 import type { Partner } from "@/types/partner";
 import Image from "next/image";
 
+import getPartner from "@/services/partners/partners.service";
+import { mediaUrl } from "@/constants/constants";
+
 type PartnersListProps = {
-    partners: Partner[];
     className?: string;
 };
 
-export default function PartnersList({
-    partners,
+export default async function PartnersList({
     className,
 }: PartnersListProps) {
+	const data = await getPartner({company: 'tmt-consulting-group'})
+	
     return (
         <ul
             className={cn(
@@ -18,24 +21,31 @@ export default function PartnersList({
                 className,
             )}
         >
-            {partners.map((partner, index) => {
+            {data? data.map((partner, index) => {
                 return (
                     <li key={index}>
                         <a
-                            href={partner.link ? partner.link : "#"}
+                           href={
+								partner.website
+									? partner.website.startsWith("http")
+										? partner.website
+										: `https://${partner.website}`
+									: "#"
+							}
                             className="relative h-12 w-full"
+							target="_blank"
                         >
                             <Image
-                                src={partner.logoSrc}
-                                height={50}
-                                width={120}
+                                src={`${mediaUrl}${partner.logo}`}
+                                height={90}
+                                width={100}
                                 alt={partner.name ? partner.name : "logo image"}
                                 className="brightness-500 grayscale transition duration-300 ease-in-out hover:scale-105 hover:brightness-800"
                             />
                         </a>
                     </li>
                 );
-            })}
+            }): <></>}
         </ul>
     );
 }

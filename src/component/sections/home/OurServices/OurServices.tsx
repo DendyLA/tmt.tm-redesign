@@ -3,6 +3,7 @@ import SectionTitle from "@/component/ui/SectionTitle/SectionTitle";
 import Container from "@/component/layout/Container/Container";
 import ServiceList from "./ServiceList";
 import Button from "@/component/ui/Button/Button";
+import Link from "next/link";
 
 export default function OurServices() {
     return (
@@ -18,9 +19,12 @@ export default function OurServices() {
                     </p>
 
                     <ServiceList className="mt-15.5" />
-                    <Button className="bg-dark mt-15.5 px-10 hover:bg-[#1E2F5A]">
-                        Подробнее
-                    </Button>
+					<Link href={'/services'}>
+						<Button className="bg-dark mt-15.5 px-10 hover:bg-[#1E2F5A]">
+							Подробнее
+						</Button>
+					</Link>
+                    
                 </div>
             </Container>
         </section>

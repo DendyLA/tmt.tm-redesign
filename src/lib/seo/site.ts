@@ -37,7 +37,10 @@ export const siteConfig = {
 export const seoKeywords = [
     "TMT Consulting Group",
     "TMT",
+    "TMT Turkmenistan",
+    "TMT Ashgabat",
     "консалтинг",
+    "консалтинговые услуги",
     "консалтинг в Туркменистане",
     "консалтинг в Ашхабаде",
     "бизнес консалтинг Туркменистан",
@@ -46,15 +49,21 @@ export const seoKeywords = [
     "выход на рынок Туркменистана",
     "сопровождение бизнеса в Туркменистане",
     "заказать разработку дизайна",
+    "заказать разработку сайта",
     "разработка дизайна",
     "разработка сайтов",
     "разработка сайтов в Туркменистане",
+    "веб разработка Туркменистан",
+    "дизайн в Ашхабаде",
     "организация мероприятий",
     "организация деловых мероприятий",
+    "мероприятия в Ашхабаде",
     "деловые форумы",
     "B2G консалтинг",
     "Ashgabat consulting",
     "Turkmenistan consulting",
+    "business consulting Turkmenistan",
+    "foreign business representation Turkmenistan",
 ];
 
 export const seoRoutes = [
@@ -100,6 +109,35 @@ export const seoRoutes = [
         ],
     },
     {
+        path: "/services",
+        title: "Разработка сайтов и дизайна в Туркменистане | TMT Consulting Group",
+        description:
+            "Услуги дизайна и IT в Туркменистане: разработка сайтов, веб-платформ, брендинга, интерфейсов и цифровых продуктов для бизнеса.",
+        priority: 0.85,
+        changeFrequency: "monthly",
+        keywords: [
+            "разработка сайтов",
+            "разработка сайтов в Туркменистане",
+            "заказать разработку сайта",
+            "заказать разработку дизайна",
+            "услуги дизайна в Ашхабаде",
+        ],
+    },
+    {
+        path: "/contacts",
+        title: "Контакты TMT Consulting Group в Ашхабаде",
+        description:
+            "Свяжитесь с TMT Consulting Group в Ашхабаде по вопросам консалтинга, представительства бизнеса, мероприятий, разработки сайтов и дизайна.",
+        priority: 0.75,
+        changeFrequency: "monthly",
+        keywords: [
+            "контакты TMT Consulting Group",
+            "консалтинг Ашхабад контакты",
+            "консалтинговая компания Ашхабад",
+            "TMT Consulting Group Ашхабад",
+        ],
+    },
+    {
         path: "/news",
         title: "Новости бизнеса и событий Туркменистана | TMT Consulting Group",
         description:
@@ -113,6 +151,20 @@ export const seoRoutes = [
             "инвестиции Туркменистан",
         ],
     },
+    {
+        path: "/blog",
+        title: "Блог о консалтинге, бизнесе и событиях Туркменистана | TMT Consulting Group",
+        description:
+            "Блог TMT Consulting Group о консалтинге, развитии бизнеса, представительстве иностранных компаний, мероприятиях и цифровых решениях в Туркменистане.",
+        priority: 0.7,
+        changeFrequency: "weekly",
+        keywords: [
+            "блог TMT Consulting Group",
+            "блог о консалтинге",
+            "бизнес в Туркменистане",
+            "представительство бизнеса в Туркменистане",
+        ],
+    },
 ] as const;
 
 export const siteJsonLd = {
@@ -122,7 +174,9 @@ export const siteJsonLd = {
             "@type": ["Organization", "ProfessionalService"],
             "@id": `${siteConfig.url}/#organization`,
             name: siteConfig.name,
+            legalName: siteConfig.name,
             alternateName: siteConfig.shortName,
+            slogan: "Мост между капиталом и возможностью",
             url: siteConfig.url,
             logo: absoluteUrl("/images/logo.png"),
             image: absoluteUrl("/images/logo.png"),
@@ -139,6 +193,7 @@ export const siteJsonLd = {
                 longitude: siteConfig.geo.longitude,
             },
             sameAs: siteConfig.socialLinks,
+            knowsLanguage: ["ru", "en", "tk"],
             areaServed: [
                 {
                     "@type": "Country",
@@ -199,7 +254,28 @@ export const siteJsonLd = {
             publisher: {
                 "@id": `${siteConfig.url}/#organization`,
             },
+            hasPart: seoRoutes.map((route) => ({
+                "@id": `${absoluteUrl(route.path)}#webpage`,
+            })),
         },
+        ...seoRoutes.map((route) => ({
+            "@type": "WebPage",
+            "@id": `${absoluteUrl(route.path)}#webpage`,
+            url: absoluteUrl(route.path),
+            name: route.title,
+            description: route.description,
+            inLanguage: siteConfig.language,
+            isPartOf: {
+                "@id": `${siteConfig.url}/#website`,
+            },
+            about: {
+                "@id": `${siteConfig.url}/#organization`,
+            },
+            primaryImageOfPage: {
+                "@type": "ImageObject",
+                url: absoluteUrl("/images/logo.png"),
+            },
+        })),
     ],
 };
 

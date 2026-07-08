@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
-import NewsAll from "@/component/sections/news/NewsAll/NewsAll";
+import PostAll from "@/component/features/PostAll/PostAll";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { seoRoutes } from "@/lib/seo/site";
 
@@ -27,7 +27,7 @@ export default async function News({ searchParams }: NewsPageProps) {
                     <Logo />
                 </div>
                 <SectionTop titleTop="НОВОСТИ" titleBottom="Будьте в курсе последних событий в Туркменистане."/>
-                <NewsAll page={Number(page) || 1} />
+                <PostAll page={Number(page) || 1} type="NEWS" link="news"/>
             </Container>
         </div>
     );

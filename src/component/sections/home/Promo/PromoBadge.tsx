@@ -13,7 +13,6 @@ export default function PromoBadge({ text, className }: PromoBadgeProps) {
                 className,
             )}
         >
-            <span className="bg-primary h-2 w-2 rounded-full" />
             <span>{text}</span>
         </div>
     );

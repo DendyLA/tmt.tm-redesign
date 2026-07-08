@@ -1,14 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 
 import { siteConfig } from "@/lib/seo/site";
 
 export const runtime = "nodejs";
 
-export const alt = "TMT Consulting Group — консалтинг в Туркменистане";
+export const alt = "TMT Consulting Group — consulting in Turkmenistan";
 
 export const size = {
     width: 1200,
@@ -18,15 +14,6 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
-    const fontData = await readFile(
-        join(process.cwd(), "public/fonts/Manrope-VariableFont.ttf"),
-    );
-    const logoData = await readFile(
-        join(process.cwd(), "public/images/logo.png"),
-        "base64",
-    );
-    const logoSrc = `data:image/png;base64,${logoData}`;
-
     return new ImageResponse(
         (
             <div
@@ -38,7 +25,6 @@ export default async function Image() {
                     justifyContent: "space-between",
                     background: "#f8f9fa",
                     color: "#1e2f5a",
-                    fontFamily: "Manrope",
                     padding: "64px 72px",
                 }}
             >
@@ -49,7 +35,16 @@ export default async function Image() {
                         justifyContent: "space-between",
                     }}
                 >
-                    <img src={logoSrc} width="245" height="56" alt="" />
+                    <div
+                        style={{
+                            display: "flex",
+                            fontSize: 40,
+                            fontWeight: 800,
+                            color: "#091540",
+                        }}
+                    >
+                        TMT Consulting Group
+                    </div>
                     <div
                         style={{
                             border: "1px solid rgba(30, 47, 90, 0.24)",
@@ -72,7 +67,7 @@ export default async function Image() {
                             marginBottom: 24,
                         }}
                     >
-                        Консалтинг · Представительство бизнеса · Мероприятия
+                        Consulting · Business Representation · Events
                     </div>
                     <div
                         style={{
@@ -94,8 +89,8 @@ export default async function Image() {
                             maxWidth: 980,
                         }}
                     >
-                        Консалтинг в Туркменистане, разработка сайтов и
-                        дизайна, организация деловых мероприятий.
+                        Consulting in Turkmenistan, web development, design,
+                        and business event management.
                     </div>
                 </div>
 
@@ -113,16 +108,6 @@ export default async function Image() {
                 </div>
             </div>
         ),
-        {
-            ...size,
-            fonts: [
-                {
-                    name: "Manrope",
-                    data: fontData,
-                    style: "normal",
-                    weight: 400,
-                },
-            ],
-        },
+        size,
     );
 }

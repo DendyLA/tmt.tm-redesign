@@ -7,7 +7,7 @@ type WhatsappBtnProps = {
 
 export default async function WhatsappBtn({className}: WhatsappBtnProps){
 	const data = await getAnalytic({ company: 'tmt-consulting-group', place: 'tourism.contact' })
-	const url = data[0]?.trackingUrl
+	const url = data ? data[0]?.trackingUrl : undefined;
 	
 	return(
 		<a href={url} target="_blank">

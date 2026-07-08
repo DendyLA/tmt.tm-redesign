@@ -8,3 +8,12 @@ export type Company = {
     logo?: string;
     translation?: CompanyTranslation;
 };
+
+
+
+export type Contacts = {
+	email: string;
+	phone: string;
+	address: string;
+	location: string;
+}

@@ -22,7 +22,7 @@ export default function Footer() {
                     </div>
 
                     <div className="flex flex-col gap-6">
-                        <div className="font-main text-dark text-[11px] font-bold">
+                        <div className="font-main text-dark text-[15px] font-bold uppercase">
                             Контакты
                         </div>
                         <div className="text-primary font-main flex flex-col gap-4 text-base">

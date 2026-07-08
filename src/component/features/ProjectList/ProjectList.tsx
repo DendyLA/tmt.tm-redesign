@@ -1,7 +1,6 @@
 import Image from "next/image";
-import getProject from "@/services/projects/projects.service";
+import {getProject} from "@/services/projects/projects.service";
 import cn from "@/lib/utils/cn";
-import { Project } from "@/types/services";
 import { mediaUrl } from "@/constants/constants";
 
 type projectsListProps = {
@@ -10,16 +9,16 @@ type projectsListProps = {
 
 export default async function ProjectList({ className }: projectsListProps) {
     const projects = await getProject("tmt-consulting-group", "RU");
-	console.log(projects)
+
     return (
         <ul className="grid grid-cols-1 gap-14 md:grid-cols-2 xl:grid-cols-5">
             {projects.map((project, index) => {
                 return (
-					<a href="" className="transition-transform duration-300 ease-in-out hover:scale-105">
+					<a href={`/about-us/projects/${project.slug}`} className="transition-transform duration-300 ease-in-out hover:scale-105">
 						<li
 							key={index}
 							className={cn(
-								"flex min-h-75 max-w-[320px] flex-col items-center justify-end rounded-lg px-12 py-10 shadow-[0_4px_4.5px_rgba(0,0,0,0.25)]",
+								"flex min-h-79.2 max-w-[320px] flex-col gap-10 items-center justify-end rounded-lg px-12 py-10 shadow-[0_4px_4.5px_rgba(0,0,0,0.25)]",
 								index % 2 === 0
 									? "bg-primary/10 border-primary/20 border"
 									: "border border-[rgba(0,21,255,0.2)] bg-[#EEF2FF]",

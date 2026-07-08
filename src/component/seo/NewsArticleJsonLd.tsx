@@ -31,7 +31,7 @@ export default async function NewsArticleJsonLd({
                     post.coverMedia?.url ||
                     post.translation?.coverImageUrl ||
                 post.coverImageUrl,
-            ) || absoluteUrl("/opengraph-image");
+            ) || absoluteUrl("/images/news-placeholder.png");
 
         jsonLd = {
             "@context": "https://schema.org",

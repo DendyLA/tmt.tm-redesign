@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Play, X } from "lucide-react";
 import Button from "@/component/ui/Button/Button";
+import {mediaUrl} from "@/constants/constants";
 
 type PromoVideoButtonProps = {
-    videoUrl?: string;
+    videoUrl?: string | undefined;
 };
 
 export default function PromoVideoButton({ videoUrl }: PromoVideoButtonProps) {
@@ -45,7 +46,7 @@ export default function PromoVideoButton({ videoUrl }: PromoVideoButtonProps) {
                 </button>
 
                 <video
-                    src={videoUrl}
+                    src={`${videoUrl}`}
                     controls
                     autoPlay
                     className="w-full rounded-xl bg-black"

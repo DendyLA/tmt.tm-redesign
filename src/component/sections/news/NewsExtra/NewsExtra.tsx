@@ -11,7 +11,14 @@ type NewsExtraProps = {
 
 
 export default async function NewsExtra({className}: NewsExtraProps){
-	const { data: news, meta }= await getPosts({ page: 1, limit: 4, lang: 'RU', type: 'NEWS' })
+	const posts = await getPosts({
+		page: 1,
+		limit: 4,
+		lang: "RU",
+		type: "NEWS",
+	});
+
+	const news = posts?.data ?? [];
 
 
 	return(

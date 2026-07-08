@@ -16,7 +16,7 @@ export default function TourismMain({className}: TourismMainProps){
 	return(
 		<section className={cn('flex items-center gap-17', className)}>
 			<div className="flex flex-col gap-11 max-w-[60%]">
-				<h1 className="font-main text-primary font-bold text-[32px]">Туры по туркменистану:</h1>
+				<h1 className="font-main text-primary font-bold text-[32px]">ТУРЫ ПО ТУРКМЕНИСТАНУ:</h1>
 				<p className="font-main font-medium text-dark text-[28px]">TMT Travel — это надежный и профессиональный партнер в сфере путешествий с высококвалифицированной командой, стремящейся к совершенству. Мы специализируемся на создании безупречных, хорошо организованных и незабываемых путешествий. <br /><br />Благодаря сильной страсти к гостеприимству и вниманию к каждой детали, мы гарантируем, что каждое путешествие будет уникальным, вдохновляющим и по-настоящему запоминающимся для наших гостей.</p>
 				<div className="flex gap-28.75 bg-white rounded-[20px] px-12.5 py-7 max-w-237.5">
 					<Image width={250} height={223} src={'/images/tmtTravel.svg'} alt="TMT Travel Logo"/>

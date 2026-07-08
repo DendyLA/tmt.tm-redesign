@@ -8,12 +8,12 @@ type GetPostsProps = {
     type?: "NEWS" | "BLOG";
 };
 
-export function getPosts({
+export async function getPosts({
     page = 1,
     limit = 20,
     lang = "RU",
     type,
-}: GetPostsProps = {}): Promise<PostResponse> {
+}: GetPostsProps = {}): Promise<PostResponse | null> {
     const params = new URLSearchParams({
         page: String(page),
         limit: String(limit),
@@ -25,9 +25,18 @@ export function getPosts({
         params.append("type", type);
     }
 
-    return apiClient<PostResponse>(
-        `/posts/public?${params.toString()}`
+	try{
+		return await apiClient<PostResponse>(
+        `/posts/public?${params.toString()}`, {
+            cache: "no-store",
+        }
     );
+	}catch(error){
+		console.log(error)
+		return null
+	}
+
+    
 }
 
 type GetPostBySlugProps = {
