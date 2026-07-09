@@ -1,8 +1,6 @@
 import Container from "@/component/layout/Container/Container";
 import PartnersList from "@/component/features/PartnersList/PartnersList";
 
-
-
 export default function Partners() {
     return (
         <section className="bg-dark py-16">

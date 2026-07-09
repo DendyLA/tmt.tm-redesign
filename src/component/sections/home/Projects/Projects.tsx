@@ -3,9 +3,6 @@ import SectionLabel from "@/component/ui/SectionLabel/SectionLabel";
 import SectionTitle from "@/component/ui/SectionTitle/SectionTitle";
 import ProjectList from "@/component/features/ProjectList/ProjectList";
 
-
-
-
 export default function Projects() {
     return (
         <section className="py-17.5">

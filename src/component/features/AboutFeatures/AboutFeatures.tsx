@@ -6,7 +6,10 @@ type AboutFeaturesProps = {
     className?: string;
 };
 
-export default function AboutFeatures({ features, className }: AboutFeaturesProps) {
+export default function AboutFeatures({
+    features,
+    className,
+}: AboutFeaturesProps) {
     return (
         <div className={cn("flex flex-col gap-10", className)}>
             {features.map((feature, index) => {

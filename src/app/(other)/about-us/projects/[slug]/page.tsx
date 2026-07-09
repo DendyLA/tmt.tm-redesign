@@ -1,11 +1,10 @@
-
 import type { Metadata } from "next";
 
 import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
 import ProjectsGallery from "@/component/sections/aboutUs/projects/ProjectsGallery";
-import {getProjectBySlug} from "@/services/projects/projects.service";
+import { getProjectBySlug } from "@/services/projects/projects.service";
 import ProjectContent from "@/component/sections/aboutUs/projects/ProjectContent";
 import { absoluteMediaUrl, siteConfig } from "@/lib/seo/site";
 import {
@@ -13,7 +12,6 @@ import {
     stripHtml,
     truncateText,
 } from "@/lib/seo/metadata";
-
 
 type AboutUsProps = {
     params: Promise<{
@@ -86,26 +84,24 @@ export async function generateMetadata({
     }
 }
 
+export default async function AboutUs({ params }: AboutUsProps) {
+    const { slug } = await params;
 
-export default async function AboutUs({ params } : AboutUsProps) {
-	const { slug } = await params;
+    const project = await getProjectBySlug("tmt-consulting-group", "RU", slug);
 
-	 const project = await getProjectBySlug(
-        "tmt-consulting-group",
-        "RU",
-        slug,
+    return (
+        <div className="bg-main-gradient-top py-12.5">
+            <Container>
+                <div className="flex">
+                    <Logo />
+                </div>
+                <SectionTop
+                    titleTop="НАШИ ПРОЕКТЫ"
+                    titleBottom="Реализованные проекты, которыми мы гордимся."
+                />
+                <ProjectsGallery project={project} />
+                <ProjectContent project={project} />
+            </Container>
+        </div>
     );
-
-	return (
-		<div className="py-12.5 bg-main-gradient-top">
-			<Container>
-				<div className="flex">
-					<Logo />
-				</div>
-				<SectionTop titleTop="НАШИ ПРОЕКТЫ" titleBottom="Реализованные проекты, которыми мы гордимся."/>
-				<ProjectsGallery project={project}/>
-				<ProjectContent project={project}/>
-			</Container>
-		</div>
-	);
 }

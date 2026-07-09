@@ -27,27 +27,28 @@ export default function GlobalNotFound() {
             className={`${manrope.variable} ${avenir.variable} h-full antialiased`}
         >
             <body className="flex min-h-full flex-col">
-                <div className=" flex min-h-screen flex-col py-12.5">
+                <div className="flex min-h-screen flex-col py-12.5">
                     <Header />
                     <main className="flex flex-1">
-						<div className="bg-main-gradient-white-bottom flex flex-1">
-							<Container>
-								<div className="flex">
-									<Logo />
-								</div>
-								<div className="flex flex-col gap-19.75 py-30 items-center justify-center">
-									<Image
-										src="/images/404.png"
-										width={1006}
-										height={429}
-										alt="404 image"
-										priority
-									/>
-									<div className="text-dark font-main font-bold text-[36px]">Мяу! Мы не смогли найти эту страницу.</div>
-								</div>
-							</Container>
-						</div>
-                        
+                        <div className="bg-main-gradient-white-bottom flex flex-1">
+                            <Container>
+                                <div className="flex">
+                                    <Logo />
+                                </div>
+                                <div className="flex flex-col items-center justify-center gap-19.75 py-30">
+                                    <Image
+                                        src="/images/404.png"
+                                        width={1006}
+                                        height={429}
+                                        alt="404 image"
+                                        priority
+                                    />
+                                    <div className="text-dark font-main text-[36px] font-bold">
+                                        Мяу! Мы не смогли найти эту страницу.
+                                    </div>
+                                </div>
+                            </Container>
+                        </div>
                     </main>
                     <Footer />
                 </div>

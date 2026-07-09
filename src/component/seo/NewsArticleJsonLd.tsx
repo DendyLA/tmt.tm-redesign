@@ -30,7 +30,7 @@ export default async function NewsArticleJsonLd({
                 post.translation?.coverMedia?.url ||
                     post.coverMedia?.url ||
                     post.translation?.coverImageUrl ||
-                post.coverImageUrl,
+                    post.coverImageUrl,
             ) || absoluteUrl("/images/news-placeholder.png");
 
         jsonLd = {

@@ -1,4 +1,3 @@
-
 export function getPages(current: number, total: number) {
     const pages: (number | "...")[] = [];
 

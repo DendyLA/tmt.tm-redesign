@@ -7,26 +7,27 @@ export async function getProject(
 ): Promise<Project[]> {
     try {
         return await apiClient(
-            `/companies/${company}/projects?page=1&limit=20&locale=${lang.toUpperCase()}`, {
-            cache: "no-store",
-        },
+            `/companies/${company}/projects?page=1&limit=20&locale=${lang.toUpperCase()}`,
+            {
+                cache: "no-store",
+            },
         );
     } catch {
         return [];
     }
 }
 
-
 export async function getProjectBySlug(
     company: string,
     lang: string,
-	project:string,
+    project: string,
 ): Promise<Project[]> {
     try {
         return await apiClient(
-            `/companies/${company}/projects/${project}?locale=${lang.toUpperCase()}&deleted=false`, {
-            cache: "no-store",
-        },
+            `/companies/${company}/projects/${project}?locale=${lang.toUpperCase()}&deleted=false`,
+            {
+                cache: "no-store",
+            },
         );
     } catch {
         return [];

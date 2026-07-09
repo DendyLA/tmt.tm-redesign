@@ -48,21 +48,18 @@ export default async function PostAll({
                 )}
             >
                 {news.map((item) => (
-                    <NewsCard
-                        key={item.id}
-                        item={item}
-                        className="mt-20"
-                    />
+                    <NewsCard key={item.id} item={item} className="mt-20" />
                 ))}
             </div>
 
-            <div className="mt-10 flex justify-center items-center gap-7">
+            <div className="mt-10 flex items-center justify-center gap-7">
                 {page > 1 && (
-                    <Link
-                        href={`/${link}?page=${page - 1}`}
-                        className="h-10"
-                    >
-                        <img src="/icons/left-arrow-primary.svg" alt="left-arrow-primary"  className="h-full"/>
+                    <Link href={`/${link}?page=${page - 1}`} className="h-10">
+                        <img
+                            src="/icons/left-arrow-primary.svg"
+                            alt="left-arrow-primary"
+                            className="h-full"
+                        />
                     </Link>
                 )}
 
@@ -70,7 +67,7 @@ export default async function PostAll({
                     item === "..." ? (
                         <span
                             key={`dots-${index}`}
-                            className="px-3 py-1.5 text-primary"
+                            className="text-primary px-3 py-1.5"
                         >
                             ...
                         </span>
@@ -80,8 +77,8 @@ export default async function PostAll({
                             href={`/${link}?page=${item}`}
                             className={
                                 page === item
-                                    ? "bg-primary font-main rounded-sm  text-base font-semibold text-white h-7.25 w-6.75 flex justify-center items-center px-2"
-                                    : "border-primary text-primary font-main rounded-sm border text-base font-semibold transition hover:bg-primary hover:text-white h-7.25 flex justify-center items-center px-2"
+                                    ? "bg-primary font-main flex h-7.25 w-6.75 items-center justify-center rounded-sm px-2 text-base font-semibold text-white"
+                                    : "border-primary text-primary font-main hover:bg-primary flex h-7.25 items-center justify-center rounded-sm border px-2 text-base font-semibold transition hover:text-white"
                             }
                         >
                             {item}
@@ -90,11 +87,12 @@ export default async function PostAll({
                 )}
 
                 {page < totalPages && (
-                    <Link
-                        href={`/${link}?page=${page + 1}`}
-                        className="h-10"
-                    >
-                         <img src="/icons/right-arrow-primary.svg" alt="right-arrow-primary" className="h-full"/>
+                    <Link href={`/${link}?page=${page + 1}`} className="h-10">
+                        <img
+                            src="/icons/right-arrow-primary.svg"
+                            alt="right-arrow-primary"
+                            className="h-full"
+                        />
                     </Link>
                 )}
             </div>

@@ -25,18 +25,17 @@ export async function getPosts({
         params.append("type", type);
     }
 
-	try{
-		return await apiClient<PostResponse>(
-        `/posts/public?${params.toString()}`, {
-            cache: "no-store",
-        }
-    );
-	}catch(error){
-		console.log(error)
-		return null
-	}
-
-    
+    try {
+        return await apiClient<PostResponse>(
+            `/posts/public?${params.toString()}`,
+            {
+                cache: "no-store",
+            },
+        );
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 }
 
 type GetPostBySlugProps = {
@@ -51,6 +50,6 @@ export function getPostBySlug({
     deleted = false,
 }: GetPostBySlugProps): Promise<Post> {
     return apiClient<Post>(
-        `/posts/public/${slug}?locale=${lang.toUpperCase()}&deleted=${deleted}`
+        `/posts/public/${slug}?locale=${lang.toUpperCase()}&deleted=${deleted}`,
     );
 }

@@ -21,13 +21,16 @@ export default async function News({ searchParams }: NewsPageProps) {
     const { page } = await searchParams;
 
     return (
-        <div className="py-12.5 bg-second-gradient-bottom">
+        <div className="bg-second-gradient-bottom py-12.5">
             <Container>
                 <div className="flex">
                     <Logo />
                 </div>
-                <SectionTop titleTop="НОВОСТИ" titleBottom="Будьте в курсе последних событий в Туркменистане."/>
-                <PostAll page={Number(page) || 1} type="NEWS" link="news"/>
+                <SectionTop
+                    titleTop="НОВОСТИ"
+                    titleBottom="Будьте в курсе последних событий в Туркменистане."
+                />
+                <PostAll page={Number(page) || 1} type="NEWS" link="news" />
             </Container>
         </div>
     );

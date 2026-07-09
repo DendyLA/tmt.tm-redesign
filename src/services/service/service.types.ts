@@ -23,8 +23,8 @@ export type ServiceCategory = {
     sortOrder: number;
     translation: ServiceCategoryTranslation | null;
     services: Service[];
-	showOnHomePage: boolean;
-	name: string;
+    showOnHomePage: boolean;
+    name: string;
 };
 
 export type ServiceList = ServiceCategory[];

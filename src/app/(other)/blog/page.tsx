@@ -12,25 +12,26 @@ const blogRoute = seoRoutes.find((route) => route.path === "/blog")!;
 export const metadata: Metadata = createPageMetadata(blogRoute);
 
 type BlogPageProps = {
-	searchParams: Promise<{
-		page?: string;
-	}>;
+    searchParams: Promise<{
+        page?: string;
+    }>;
 };
 
-
-
 export default async function Blog({ searchParams }: BlogPageProps) {
-	const { page } = await searchParams;
+    const { page } = await searchParams;
 
-	return (
-		<div className="py-12.5 bg-second-gradient-bottom">
-			<Container>
-				<div className="flex">
-					<Logo />
-				</div>
-				<SectionTop titleTop="БЛОГ" titleBottom="Материалы о бизнесе, консалтинге и событиях в Туркменистане."/>
-				<PostAll page={Number(page) || 1} type="BLOG" link="blog"/>
-			</Container>
-		</div>
-	);
+    return (
+        <div className="bg-second-gradient-bottom py-12.5">
+            <Container>
+                <div className="flex">
+                    <Logo />
+                </div>
+                <SectionTop
+                    titleTop="БЛОГ"
+                    titleBottom="Материалы о бизнесе, консалтинге и событиях в Туркменистане."
+                />
+                <PostAll page={Number(page) || 1} type="BLOG" link="blog" />
+            </Container>
+        </div>
+    );
 }

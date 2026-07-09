@@ -14,20 +14,21 @@ const tourismRoute = seoRoutes.find((route) => route.path === "/tourism")!;
 export const metadata: Metadata = createPageMetadata(tourismRoute);
 
 export default async function Tourism() {
+    return (
+        <div className="bg-second-gradient-bottom relative py-12.5">
+            <Container>
+                <div className="flex">
+                    <Logo />
+                </div>
+                <SectionTop
+                    titleTop="ТУРИЗМ"
+                    titleBottom="Исследуйте Туркменистан с нами."
+                />
 
-
-	return (
-		<div className="py-12.5 bg-second-gradient-bottom relative">
-			<Container>
-				<div className="flex">
-					<Logo />
-				</div>
-				<SectionTop titleTop="ТУРИЗМ" titleBottom="Исследуйте Туркменистан с нами."/>
-
-				<TourismMain className="mt-24.5"/>
-				<Tours className='mt-12.5'/>
-				<WhatsappBtn/>
-			</Container>
-		</div>
-	);
+                <TourismMain className="mt-24.5" />
+                <Tours className="mt-12.5" />
+                <WhatsappBtn />
+            </Container>
+        </div>
+    );
 }

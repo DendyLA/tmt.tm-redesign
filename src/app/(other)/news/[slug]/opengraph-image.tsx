@@ -47,75 +47,74 @@ export default async function Image({ params }: ImageProps) {
             180,
         );
     } catch {
-        description = "Новости бизнеса, инвестиций и мероприятий в Туркменистане.";
+        description =
+            "Новости бизнеса, инвестиций и мероприятий в Туркменистане.";
     }
 
     return new ImageResponse(
-        (
+        <div
+            style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                background: "#f8f9fa",
+                color: "#1e2f5a",
+                fontFamily: "Manrope",
+                padding: "64px 72px",
+            }}
+        >
             <div
                 style={{
-                    width: "100%",
-                    height: "100%",
                     display: "flex",
-                    flexDirection: "column",
                     justifyContent: "space-between",
-                    background: "#f8f9fa",
-                    color: "#1e2f5a",
-                    fontFamily: "Manrope",
-                    padding: "64px 72px",
+                    fontSize: 26,
+                    fontWeight: 700,
+                    color: "#51618f",
                 }}
             >
+                <span>{siteConfig.name}</span>
+                <span>Новости</span>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column" }}>
                 <div
                     style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        fontSize: 26,
-                        fontWeight: 700,
-                        color: "#51618f",
+                        fontSize: 66,
+                        lineHeight: 1.08,
+                        fontWeight: 800,
+                        letterSpacing: 0,
+                        maxWidth: 1040,
                     }}
                 >
-                    <span>{siteConfig.name}</span>
-                    <span>Новости</span>
+                    {title}
                 </div>
-
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div
-                        style={{
-                            fontSize: 66,
-                            lineHeight: 1.08,
-                            fontWeight: 800,
-                            letterSpacing: 0,
-                            maxWidth: 1040,
-                        }}
-                    >
-                        {title}
-                    </div>
-                    <div
-                        style={{
-                            marginTop: 28,
-                            fontSize: 30,
-                            lineHeight: 1.35,
-                            color: "#26324f",
-                            maxWidth: 980,
-                        }}
-                    >
-                        {description}
-                    </div>
-                </div>
-
                 <div
                     style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        fontSize: 24,
-                        color: "#51618f",
+                        marginTop: 28,
+                        fontSize: 30,
+                        lineHeight: 1.35,
+                        color: "#26324f",
+                        maxWidth: 980,
                     }}
                 >
-                    <span>Консалтинг в Туркменистане</span>
-                    <span>tmt.tm</span>
+                    {description}
                 </div>
             </div>
-        ),
+
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 24,
+                    color: "#51618f",
+                }}
+            >
+                <span>Консалтинг в Туркменистане</span>
+                <span>tmt.tm</span>
+            </div>
+        </div>,
         {
             ...size,
             fonts: [

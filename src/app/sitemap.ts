@@ -1,11 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getPosts } from "@/services/posts/posts.service";
-import {
-    absoluteMediaUrl,
-    absoluteUrl,
-    seoRoutes,
-} from "@/lib/seo/site";
+import { absoluteMediaUrl, absoluteUrl, seoRoutes } from "@/lib/seo/site";
 import type { Post } from "@/services/posts/posts.types";
 import { getProject } from "@/services/projects/projects.service";
 import type { Project } from "@/services/projects/projects.types";

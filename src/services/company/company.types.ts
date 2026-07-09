@@ -9,11 +9,9 @@ export type Company = {
     translation?: CompanyTranslation;
 };
 
-
-
 export type Contacts = {
-	email: string;
-	phone: string;
-	address: string;
-	location: string;
-}
+    email: string;
+    phone: string;
+    address: string;
+    location: string;
+};

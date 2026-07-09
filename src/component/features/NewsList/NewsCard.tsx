@@ -23,7 +23,12 @@ export default function NewsCard({ item, className }: NewsCardProps) {
         : "";
 
     return (
-        <div className={cn('max-w-131.25 h-143.75 rounded-xl overflow-hidden' ,className)}>
+        <div
+            className={cn(
+                "h-143.75 max-w-131.25 overflow-hidden rounded-xl",
+                className,
+            )}
+        >
             <Link href={`/news/${item.slug}`} className="relative flex h-[60%]">
                 <Image
                     src={imageSrc}
@@ -33,8 +38,13 @@ export default function NewsCard({ item, className }: NewsCardProps) {
                 />
             </Link>
 
-            <div className="flex flex-col justify-between gap-6 bg-[#EEF2FF] px-5 py-8 h-[40%]">
-                <Link href={`/news/${item.slug}`} className="font-main text-[20px] font-semibold text-dark transition-colors duration-300 ease-in-out hover:text-primary"><h3 className="wrap-break-word">{title}</h3></Link>
+            <div className="flex h-[40%] flex-col justify-between gap-6 bg-[#EEF2FF] px-5 py-8">
+                <Link
+                    href={`/news/${item.slug}`}
+                    className="font-main text-dark hover:text-primary text-[20px] font-semibold transition-colors duration-300 ease-in-out"
+                >
+                    <h3 className="wrap-break-word">{title}</h3>
+                </Link>
 
                 <div className="flex items-center justify-between">
                     <Link href={`/news/${item.slug}`}>

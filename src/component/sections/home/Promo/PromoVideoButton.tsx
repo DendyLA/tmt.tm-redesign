@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Play, X } from "lucide-react";
 import Button from "@/component/ui/Button/Button";
-import {mediaUrl} from "@/constants/constants";
+import { mediaUrl } from "@/constants/constants";
 
 type PromoVideoButtonProps = {
     videoUrl?: string | undefined;

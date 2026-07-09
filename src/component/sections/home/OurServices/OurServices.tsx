@@ -19,12 +19,11 @@ export default function OurServices() {
                     </p>
 
                     <ServiceList className="mt-15.5" />
-					<Link href={'/services'}>
-						<Button className="bg-dark mt-15.5 px-10 hover:bg-[#1E2F5A]">
-							Подробнее
-						</Button>
-					</Link>
-                    
+                    <Link href={"/services"}>
+                        <Button className="bg-dark mt-15.5 px-10 hover:bg-[#1E2F5A]">
+                            Подробнее
+                        </Button>
+                    </Link>
                 </div>
             </Container>
         </section>

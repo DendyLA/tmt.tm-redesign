@@ -47,7 +47,7 @@ export type Post = {
     coverMediaId: string | null;
     coverImageUrl: string | null;
     coverAltText: string | null;
-    type: "NEWS" | "BLOG" | 'ARTICLE' | 'ANNOUNCEMENT';
+    type: "NEWS" | "BLOG" | "ARTICLE" | "ANNOUNCEMENT";
     status: "DRAFT" | "PUBLISHED";
     isGlobal: boolean;
     sortOrder: number;

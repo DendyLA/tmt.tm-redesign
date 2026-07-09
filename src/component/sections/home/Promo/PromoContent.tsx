@@ -13,11 +13,7 @@ export default async function PromoContent() {
     const promos = await getPromoSettings("companySlug=tmt-consulting-group");
     const promoMediaUrl = promos?.[0]?.media?.url;
 
-	const promoUrl = promoMediaUrl
-		? `${mediaUrl}${promoMediaUrl}`
-		: undefined;
-
-
+    const promoUrl = promoMediaUrl ? `${mediaUrl}${promoMediaUrl}` : undefined;
 
     return (
         <div className="relative z-10 flex max-w-fit flex-col">

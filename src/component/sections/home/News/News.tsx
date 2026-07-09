@@ -17,13 +17,18 @@ export default function News() {
                         primaryText="Нового"
                         className="mt-4.5"
                     />
-                    <NewsList className="mt-16" page={1} limit={4} lang="RU" type="NEWS"/>
-					<Link href={'/news'}>
-						<Button className="bg-dark mt-20.5 px-10 hover:bg-[#1E2F5A]">
-							Все новости
-						</Button>
-					</Link>
-                    
+                    <NewsList
+                        className="mt-16"
+                        page={1}
+                        limit={4}
+                        lang="RU"
+                        type="NEWS"
+                    />
+                    <Link href={"/news"}>
+                        <Button className="bg-dark mt-20.5 px-10 hover:bg-[#1E2F5A]">
+                            Все новости
+                        </Button>
+                    </Link>
                 </div>
             </Container>
         </section>

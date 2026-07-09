@@ -1,16 +1,25 @@
 import cn from "@/lib/utils/cn";
 
-cn
+cn;
 
 type SectionTopProps = {
-	titleTop: string;
-	titleBottom: string;
+    titleTop: string;
+    titleBottom: string;
     className?: string;
 };
 
-export default function SectionTop({ className, titleTop, titleBottom }: SectionTopProps) {
+export default function SectionTop({
+    className,
+    titleTop,
+    titleBottom,
+}: SectionTopProps) {
     return (
-        <div className={cn("m-auto flex w-max flex-col items-center gap-4", className)}>
+        <div
+            className={cn(
+                "m-auto flex w-max flex-col items-center gap-4",
+                className,
+            )}
+        >
             <h2 className="font-main text-primary text-[36px] font-bold uppercase">
                 {titleTop}
             </h2>

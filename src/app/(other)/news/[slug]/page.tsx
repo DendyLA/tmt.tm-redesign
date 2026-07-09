@@ -16,10 +16,10 @@ import {
 } from "@/lib/seo/metadata";
 
 type NewsPageProps = {
-	searchParams: Promise<{
-		page?: string;
-	}>;
-	params: Promise<{
+    searchParams: Promise<{
+        page?: string;
+    }>;
+    params: Promise<{
         slug: string;
     }>;
 };
@@ -80,23 +80,29 @@ export async function generateMetadata({
 }
 
 export default async function NewsCurrent({ params }: NewsPageProps) {
-	const { slug } = await params;
+    const { slug } = await params;
 
-	return (
-		<div className="py-12.5 bg-second-gradient-bottom">
-			<NewsArticleJsonLd slug={slug} />
-			<Container>
-				<div className="flex">
-					<Logo />
-				</div>
-				<SectionTop titleTop="НОВОСТИ" titleBottom="Будьте в курсе последних событий в Туркменистане."/>
-				<Link href='/news' className="mt-9 block"><button className="flex justify-start items-center bg-button-gradient h-12.25 w-90 rounded-[10px] shadow-[0px_2px_2px_rgba(0,0,0,0.25)] text-primary font-main text-[20px] px-[37px] py-3.25">Вернуться к Новостям</button></Link>
-				<div className="flex gap-10 mt-9.5 ">
-					<NewsInfo slug={slug} className="w-[60%]"/>
-					<NewsExtra className="w-[40%] h-max"/>
-				</div>
-
-			</Container>
-		</div>
-	);
+    return (
+        <div className="bg-second-gradient-bottom py-12.5">
+            <NewsArticleJsonLd slug={slug} />
+            <Container>
+                <div className="flex">
+                    <Logo />
+                </div>
+                <SectionTop
+                    titleTop="НОВОСТИ"
+                    titleBottom="Будьте в курсе последних событий в Туркменистане."
+                />
+                <Link href="/news" className="mt-9 block">
+                    <button className="bg-button-gradient text-primary font-main flex h-12.25 w-90 items-center justify-start rounded-[10px] px-[37px] py-3.25 text-[20px] shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
+                        Вернуться к Новостям
+                    </button>
+                </Link>
+                <div className="mt-9.5 flex gap-10">
+                    <NewsInfo slug={slug} className="w-[60%]" />
+                    <NewsExtra className="h-max w-[40%]" />
+                </div>
+            </Container>
+        </div>
+    );
 }

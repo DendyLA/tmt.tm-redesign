@@ -1,6 +1,6 @@
 import { apiClient } from "../api/api-client";
 import type { Company } from "./company.types";
-import type { Contacts } from './company.types'
+import type { Contacts } from "./company.types";
 
 export default async function getCompany(
     company: string,
@@ -15,12 +15,13 @@ export default async function getCompany(
     }
 }
 
-
-export async function getCompanyContacts(company:string): Promise<Contacts | null> {
-	try{
-		return await apiClient(`/companies/${company}/contact`)
-	}catch(error){
-		console.log(error)
-		return null
-	}
+export async function getCompanyContacts(
+    company: string,
+): Promise<Contacts | null> {
+    try {
+        return await apiClient(`/companies/${company}/contact`);
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 }
