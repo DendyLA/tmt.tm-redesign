@@ -24,6 +24,7 @@ export default async function NewsList({
     });
 
     const news = response?.data ?? [];
+    const link = type === "BLOG" ? "blog" : "news";
 
     if (!news.length) return null;
 
@@ -35,7 +36,7 @@ export default async function NewsList({
             )}
         >
             {news.map((item) => (
-                <NewsCard key={item.id} item={item} />
+                <NewsCard key={item.id} item={item} link={link} />
             ))}
         </div>
     );

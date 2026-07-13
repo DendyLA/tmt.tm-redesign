@@ -2,6 +2,10 @@ import { API_URL } from "./api.config";
 
 type RequestOptions = RequestInit & {
     auth?: boolean;
+    next?: {
+        revalidate?: number | false;
+        tags?: string[];
+    };
 };
 
 export async function apiClient<T>(

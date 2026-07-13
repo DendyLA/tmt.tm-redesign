@@ -11,6 +11,7 @@ type PartnersListProps = {
 
 export default async function PartnersList({ className }: PartnersListProps) {
     const data = await getPartner({ company: "tmt-consulting-group" });
+    const disableOptimization = process.env.NODE_ENV === "development";
 
     return (
         <ul
@@ -38,6 +39,7 @@ export default async function PartnersList({ className }: PartnersListProps) {
                                     src={`${mediaUrl}${partner.logo}`}
                                     height={90}
                                     width={100}
+                                    unoptimized={disableOptimization}
                                     alt={
                                         partner.name
                                             ? partner.name

@@ -7,10 +7,12 @@ import cn from "@/lib/utils/cn";
 
 type NewsCardProps = {
     item: Post;
+	link: 'blog' | 'news';
     className?: string;
 };
 
-export default function NewsCard({ item, className }: NewsCardProps) {
+export default function NewsCard({ item, link, className }: NewsCardProps) {
+    const disableOptimization = process.env.NODE_ENV === "development";
     const imageSrc = item.coverMedia?.url
         ? `${mediaUrl}${item.coverMedia.url}`
         : item.translation?.coverMedia?.url
@@ -29,25 +31,27 @@ export default function NewsCard({ item, className }: NewsCardProps) {
                 className,
             )}
         >
-            <Link href={`/news/${item.slug}`} className="relative flex h-[60%]">
+            <Link href={`/${link}/${item.slug}`} className="relative flex h-[60%]">
                 <Image
                     src={imageSrc}
                     fill
                     alt={title}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1536px) 50vw, 525px"
+                    unoptimized={disableOptimization}
                     className="object-cover transition-all duration-300 ease-in-out hover:scale-110"
                 />
             </Link>
 
             <div className="flex h-[40%] flex-col justify-between gap-6 bg-[#EEF2FF] px-5 py-8">
                 <Link
-                    href={`/news/${item.slug}`}
+                    href={`/${link}/${item.slug}`}
                     className="font-main text-dark hover:text-primary text-[20px] font-semibold transition-colors duration-300 ease-in-out"
                 >
                     <h3 className="wrap-break-word">{title}</h3>
                 </Link>
 
                 <div className="flex items-center justify-between">
-                    <Link href={`/news/${item.slug}`}>
+                    <Link href={`/${link}/${item.slug}`}>
                         <Button className="text-primary hover:bg-primary h-6 bg-white px-2.75 py-4 text-base hover:text-white">
                             Подробнее...
                         </Button>

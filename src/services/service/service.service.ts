@@ -14,7 +14,7 @@ export default async function getServices({
         return await apiClient(
             `/companies/${company}/service-categories?locale=${lang}`,
             {
-                cache: "no-store",
+                next: { revalidate: 300, tags: ["services"] },
             },
         );
     } catch (error) {

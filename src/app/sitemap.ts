@@ -6,7 +6,7 @@ import type { Post } from "@/services/posts/posts.types";
 import { getProject } from "@/services/projects/projects.service";
 import type { Project } from "@/services/projects/projects.types";
 
-const NEWS_SITEMAP_PAGE_SIZE = 100;
+const NEWS_SITEMAP_PAGE_SIZE = 20;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastModified = new Date();

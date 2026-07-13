@@ -4,7 +4,7 @@ import type { Promo } from "./promo.types";
 export async function getPublicPromos() {
     try {
         return await apiClient<Promo[]>("/promos/public", {
-            cache: "no-store",
+            next: { revalidate: 300, tags: ["promos"] },
         });
     } catch (error) {
         console.log(error);
@@ -15,7 +15,7 @@ export async function getPublicPromos() {
 export async function getPromoSettings(settings: string) {
     try {
         return await apiClient<Promo[]>(`/promos/public?${settings}`, {
-            cache: "no-store",
+            next: { revalidate: 300, tags: ["promos"] },
         });
     } catch (error) {
         console.log(error);

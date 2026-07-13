@@ -9,7 +9,7 @@ export async function getProject(
         return await apiClient(
             `/companies/${company}/projects?page=1&limit=20&locale=${lang.toUpperCase()}`,
             {
-                cache: "no-store",
+                next: { revalidate: 300, tags: ["projects"] },
             },
         );
     } catch {
@@ -26,7 +26,7 @@ export async function getProjectBySlug(
         return await apiClient(
             `/companies/${company}/projects/${project}?locale=${lang.toUpperCase()}&deleted=false`,
             {
-                cache: "no-store",
+                next: { revalidate: 300, tags: ["projects"] },
             },
         );
     } catch {

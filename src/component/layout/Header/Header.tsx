@@ -23,7 +23,7 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
                     <a
                         key={index}
                         href={item.link}
-                        className="text-manrope text-dark hover:text-primary text-sm font-bold transition-colors duration-300 ease-in-out"
+                        className="text-manrope text-dark hover:text-primary text-sm font-semibold transition-colors duration-300 ease-in-out"
                     >
                         {item.name}
                     </a>

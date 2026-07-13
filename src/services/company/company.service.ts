@@ -19,7 +19,7 @@ export async function getCompanyContacts(
     company: string,
 ): Promise<Contacts | null> {
     try {
-        return await apiClient(`/companies/${company}/contact`);
+        return await apiClient(`/companies/${company}/contact`, {cache: "no-store",});
     } catch (error) {
         console.log(error);
         return null;

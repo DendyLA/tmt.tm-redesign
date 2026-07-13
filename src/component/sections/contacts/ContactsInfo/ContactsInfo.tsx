@@ -22,11 +22,12 @@ export default async function ContactsInfo({ className }: ContactsInfoProps) {
             <div className="flex flex-col gap-9.25 pl-3">
                 <div className="text-dark flex items-center gap-6.25 text-[18px] font-semibold">
                     <Phone color="#E95F28" width={32} height={32} />
-                    {data?.phone}
+					<a href={`tel:${data?.phone}`} className="transition-opacity duration-300 ease-in-out hover:opacity-70">{data?.phone}</a>
                 </div>
                 <div className="text-dark flex items-center gap-6.25 text-[18px] font-semibold">
                     <Mail color="#E95F28" width={32} height={32} />
-                    {data?.email}
+					<a href={`mailto:${data?.email}`} className="transition-opacity duration-300 ease-in-out hover:opacity-70">{data?.email}</a>
+                    
                 </div>
                 <div className="text-dark flex items-center gap-6.25 text-[18px] font-semibold">
                     <MapPin color="#E95F28" width={52} height={42} />

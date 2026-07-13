@@ -10,7 +10,9 @@ export default async function getPartner({
     company,
 }: getPartnerProps): Promise<Partner[] | null> {
     try {
-        return await apiClient(`/companies/${company}/partners`);
+        return await apiClient(`/companies/${company}/partners`, {
+            next: { revalidate: 300, tags: ["partners"] },
+        });
     } catch (error) {
         console.log(error);
         return null;

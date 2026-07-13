@@ -29,7 +29,7 @@ export async function getPosts({
         return await apiClient<PostResponse>(
             `/posts/public?${params.toString()}`,
             {
-                cache: "no-store",
+                next: { revalidate: 300, tags: ["posts"] },
             },
         );
     } catch (error) {
@@ -51,5 +51,8 @@ export function getPostBySlug({
 }: GetPostBySlugProps): Promise<Post> {
     return apiClient<Post>(
         `/posts/public/${slug}?locale=${lang.toUpperCase()}&deleted=${deleted}`,
+        {
+            next: { revalidate: 300, tags: ["posts"] },
+        },
     );
 }

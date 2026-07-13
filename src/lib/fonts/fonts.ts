@@ -18,6 +18,11 @@ export const avenir = localFont({
             style: "normal",
         },
         {
+            path: "../../../public/fonts/AvenirNextCyr-Demi.ttf",
+            weight: "600",
+            style: "normal",
+        },
+        {
             path: "../../../public/fonts/AvenirNextCyr-Bold.ttf",
             weight: "700",
             style: "normal",

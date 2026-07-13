@@ -7,7 +7,7 @@ type NewsAllProps = {
     className?: string;
     page: number;
     type: "NEWS" | "BLOG";
-    link: string;
+    link: 'news' | 'blog';
 };
 
 export default async function PostAll({
@@ -48,7 +48,7 @@ export default async function PostAll({
                 )}
             >
                 {news.map((item) => (
-                    <NewsCard key={item.id} item={item} className="mt-20" />
+                    <NewsCard key={item.id} item={item} className="mt-20" link={link}/>
                 ))}
             </div>
 
