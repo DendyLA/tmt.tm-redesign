@@ -7,9 +7,9 @@ import Button from "@/component/ui/Button/Button";
 
 export default function ContactForm() {
     return (
-        <div className="border-primary max-h-120 max-w-153.75 rounded-lg border bg-white px-11 py-12">
+        <div className="border-primary max-h-[90vh] w-[calc(100vw-2rem)] max-w-153.75 overflow-y-auto rounded-lg border bg-white px-5 py-6 sm:max-h-120 sm:px-11 sm:py-12">
             <form action="">
-                <div className="flex gap-10">
+                <div className="flex flex-col gap-4 sm:flex-row sm:gap-10">
                     <Input
                         placeholder="Введите ваше имя"
                         label="Имя"
@@ -23,7 +23,7 @@ export default function ContactForm() {
                     />
                 </div>
 
-                <div className="mt-4 flex gap-10">
+                <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:gap-10">
                     <Input
                         placeholder="example@gmail.com"
                         label="Электронная почта"

@@ -24,11 +24,11 @@ const features = [
 
 export default function Home() {
     return (
-        <div>
+        <div className="">
             <Promo />
             <Ticker items={features} />
             <div className="relative pt-10">
-                <Header className="sticky top-7.5" />
+                <Header className="fixed top-3 right-4 translate-x-0 sm:top-7.5 lg:sticky lg:right-auto lg:left-1/2 lg:mx-0 lg:-translate-x-1/2" />
                 <About />
                 {/* <Advertising className="mt-10" /> */}
                 <OurServices />

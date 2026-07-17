@@ -16,15 +16,15 @@ export default function SectionTop({
     return (
         <div
             className={cn(
-                "m-auto flex w-max flex-col items-center gap-4",
+                "m-auto flex w-full max-w-full flex-col items-center gap-3 text-center sm:w-max sm:gap-4",
                 className,
             )}
         >
-            <h2 className="font-main text-primary text-[36px] font-bold uppercase">
+            <h2 className="font-main text-primary text-[28px] leading-tight font-bold uppercase sm:text-[36px]">
                 {titleTop}
             </h2>
             <div className="bg-primary h-0.5 w-full"></div>
-            <div className="font-main text-[20px] font-medium">
+            <div className="font-main max-w-full text-base leading-6 font-medium sm:text-[20px]">
                 {titleBottom}
             </div>
         </div>

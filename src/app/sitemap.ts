@@ -6,7 +6,7 @@ import type { Post } from "@/services/posts/posts.types";
 import { getProject } from "@/services/projects/projects.service";
 import type { Project } from "@/services/projects/projects.types";
 
-const NEWS_SITEMAP_PAGE_SIZE = 20;
+const POST_SITEMAP_PAGE_SIZE = 20;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastModified = new Date();
@@ -18,23 +18,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     try {
-        const [newsRoutes, projectRoutes] = await Promise.all([
-            getNewsRoutesForSitemap(lastModified),
+        const [newsRoutes, blogRoutes, projectRoutes] = await Promise.all([
+            getPostRoutesForSitemap("NEWS", "/news", 0.65, lastModified),
+            getPostRoutesForSitemap("BLOG", "/blog", 0.6, lastModified),
             getProjectRoutesForSitemap(lastModified),
         ]);
 
-        return [...staticRoutes, ...newsRoutes, ...projectRoutes];
+        return [...staticRoutes, ...newsRoutes, ...blogRoutes, ...projectRoutes];
     } catch {
         return staticRoutes;
     }
 }
 
-async function getNewsRoutesForSitemap(
+async function getPostRoutesForSitemap(
+    type: "NEWS" | "BLOG",
+    basePath: "/news" | "/blog",
+    priority: number,
     fallbackLastModified: Date,
 ): Promise<MetadataRoute.Sitemap> {
-    const news = await getAllNewsForSitemap();
+    const posts = await getAllPostsForSitemap(type);
 
-    return news
+    return posts
         .filter((post) => post.slug && post.status === "PUBLISHED")
         .map((post) => {
             const image = absoluteMediaUrl(
@@ -45,11 +49,11 @@ async function getNewsRoutesForSitemap(
             );
 
             return {
-                url: absoluteUrl(`/news/${post.slug}`),
+                url: absoluteUrl(`${basePath}/${post.slug}`),
                 lastModified:
                     post.updatedAt || post.publishedAt || fallbackLastModified,
                 changeFrequency: "weekly" as const,
-                priority: 0.65,
+                priority,
                 images: image ? [image] : undefined,
             };
         });
@@ -75,7 +79,7 @@ async function getProjectRoutesForSitemap(
         });
 }
 
-async function getAllNewsForSitemap(): Promise<Post[]> {
+async function getAllPostsForSitemap(type: "NEWS" | "BLOG"): Promise<Post[]> {
     const posts: Post[] = [];
     let page = 1;
     let pages = 1;
@@ -83,9 +87,9 @@ async function getAllNewsForSitemap(): Promise<Post[]> {
     do {
         const response = await getPosts({
             page,
-            limit: NEWS_SITEMAP_PAGE_SIZE,
+            limit: POST_SITEMAP_PAGE_SIZE,
             lang: "RU",
-            type: "NEWS",
+            type,
         });
 
         if (!response?.data?.length) {

@@ -185,6 +185,22 @@ export const seoRoutes = [
             "представительство бизнеса в Туркменистане",
         ],
     },
+    {
+        path: "/vacancy",
+        title: "Вакансии и тендеры в Туркменистане | TMT Consulting Group",
+        description:
+            "Актуальные вакансии, тендеры и деловые возможности TMT Consulting Group в Ашхабаде и Туркменистане для специалистов, компаний и партнеров.",
+        priority: 0.65,
+        changeFrequency: "weekly",
+        keywords: [
+            "вакансии TMT Consulting Group",
+            "вакансии в Туркменистане",
+            "вакансии в Ашхабаде",
+            "тендеры в Туркменистане",
+            "тендеры Ашхабад",
+            "деловые возможности Туркменистан",
+        ],
+    },
 ] as const;
 
 export const siteJsonLd = {

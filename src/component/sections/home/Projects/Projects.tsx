@@ -5,7 +5,7 @@ import ProjectList from "@/component/features/ProjectList/ProjectList";
 
 export default function Projects() {
     return (
-        <section className="py-17.5">
+        <section className="py-14 sm:py-17.5">
             <Container>
                 <div className="flex flex-col items-center">
                     <SectionLabel>Наши ПРОЕКТЫ</SectionLabel>
@@ -14,7 +14,7 @@ export default function Projects() {
                         primaryText="проекты"
                         className="mt-5.5"
                     />
-                    <ProjectList className="mt-17.5" />
+                    <ProjectList className="mt-8 sm:mt-17.5" />
                 </div>
             </Container>
         </section>

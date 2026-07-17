@@ -13,13 +13,13 @@ export default async function Logo({ className }: LogoProps) {
     const logoUrl = logo?.logo ? `${mediaUrl}${logo.logo}` : "/images/logo.png";
 
     return (
-        <Link href="/" className="h-full w-87.5">
+        <Link href="/" className="block h-auto w-52 sm:w-72 md:w-87.5">
             <Image
                 src={logoUrl}
                 alt="TMT Consulting Group"
                 width={378}
                 height={100}
-                className={cn("relative object-cover", className)}
+                className={cn("relative h-auto w-full object-contain", className)}
             />
         </Link>
     );

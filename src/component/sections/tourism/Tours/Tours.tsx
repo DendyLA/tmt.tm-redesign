@@ -20,26 +20,43 @@ export default async function Tours({ className }: ToursProps) {
 
     return (
         <section className={cn("", className)}>
-            <h3 className="text-primary font-main text-center text-[32px] font-bold">
+            <h3 className="text-primary font-main text-center text-[26px] font-bold sm:text-[32px]">
                 НАШИ ТУРЫ:
             </h3>
 
-            <div className="mt-10 flex flex-col gap-23">
+            <div className="mt-10 flex flex-col gap-8 sm:mt-15 sm:gap-15 xl:gap-18 min-[1800px]:gap-23">
                 {sortedTours.map((item, index) => {
+                    const isReversed = index % 2 === 1;
+
                     return (
-                        <div key={index} className="relative flex">
+                        <div
+                            key={index}
+                            className={cn(
+                                "relative flex flex-col gap-4 xl:min-h-[330px] xl:flex-row xl:gap-0 min-[1800px]:min-h-[405px]",
+                                isReversed && "xl:justify-end",
+                            )}
+                        >
                             <InfoCard
                                 style="orange"
                                 title={item?.translation?.title}
                                 descr={item?.translation?.description}
                                 index={index}
+                                className="w-full max-w-full xl:w-[50%] xl:max-w-none min-[1800px]:w-[900px] min-[1800px]:max-w-225"
                             />
-                            <div className="absolute -top-7 right-30 z-0 rounded-[10px]">
+                            <div
+                                className={cn(
+                                    "relative z-0 overflow-hidden rounded-[10px] xl:absolute xl:-top-7 xl:w-[55%] xl:overflow-visible min-[1800px]:w-[994px]",
+                                    isReversed
+                                        ? "xl:left-0"
+                                        : "xl:right-0 min-[1800px]:right-30",
+                                )}
+                            >
                                 <Image
                                     width={994}
                                     height={405}
                                     alt={item?.translation?.title}
                                     src={`${mediaUrl}${item?.image}`}
+                                    className="h-auto w-full rounded-[10px] object-cover xl:rounded-none"
                                 />
                             </div>
                         </div>

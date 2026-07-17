@@ -16,22 +16,23 @@ export const metadata: Metadata = createPageMetadata(contactsRoute);
 
 export default async function Contacts() {
     return (
-        <div className="bg-main-gradient-top py-12.5">
+        <div className="bg-main-gradient-top py-8 sm:py-12.5">
             <Container>
-                <div className="flex">
+                <div className="flex justify-center sm:justify-start">
                     <Logo />
                 </div>
                 <SectionTop
                     titleTop="КОНТАКТЫ"
                     titleBottom="Будем рады сотрудничеству и новым партнёрствам."
+                    className="mt-6 sm:mt-0"
                 />
-                <div className="px-35">
-                    <div className="mt-10 grid grid-cols-3 grid-rows-1 gap-4 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-8">
-                        <ContactsInfo className="col-span-1" />
-                        <ContactsForm className="col-span-2" />
+                <div className="px-0 xl:px-35">
+                    <div className="mt-8 grid grid-cols-1 gap-6 sm:mt-10 lg:grid-cols-3 lg:grid-rows-1 lg:gap-6 xl:gap-8">
+                        <ContactsInfo className="lg:col-span-1" />
+                        <ContactsForm className="lg:col-span-2" />
                     </div>
-                    <ContactsMap className="mt-23" />
-                    <ContactsBanner className="mt-23" />
+                    <ContactsMap className="mt-10 sm:mt-16 lg:mt-23" />
+                    <ContactsBanner className="mt-10 sm:mt-16 lg:mt-23" />
                 </div>
             </Container>
         </div>

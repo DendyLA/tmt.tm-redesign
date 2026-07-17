@@ -1,7 +1,7 @@
 import Footer from "@/component/layout/Footer/Footer";
 import SiteStructuredData from "@/component/seo/SiteStructuredData";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { avenir, manrope } from "@/lib/fonts/fonts";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -11,6 +11,11 @@ import "../globals.css";
 const homeRoute = seoRoutes[0];
 
 export const metadata: Metadata = createPageMetadata(homeRoute);
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+};
 
 export default function RootLayout({
     children,

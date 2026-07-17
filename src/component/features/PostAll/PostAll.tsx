@@ -40,19 +40,24 @@ export default async function PostAll({
     }
 
     return (
-        <section className="flex flex-col gap-18">
+        <section className="flex flex-col gap-8 sm:gap-12 lg:gap-18">
             <div
                 className={cn(
-                    "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3",
+                    "grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-3",
                     className,
                 )}
             >
                 {news.map((item) => (
-                    <NewsCard key={item.id} item={item} className="mt-20" link={link}/>
+                    <NewsCard
+                        key={item.id}
+                        item={item}
+                        className="sm:mt-8 lg:mt-20"
+                        link={link}
+                    />
                 ))}
             </div>
 
-            <div className="mt-10 flex items-center justify-center gap-7">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-7">
                 {page > 1 && (
                     <Link href={`/${link}?page=${page - 1}`} className="h-10">
                         <img

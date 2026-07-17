@@ -7,7 +7,7 @@ import cn from "@/lib/utils/cn";
 
 type NewsCardProps = {
     item: Post;
-	link: 'blog' | 'news';
+    link: "blog" | "news";
     className?: string;
 };
 
@@ -24,14 +24,18 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
         ? new Date(item.publishedAt).toLocaleDateString("ru-RU")
         : "";
 
+
     return (
         <div
             className={cn(
-                "h-143.75 max-w-131.25 overflow-hidden rounded-xl",
+                "h-[430px] w-full max-w-131.25 overflow-hidden rounded-xl sm:h-143.75",
                 className,
             )}
         >
-            <Link href={`/${link}/${item.slug}`} className="relative flex h-[60%]">
+            <Link
+                href={`/${link}/${item.slug}`}
+                className="relative flex h-[55%] sm:h-[60%]"
+            >
                 <Image
                     src={imageSrc}
                     fill
@@ -42,17 +46,19 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
                 />
             </Link>
 
-            <div className="flex h-[40%] flex-col justify-between gap-6 bg-[#EEF2FF] px-5 py-8">
+            <div className="flex h-[45%] flex-col justify-between gap-4 bg-[#EEF2FF] px-4 py-5 sm:h-[40%] sm:gap-6 sm:px-5 sm:py-8">
                 <Link
                     href={`/${link}/${item.slug}`}
-                    className="font-main text-dark hover:text-primary text-[20px] font-semibold transition-colors duration-300 ease-in-out"
+                    className="font-main text-dark hover:text-primary text-[17px] leading-6 font-semibold transition-colors duration-300 ease-in-out sm:text-[20px] sm:leading-normal"
                 >
-                    <h3 className="wrap-break-word">{title}</h3>
+                    <h3 className="wrap-break-word">{title.length > 80
+						? `${title.slice(0, 80)}...`
+						: title}</h3>
                 </Link>
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                     <Link href={`/${link}/${item.slug}`}>
-                        <Button className="text-primary hover:bg-primary h-6 bg-white px-2.75 py-4 text-base hover:text-white">
+                        <Button className="text-primary hover:bg-primary h-auto bg-white px-2.75 py-2 text-sm hover:text-white sm:h-6 sm:py-4 sm:text-base">
                             Подробнее...
                         </Button>
                     </Link>

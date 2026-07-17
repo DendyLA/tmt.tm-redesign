@@ -39,14 +39,14 @@ export default async function ServiceList({ className }: ServiceProps) {
                 return (
                     <li
                         key={index}
-                        className="group relative flex cursor-pointer flex-col items-start gap-5 rounded-xl bg-white px-11.25 py-10 transition-colors duration-400 ease-in-out hover:bg-[#EEF2FF]"
+                        className="group relative flex cursor-pointer flex-col justify-between items-start gap-4 rounded-xl bg-white px-5 py-6 transition-colors duration-400 ease-in-out hover:bg-[#EEF2FF] sm:gap-5 sm:px-11.25 sm:py-10"
                     >
                         <svg
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
-                            className="text-primary group-hover:text-dark absolute top-6.25 right-10 transition-colors duration-300"
+                            className="text-primary group-hover:text-dark absolute top-5 right-5 transition-colors duration-300 sm:top-6.25 sm:right-10"
                             fill="currentColor"
                         >
                             <path
@@ -54,13 +54,13 @@ export default async function ServiceList({ className }: ServiceProps) {
                                 fill="currentColor"
                             />
                         </svg>
-                        <h3 className="text-primary group-hover:text-dark font-second text-[26px] duration-400 ease-in-out">
+                        <h3 className="text-primary group-hover:text-dark font-second pr-8 text-[22px] leading-7 duration-400 ease-in-out sm:text-[26px] sm:leading-normal">
                             {service.translation?.title ?? service.title}
                         </h3>
                         <p className="font-main text-dark text-[16px]">
                             {service.description}
                         </p>
-                        <Tag className="group-hover:border-dark group-hover:text-dark duration-400 ease-in-out group-hover:bg-white">
+                        <Tag className="group-hover:border-dark group-hover:text-dark duration-400 ease-in-out group-hover:bg-white w-fit">
                             {service.category.translation?.name ??
                                 service.category.name}
                         </Tag>

@@ -14,22 +14,25 @@ export const metadata: Metadata = createPageMetadata(aboutRoute);
 
 export default async function AboutUs() {
     return (
-        <div className="bg-main-gradient-top py-12.5">
+        <div className="bg-main-gradient-top py-10 sm:py-12.5">
             <Container>
-                <div className="flex">
+                <div className="flex justify-center sm:justify-start">
                     <Logo />
                 </div>
                 <SectionTop
                     titleTop="О НАС"
                     titleBottom="Мост между капиталом и возможностью"
+                    className="mt-6 sm:mt-0"
                 />
-                <AboutMain className="mt-10" />
+                <AboutMain className="mt-8 sm:mt-10" />
                 <SectionTop
                     titleTop="НАШИ ПРОЕКТЫ"
                     titleBottom="Реализованные проекты, которыми мы гордимся."
-                    className="mt-14"
+                    className="mt-10 sm:mt-46"
                 />
-                <ProjectList className="mt-10" />
+                <div className="mt-8 sm:mt-10">
+                    <ProjectList />
+                </div>
             </Container>
         </div>
     );

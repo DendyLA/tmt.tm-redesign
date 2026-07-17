@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function News() {
     return (
-        <section className="py-25">
+        <section className="py-16 sm:py-25">
             <Container>
                 <div className="flex flex-col items-center">
                     <SectionLabel>НОВОСТИ</SectionLabel>
@@ -18,14 +18,14 @@ export default function News() {
                         className="mt-4.5"
                     />
                     <NewsList
-                        className="mt-16"
+                        className="mt-8 sm:mt-16"
                         page={1}
                         limit={4}
                         lang="RU"
                         type="NEWS"
                     />
                     <Link href={"/news"}>
-                        <Button className="bg-dark mt-20.5 px-10 hover:bg-[#1E2F5A]">
+                        <Button className="bg-dark mt-10 px-8 hover:bg-[#1E2F5A] sm:mt-20.5 sm:px-10">
                             Все новости
                         </Button>
                     </Link>

@@ -40,10 +40,10 @@ export default async function NewsInfo({ slug, className }: NewsInfoProps) {
                     <div className="font-main text-primary/50 flex justify-end">
                         {date}
                     </div>
-                    <div className="font-main mt-7 text-[30px] font-bold">
+                    <div className="font-main mt-7 text-[30px] font-bold text-justify">
                         {post?.translation?.title}
                     </div>
-                    <div className="mt-7">
+                    <div className="mt-7 text-justify">
                         <RichText content={post?.translation?.content || ""} />
                     </div>
                 </div>

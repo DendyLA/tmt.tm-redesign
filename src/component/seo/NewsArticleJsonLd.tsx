@@ -6,12 +6,16 @@ import { JsonLdScript } from "./SiteStructuredData";
 
 type NewsArticleJsonLdProps = {
     slug: string;
+    postType?: "NEWS" | "BLOG";
 };
 
 export default async function NewsArticleJsonLd({
     slug,
+    postType = "NEWS",
 }: NewsArticleJsonLdProps) {
     let jsonLd: Record<string, unknown>;
+    const basePath = postType === "BLOG" ? "/blog" : "/news";
+    const schemaType = postType === "BLOG" ? "BlogPosting" : "NewsArticle";
 
     try {
         const post = await getPostBySlug({ slug, lang: "RU" });
@@ -35,10 +39,10 @@ export default async function NewsArticleJsonLd({
 
         jsonLd = {
             "@context": "https://schema.org",
-            "@type": "NewsArticle",
+            "@type": schemaType,
             mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": absoluteUrl(`/news/${slug}`),
+                "@id": absoluteUrl(`${basePath}/${slug}`),
             },
             headline: title,
             description,
@@ -59,5 +63,10 @@ export default async function NewsArticleJsonLd({
         return null;
     }
 
-    return <JsonLdScript id="news-article-json-ld" data={jsonLd} />;
+    return (
+        <JsonLdScript
+            id={`${postType.toLowerCase()}-article-json-ld`}
+            data={jsonLd}
+        />
+    );
 }

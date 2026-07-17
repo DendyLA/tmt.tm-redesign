@@ -7,6 +7,6 @@ export const menuItems = [
     { name: "Туризм", link: "/tourism" },
     { name: "Блог", link: "/blog" },
     { name: "Новости", link: "/news" },
-    { name: "Вакансии", link: "/vacancies" },
+    { name: "Вакансии", link: "/vacancy" },
     { name: "Контакты", link: "/contacts" },
 ];

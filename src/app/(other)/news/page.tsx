@@ -30,7 +30,7 @@ export default async function News({ searchParams }: NewsPageProps) {
                     titleTop="НОВОСТИ"
                     titleBottom="Будьте в курсе последних событий в Туркменистане."
                 />
-                <PostAll page={Number(page) || 1} type="NEWS" link="news" />
+                <PostAll page={Number(page) || 1} type="NEWS" link="news" className="mt-10"/>
             </Container>
         </div>
     );

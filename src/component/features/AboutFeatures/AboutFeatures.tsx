@@ -11,16 +11,16 @@ export default function AboutFeatures({
     className,
 }: AboutFeaturesProps) {
     return (
-        <div className={cn("flex flex-col gap-10", className)}>
+        <div className={cn("flex min-w-0 flex-col gap-6 sm:gap-10", className)}>
             {features.map((feature, index) => {
                 return (
-                    <div key={index} className="flex items-center gap-4">
+                    <div key={index} className="flex min-w-0 items-start gap-4 sm:items-center">
                         <img
                             src="/icons/right-arrow-dark.svg"
                             alt="right-arrow"
-                            className="h-auto w-8.75"
+                            className="mt-1 h-auto w-6 shrink-0 sm:mt-0 sm:w-8.75"
                         />
-                        <p className="font-main text-[24px] font-semibold">
+                        <p className="font-main min-w-0 text-[18px] leading-7 font-semibold break-words sm:text-[24px]">
                             {feature}
                         </p>
                     </div>

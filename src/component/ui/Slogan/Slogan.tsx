@@ -12,7 +12,7 @@ export default function Slogan({
     return (
         <p
             className={cn(
-                "font-second text-dark font-bold uppercase",
+                "font-second text-dark font-semibold uppercase",
                 className,
             )}
         >

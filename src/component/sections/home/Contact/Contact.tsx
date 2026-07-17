@@ -12,7 +12,7 @@ export default function Contact() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className="bg-main-gradient-white-bottom py-25">
+        <section className="bg-main-gradient-white-bottom py-16 sm:py-25">
             <Container>
                 <div className="flex flex-col items-center justify-center">
                     <div className="flex max-w-137.5 flex-col items-center justify-center">
@@ -28,12 +28,12 @@ export default function Contact() {
                             Азии
                         </div>
                         <Button
-                            className="mt-12 px-11"
+                            className="mt-8 px-8 sm:mt-12 sm:px-11"
                             onClick={() => setIsOpen(true)}
                         >
                             Оставить заявку
                         </Button>
-                        <div className="text-dark mt-6.5 flex gap-2">
+                        <div className="text-dark mt-6.5 flex flex-col items-center gap-2 text-center sm:flex-row">
                             <div className="font-main text-[18px] font-medium">
                                 Или напишите напрямую:
                             </div>
@@ -49,7 +49,7 @@ export default function Contact() {
                 </div>
                 {isOpen && (
                     <div
-                        className="fixed inset-0 z-20 flex items-center justify-center bg-black/50"
+                        className="fixed inset-0 z-20 flex items-center justify-center bg-black/50 px-4"
                         onClick={() => setIsOpen(false)}
                     >
                         <div onClick={(event) => event.stopPropagation()}>

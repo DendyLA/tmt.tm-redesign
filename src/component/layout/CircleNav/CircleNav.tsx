@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function CircleNav() {
     return (
-        <nav className="pointer-events-none absolute top-0 right-0 h-full w-[42vw] min-w-105 overflow-visible">
+        <nav className="pointer-events-none absolute top-0 right-0 hidden h-full w-[42vw] min-w-105 overflow-visible xl:block">
             <Image
                 src="/images/navLogo.png"
                 alt=""
@@ -32,7 +32,7 @@ export default function CircleNav() {
                             }}
                         />
 
-                        <span className="font-second text-primary relative z-10 text-left text-[17px] font-bold tracking-[0.28em] transition-colors duration-300 group-hover:text-white">
+                        <span className="font-second text-primary relative z-10 text-left text-[17px] font-semibold uppercase tracking-[0.28em] transition-colors duration-300 group-hover:text-white">
                             {item.name}
                         </span>
                     </Link>

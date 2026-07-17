@@ -21,16 +21,23 @@ export default async function Blog({ searchParams }: BlogPageProps) {
     const { page } = await searchParams;
 
     return (
-        <div className="bg-second-gradient-bottom py-12.5">
+        <div className="bg-second-gradient-bottom py-8 sm:py-12.5">
             <Container>
-                <div className="flex">
+                <div className="flex justify-center sm:justify-start">
                     <Logo />
                 </div>
                 <SectionTop
                     titleTop="БЛОГ"
                     titleBottom="Материалы о бизнесе, консалтинге и событиях в Туркменистане."
+                    className="mt-6 sm:mt-0"
                 />
-                <PostAll page={Number(page) || 1} type="BLOG" link="blog" />
+                <div className="mt-8 sm:mt-10">
+                    <PostAll
+                        page={Number(page) || 1}
+                        type="BLOG"
+                        link="blog"
+                    />
+                </div>
             </Container>
         </div>
     );

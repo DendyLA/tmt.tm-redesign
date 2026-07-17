@@ -15,8 +15,8 @@ const advantages = [
 
 export default function AboutMain({ className }: AboutMainProps) {
     return (
-        <section className={cn("flex gap-18", className)}>
-            <div className="font-main text-dark w-1/2 rounded-[20px] bg-white px-10 py-8 text-[28px] font-medium">
+        <section className={cn("flex flex-col gap-8 lg:flex-row lg:gap-18", className)}>
+            <div className="font-main text-dark w-full rounded-[20px] bg-white px-5 py-6 text-[17px] leading-7 font-medium sm:px-8 sm:py-7 sm:text-[22px] lg:w-1/2 lg:px-10 lg:py-8 lg:text-[28px] lg:leading-normal lg:text-justify">
                 TMT Consulting Group — динамичная консалтинговая компания с
                 глубокой экспертизой в привлечении иностранных инвестиций и
                 организации деловых мероприятий международного уровня в
@@ -24,7 +24,7 @@ export default function AboutMain({ className }: AboutMainProps) {
                 бизнес-проектов и обеспечиваем выход на внутренние и
                 региональные рынки.
             </div>
-            <AboutFeatures features={advantages} className="w-1/2" />
+            <AboutFeatures features={advantages} className="w-full lg:w-1/2" />
         </section>
     );
 }

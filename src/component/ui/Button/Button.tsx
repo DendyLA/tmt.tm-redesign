@@ -27,7 +27,7 @@ export default function Button({
         <button
             type={type}
             className={cn(
-                "text-second inline-flex w-max items-center justify-center gap-3 rounded-sm px-4.5 py-4 text-lg font-semibold duration-300 ease-out",
+                "text-second inline-flex w-max max-w-full items-center justify-center gap-3 rounded-sm px-4 py-3 text-center text-sm font-semibold whitespace-normal duration-300 ease-out sm:px-4.5 sm:py-4 sm:text-lg",
                 variants[variant],
                 className,
             )}

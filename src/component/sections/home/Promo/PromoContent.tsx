@@ -16,18 +16,18 @@ export default async function PromoContent() {
     const promoUrl = promoMediaUrl ? `${mediaUrl}${promoMediaUrl}` : undefined;
 
     return (
-        <div className="relative z-10 flex max-w-fit flex-col">
+        <div className="relative z-10 flex w-full min-w-0 max-w-full flex-col sm:max-w-fit">
             <Logo />
             <PromoBadge
                 text="Туркменистан · Центральная Азия · Глобальный охват"
-                className="mt-28.5"
+                className="mt-16 sm:mt-24 md:mt-28.5"
             />
             <PromoTitle
                 subTitle="Ваш партнер в Туркменистане"
-                className="mt-13"
+                className="mt-8 sm:mt-10 md:mt-13"
             />
-            <Slogan className="mt-11 text-[clamp(14px,2vw,22px)]" />
-            <div className="jusitfy-center mt-11.25 flex items-center gap-3">
+            <Slogan className="mt-7 text-[clamp(14px,2vw,22px)] sm:mt-11" />
+            <div className="jusitfy-center mt-7 flex flex-col items-start gap-3 sm:mt-11.25 sm:flex-row sm:items-center">
                 <Button
                     icon={
                         <Image

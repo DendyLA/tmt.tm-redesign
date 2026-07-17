@@ -11,10 +11,10 @@ export default function SectionTitle({
 }: SectionTitleProps) {
     return (
         <h2
-            className={`font-second text-[56px] leading-[1.1] font-light ${className ?? ""}`}
+            className={`font-second max-w-full text-[clamp(30px,7vw,56px)] leading-[1.1] font-light break-words ${className ?? ""}`}
         >
-            <span className="text-dark">{darkText} </span>
-            <span className="text-primary">{primaryText}</span>
+            <span className="text-dark block sm:inline">{darkText} </span>
+            <span className="text-primary block sm:inline">{primaryText}</span>
         </h2>
     );
 }
