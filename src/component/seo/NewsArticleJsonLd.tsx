@@ -1,5 +1,15 @@
 import { getPostBySlug } from "@/services/posts/posts.service";
-import { absoluteMediaUrl, absoluteUrl, siteConfig } from "@/lib/seo/site";
+import {
+    getApiLocale,
+    type Locale,
+    withLocalePath,
+} from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
+import {
+    absoluteMediaUrl,
+    absoluteUrl,
+    getSiteConfig,
+} from "@/lib/seo/site";
 import { stripHtml, truncateText } from "@/lib/seo/metadata";
 
 import { JsonLdScript } from "./SiteStructuredData";
@@ -7,18 +17,25 @@ import { JsonLdScript } from "./SiteStructuredData";
 type NewsArticleJsonLdProps = {
     slug: string;
     postType?: "NEWS" | "BLOG";
+    locale?: Locale;
 };
 
 export default async function NewsArticleJsonLd({
     slug,
     postType = "NEWS",
+    locale: localeProp,
 }: NewsArticleJsonLdProps) {
+    const locale = localeProp ?? (await getRequestLocale());
+    const localizedSiteConfig = getSiteConfig(locale);
     let jsonLd: Record<string, unknown>;
     const basePath = postType === "BLOG" ? "/blog" : "/news";
     const schemaType = postType === "BLOG" ? "BlogPosting" : "NewsArticle";
 
     try {
-        const post = await getPostBySlug({ slug, lang: "RU" });
+        const post = await getPostBySlug({
+            slug,
+            lang: getApiLocale(locale),
+        });
         const title = post.translation?.title || post.title;
         const description = truncateText(
             stripHtml(
@@ -26,7 +43,7 @@ export default async function NewsArticleJsonLd({
                     post.excerpt ||
                     post.translation?.content ||
                     post.content ||
-                    siteConfig.description,
+                    localizedSiteConfig.description,
             ),
         );
         const image =
@@ -42,21 +59,21 @@ export default async function NewsArticleJsonLd({
             "@type": schemaType,
             mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": absoluteUrl(`${basePath}/${slug}`),
+                "@id": absoluteUrl(withLocalePath(`${basePath}/${slug}`, locale)),
             },
             headline: title,
             description,
             image: [image],
             datePublished: post.publishedAt || post.createdAt,
             dateModified: post.updatedAt || post.publishedAt,
-            inLanguage: siteConfig.language,
+            inLanguage: localizedSiteConfig.language,
             author: {
                 "@type": "Organization",
-                name: siteConfig.name,
-                url: siteConfig.url,
+                name: localizedSiteConfig.name,
+                url: localizedSiteConfig.url,
             },
             publisher: {
-                "@id": `${siteConfig.url}/#organization`,
+                "@id": `${localizedSiteConfig.url}/#organization`,
             },
         };
     } catch {

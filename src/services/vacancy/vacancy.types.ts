@@ -14,7 +14,7 @@ export type VacancyTag = {
 	}
 }
 
-type VacancyData = {
+export type VacancyData = {
 	id: string;
 	contactEmail: string;
 	salary?: string;
@@ -22,6 +22,7 @@ type VacancyData = {
 	createdAt: string;
 	translation: VacancyTranslation;
 	tags: VacancyTag[];
+	slug: string;
 }
 
 export type Vacancy = {

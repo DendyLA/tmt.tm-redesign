@@ -3,6 +3,8 @@ import cn from "@/lib/utils/cn";
 import { getPostBySlug } from "@/services/posts/posts.service";
 import { mediaUrl } from "@/constants/constants";
 import RichText from "@/component/ui/RichText/RichText";
+import { getApiLocale, hreflangByLocale } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type NewsInfoProps = {
     slug: string;
@@ -10,14 +12,20 @@ type NewsInfoProps = {
 };
 
 export default async function NewsInfo({ slug, className }: NewsInfoProps) {
-    const post = await getPostBySlug({ slug, lang: "RU" });
+    const locale = await getRequestLocale();
+    const post = await getPostBySlug({ slug, lang: getApiLocale(locale) });
 
     const postImage =
         post.coverMedia?.url || post.translation?.coverMedia?.url || null;
+    const imageSrc = postImage
+        ? `${mediaUrl}${postImage}`
+        : "/images/news-placeholder.png";
     const date = post.publishedAt
-        ? new Date(post.publishedAt).toLocaleDateString("ru-RU")
+        ? new Date(post.publishedAt).toLocaleDateString(
+              hreflangByLocale[locale],
+          )
         : "";
-    console.log(JSON.stringify(post?.translation?.content));
+    const title = post.translation?.title || post.title;
 
     return (
         <section
@@ -29,10 +37,10 @@ export default async function NewsInfo({ slug, className }: NewsInfoProps) {
             <div className="flex flex-col">
                 <div className="flex max-h-157">
                     <Image
-                        src={`${mediaUrl}${postImage}`}
+                        src={imageSrc}
                         width={1055}
                         height={628}
-                        alt="photo"
+                        alt={title}
                         className="h-full w-full object-cover"
                     />
                 </div>
@@ -41,7 +49,7 @@ export default async function NewsInfo({ slug, className }: NewsInfoProps) {
                         {date}
                     </div>
                     <div className="font-main mt-7 text-[30px] font-bold text-justify">
-                        {post?.translation?.title}
+                        {title}
                     </div>
                     <div className="mt-7 text-justify">
                         <RichText content={post?.translation?.content || ""} />

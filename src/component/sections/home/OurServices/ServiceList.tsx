@@ -3,15 +3,18 @@ import Tag from "@/component/ui/Tag/Tag";
 import cn from "@/lib/utils/cn";
 
 import getServices from "@/services/service/service.service";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type ServiceProps = {
     className?: string;
 };
 
 export default async function ServiceList({ className }: ServiceProps) {
+    const locale = await getRequestLocale();
     const data = await getServices({
         company: "tmt-consulting-group",
-        lang: "RU",
+        lang: getApiLocale(locale),
     });
 
     if (!data) {
@@ -58,7 +61,8 @@ export default async function ServiceList({ className }: ServiceProps) {
                             {service.translation?.title ?? service.title}
                         </h3>
                         <p className="font-main text-dark text-[16px]">
-                            {service.description}
+                            {service.translation?.description ??
+                                service.description}
                         </p>
                         <Tag className="group-hover:border-dark group-hover:text-dark duration-400 ease-in-out group-hover:bg-white w-fit">
                             {service.category.translation?.name ??

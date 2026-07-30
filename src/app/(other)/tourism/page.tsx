@@ -6,23 +6,33 @@ import Container from "@/component/layout/Container/Container";
 import TourismMain from "@/component/sections/tourism/TourismMain/TourismMain";
 import Tours from "@/component/sections/tourism/Tours/Tours";
 import WhatsappBtn from "@/component/features/WhatsappBtn/WhatsappBtn";
+import { TourismPageJsonLd } from "@/component/seo/PageStructuredData";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { seoRoutes } from "@/lib/seo/site";
+import { getSeoRoute } from "@/lib/seo/site";
 
-const tourismRoute = seoRoutes.find((route) => route.path === "/tourism")!;
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getRequestLocale();
+    const tourismRoute = getSeoRoute("/tourism", locale)!;
 
-export const metadata: Metadata = createPageMetadata(tourismRoute);
+    return createPageMetadata({ ...tourismRoute, locale });
+}
 
 export default async function Tourism() {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+
     return (
         <div className="bg-second-gradient-bottom relative py-8 sm:py-12.5">
+            <TourismPageJsonLd />
             <Container>
                 <div className="flex justify-center sm:justify-start">
                     <Logo />
                 </div>
                 <SectionTop
-                    titleTop="ТУРИЗМ"
-                    titleBottom="Исследуйте Туркменистан с нами."
+                    titleTop={dictionary.sections.tourism.title}
+                    titleBottom={dictionary.sections.tourism.subtitle}
                     className="mt-6 sm:mt-0"
                 />
 

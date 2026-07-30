@@ -14,8 +14,10 @@ import type { Tenders } from "@/services/tenders/tenders.types";
 import type { Tag } from "@/services/tags/tags.types";
 
 import cn from "@/lib/utils/cn";
+import { getLocaleFromPathname } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
-type Tab = "Вакансии" | "Тендеры";
+export type VacancyTab = "vacancies" | "tenders";
 
 type VacancyMainProps = {
     vacancies: Vacancy | null;
@@ -37,8 +39,10 @@ export default function VacancyMain({
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const locale = getLocaleFromPathname(pathname);
+    const dictionary = getDictionary(locale);
 
-    const [btn, setBtn] = useState<Tab>("Вакансии");
+    const [btn, setBtn] = useState<VacancyTab>("vacancies");
     const [tag, setTag] = useState(activeTagSlug ?? "all");
     const [location, setLocation] = useState(activeLocation ?? "all");
 
@@ -90,7 +94,7 @@ export default function VacancyMain({
         <div
             className={cn(
                 "flex flex-col items-center justify-center py-8 sm:py-14",
-                btn === "Вакансии"
+                btn === "vacancies"
                     ? "bg-second-gradient-bottom"
                     : "bg-main-gradient-white-bottom",
                 className,
@@ -100,29 +104,35 @@ export default function VacancyMain({
                 <VacancySelector
                     btn={btn}
                     setBtn={setBtn}
+                    dictionary={dictionary}
                     className="mt-8 sm:mt-15"
                 />
 
-                {btn === "Вакансии" && (
+                {btn === "vacancies" && (
                     <VacancyFilter
                         tags={tags}
                         tag={tag}
                         setTag={handleTagChange}
                         location={location}
                         setLocation={handleLocationChange}
+                        dictionary={dictionary}
                         className="mt-8 sm:mt-17.5"
                     />
                 )}
 
-                {btn === "Вакансии" ? (
+                {btn === "vacancies" ? (
                     <VacancyList
                         className="mt-8 sm:mt-10"
                         vacancies={vacancies}
+                        dictionary={dictionary}
+                        locale={locale}
                     />
                 ) : (
                     <TenderList
                         tenders={tenders}
                         className="mt-8 sm:mt-10"
+                        dictionary={dictionary}
+                        locale={locale}
                     />
                 )}
             </Container>

@@ -4,13 +4,22 @@ import RichText from "@/component/ui/RichText/RichText";
 import Image from "next/image";
 import { mediaUrl } from "@/constants/constants";
 import InfoCard from "@/component/ui/InfoCard/InfoCard";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type ToursProps = {
     className?: string;
 };
 
 export default async function Tours({ className }: ToursProps) {
-    const res = await getTours({ page: 1, limit: 5, lang: "RU" });
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+    const res = await getTours({
+        page: 1,
+        limit: 5,
+        lang: getApiLocale(locale),
+    });
     const tours = res?.data;
     const meta = res?.meta;
 
@@ -21,7 +30,7 @@ export default async function Tours({ className }: ToursProps) {
     return (
         <section className={cn("", className)}>
             <h3 className="text-primary font-main text-center text-[26px] font-bold sm:text-[32px]">
-                НАШИ ТУРЫ:
+                {dictionary.sections.tourism.toursTitle}
             </h3>
 
             <div className="mt-10 flex flex-col gap-8 sm:mt-15 sm:gap-15 xl:gap-18 min-[1800px]:gap-23">

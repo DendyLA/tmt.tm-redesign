@@ -3,6 +3,7 @@ import Filter, {
     type FilterItem,
 } from "@/component/ui/Filter/Filter";
 import type { Tag } from "@/services/tags/tags.types";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 type VacancyFilterProps = {
     tags: Tag[] | null;
@@ -10,6 +11,7 @@ type VacancyFilterProps = {
     setTag: (value: string) => void;
     location: string;
     setLocation: (value: string) => void;
+    dictionary: Dictionary;
     className?: string;
 };
 
@@ -20,10 +22,11 @@ export default function VacancyFilter({
     setTag,
     location,
     setLocation,
+    dictionary,
 }: VacancyFilterProps) {
     const tagItems: FilterItem[] = [
         {
-            label: "Все категории",
+            label: dictionary.vacancy.allCategories,
             value: "all",
         },
         ...(tags?.map((item) => ({
@@ -34,33 +37,15 @@ export default function VacancyFilter({
 
     const locationItems: FilterItem[] = [
         {
-            label: "Все регионы",
+            label: dictionary.vacancy.allRegions,
             value: "all",
         },
-        {
-            label: "Ашхабад",
-            value: "ashgabat",
-        },
-        {
-            label: "Ахал",
-            value: "ahal",
-        },
-        {
-            label: "Мары",
-            value: "mary",
-        },
-        {
-            label: "Лебап",
-            value: "lebap",
-        },
-        {
-            label: "Дашогуз",
-            value: "dashoguz",
-        },
-        {
-            label: "Балкан",
-            value: "balkan",
-        },
+        ...dictionary.vacancy.regionsList.map((label, index) => ({
+            label,
+            value: ["ashgabat", "ahal", "mary", "lebap", "dashoguz", "balkan"][
+                index
+            ],
+        })),
     ];
 
     return (
@@ -69,14 +54,14 @@ export default function VacancyFilter({
                 items={tagItems}
                 btn={tag}
                 setBtn={setTag}
-                text="Категории:"
+                text={dictionary.vacancy.categories}
             />
 
             <Filter
                 items={locationItems}
                 btn={location}
                 setBtn={setLocation}
-                text="Регионы:"
+                text={dictionary.vacancy.regions}
             />
         </div>
     );

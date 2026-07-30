@@ -3,15 +3,18 @@ import InfoCard from "@/component/ui/InfoCard/InfoCard";
 import getServices from "@/services/service/service.service";
 import Image from "next/image";
 import { mediaUrl } from "@/constants/constants";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type ServicesListProps = {
     className?: string;
 };
 
 export default async function ServicesList({ className }: ServicesListProps) {
+    const locale = await getRequestLocale();
     const data = await getServices({
         company: "tmt-consulting-group",
-        lang: "RU",
+        lang: getApiLocale(locale),
     });
 
     if (!data) {
@@ -65,7 +68,10 @@ export default async function ServicesList({ className }: ServicesListProps) {
                                         width={994}
                                         height={405}
                                         src={`${mediaUrl}${service.image}`}
-                                        alt="service image"
+                                        alt={
+                                            service.translation?.title ??
+                                            service.title
+                                        }
                                         className={cn(
                                             "h-auto w-full max-w-full rounded-xl object-cover min-[1800px]:w-auto min-[1800px]:max-w-none min-[1800px]:rounded-none min-[1800px]:-translate-x-20 min-[1800px]:-translate-y-13",
                                             index % 2 === 1 &&

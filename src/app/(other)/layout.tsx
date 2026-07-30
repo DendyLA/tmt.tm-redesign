@@ -2,32 +2,43 @@ import Header from "@/component/layout/Header/Header";
 import Footer from "@/component/layout/Footer/Footer";
 import SiteStructuredData from "@/component/seo/SiteStructuredData";
 
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { avenir, manrope } from "@/lib/fonts/fonts";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { siteConfig } from "@/lib/seo/site";
+import { htmlLangByLocale } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { getSiteConfig } from "@/lib/seo/site";
 import "../globals.css";
 
-export const metadata: Metadata = createPageMetadata({
-    title: siteConfig.title,
-    description: siteConfig.description,
-    path: "/",
-});
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getRequestLocale();
+    const siteConfig = getSiteConfig(locale);
+
+    return createPageMetadata({
+        title: siteConfig.title,
+        description: siteConfig.description,
+        path: "/",
+        locale,
+    });
+}
 
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1,
 };
 
-export default function OtherLayout({
+export default async function OtherLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const locale = await getRequestLocale();
+
     return (
         <html
-            lang="ru"
+            lang={htmlLangByLocale[locale]}
             className={`${manrope.variable} ${avenir.variable} h-full antialiased`}
         >
             <body className="flex min-h-full flex-col">
@@ -44,7 +55,9 @@ export default function OtherLayout({
                     `}
                 </Script>
                 <SiteStructuredData />
-                <Header />
+                <Suspense fallback={null}>
+                    <Header />
+                </Suspense>
                 {children}
                 <Footer />
             </body>

@@ -11,7 +11,6 @@ export default function ProjectContent({
     project,
     className,
 }: ProjectContentProps) {
-    console.log(project);
     return (
         <div className="mt-15 flex flex-col gap-11">
             <div className="flex h-25 items-center">

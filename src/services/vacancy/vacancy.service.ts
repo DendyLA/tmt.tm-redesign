@@ -1,5 +1,6 @@
-import type { Vacancy } from "./vacancy.types";
+import type { Vacancy, VacancyData } from "./vacancy.types";
 import { apiClient } from "../api/api-client";
+import { getApiLocaleCandidates } from "@/lib/i18n/config";
 
 type GetVacanciesProps = {
     page: number;
@@ -14,11 +15,11 @@ export async function getVacancies({
     tag,
     location,
 }: GetVacanciesProps): Promise<Vacancy | null> {
-    try {
+    for (const candidateLocale of getApiLocaleCandidates(locale)) {
         const params = new URLSearchParams({
             page: String(page),
             limit: "6",
-            locale,
+            locale: candidateLocale,
             deleted: "false",
             status: "APPROVED",
         });
@@ -31,9 +32,39 @@ export async function getVacancies({
             params.set("location", location);
         }
 
-        return await apiClient(`/vacancies?${params.toString()}`);
-    } catch (error) {
-        console.error(error);
-        return null;
+        try {
+            const response = await apiClient<Vacancy>(
+                `/vacancies?${params.toString()}`,
+            );
+
+            if (response?.data?.length || candidateLocale === "RU") {
+                return response;
+            }
+        } catch (error) {
+            if (candidateLocale === "RU") {
+                console.error(error);
+            }
+        }
     }
+
+    return null;
+}
+
+export async function getVacancyBySlug( locale:string, slug:string): Promise<VacancyData | null>{
+	
+	for (const candidateLocale of getApiLocaleCandidates(locale)) {
+		try{
+			const vacancy = await apiClient<VacancyData>(`/vacancies/slug/${slug}?locale=${candidateLocale}`)
+
+            if (vacancy?.translation || candidateLocale === "RU") {
+                return vacancy;
+            }
+		}catch(error){
+            if (candidateLocale === "RU") {
+			    console.log(error)
+            }
+		}
+    }
+
+    return null;
 }

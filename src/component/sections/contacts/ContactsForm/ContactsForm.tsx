@@ -1,10 +1,15 @@
 import cn from "@/lib/utils/cn";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type ContactsFormProps = {
     className?: string;
 };
 
-export default function ContactsForm({ className }: ContactsFormProps) {
+export default async function ContactsForm({ className }: ContactsFormProps) {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+
     return (
         <div
             className={cn(
@@ -13,22 +18,22 @@ export default function ContactsForm({ className }: ContactsFormProps) {
             )}
         >
             <div className="font-main text-dark text-[20px] leading-tight font-bold sm:text-[22px]">
-                Отправьте нам сообщение
+                {dictionary.contacts.formTitle}
             </div>
             <div className="font-main text-dark mt-2 text-sm font-medium sm:text-[16px]">
-                Заполните форму, и мы свяжемся с вами в ближайшее время
+                {dictionary.contacts.formSubtitle}
             </div>
 
             <form className="mt-5.75 flex flex-col gap-6 sm:gap-8">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-2 lg:gap-x-15 lg:gap-y-8">
                     <div className="flex flex-col gap-2">
                         <label className="font-main text-dark text-[15px] font-semibold">
-                            Имя <span className="text-primary">*</span>
+                            {dictionary.contacts.name} <span className="text-primary">*</span>
                         </label>
 
                         <input
                             type="text"
-                            placeholder="Введите ваше имя"
+                            placeholder={dictionary.contacts.namePlaceholder}
                             className="border-dark/30 focus:border-primary font-main font h-12 w-full rounded-md border bg-white px-4 text-[15px] text-[#C5CDEB] shadow-[0px_4px_3px_0px_#C5CDEB] transition outline-none"
                             required
                         />
@@ -36,19 +41,19 @@ export default function ContactsForm({ className }: ContactsFormProps) {
 
                     <div className="flex flex-col gap-2">
                         <label className="font-main text-dark text-[15px] font-semibold">
-                            Компания
+                            {dictionary.contacts.company}
                         </label>
 
                         <input
                             type="text"
-                            placeholder="Введите имя компании"
+                            placeholder={dictionary.contacts.companyPlaceholder}
                             className="border-dark/30 focus:border-primary font-main font h-12 w-full rounded-md border bg-white px-4 text-[15px] text-[#C5CDEB] shadow-[0px_4px_3px_0px_#C5CDEB] transition outline-none"
                         />
                     </div>
 
                     <div className="flex flex-col gap-2">
                         <label className="font-main text-dark text-[15px] font-semibold">
-                            Электронная почта{" "}
+                            {dictionary.contacts.email}{" "}
                             <span className="text-primary">*</span>
                         </label>
 
@@ -62,7 +67,7 @@ export default function ContactsForm({ className }: ContactsFormProps) {
 
                     <div className="flex flex-col gap-2">
                         <label className="font-main text-dark text-[15px] font-semibold">
-                            Номер телефона
+                            {dictionary.contacts.phone}
                         </label>
 
                         <input
@@ -75,12 +80,12 @@ export default function ContactsForm({ className }: ContactsFormProps) {
 
                 <div className="flex flex-col gap-2">
                     <label className="font-main text-dark text-[15px] font-semibold">
-                        Сообщение <span className="text-primary">*</span>
+                        {dictionary.contacts.message} <span className="text-primary">*</span>
                     </label>
 
                     <textarea
                         rows={8}
-                        placeholder="Расскажите, чем мы можем вам помочь..."
+                        placeholder={dictionary.contacts.messagePlaceholder}
                         className="border-dark/30 focus:border-primary font-main font w-full resize-none rounded-md border bg-white px-4 py-4 text-[15px] text-[#C5CDEB] shadow-[0px_4px_3px_0px_#C5CDEB] transition outline-none"
                         required
                     />
@@ -90,7 +95,7 @@ export default function ContactsForm({ className }: ContactsFormProps) {
                     type="submit"
                     className="bg-primary hover:bg-primary-hover font-main w-full rounded-md px-6 py-2.5 text-[16px] font-bold text-white transition sm:w-fit sm:px-8.25 sm:text-[18px]"
                 >
-                    Отправить сообщение
+                    {dictionary.contacts.submit}
                 </button>
             </form>
         </div>

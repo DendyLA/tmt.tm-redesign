@@ -6,7 +6,11 @@ import Container from "@/component/layout/Container/Container";
 import ProjectsGallery from "@/component/sections/aboutUs/projects/ProjectsGallery";
 import { getProjectBySlug } from "@/services/projects/projects.service";
 import ProjectContent from "@/component/sections/aboutUs/projects/ProjectContent";
-import { absoluteMediaUrl, siteConfig } from "@/lib/seo/site";
+import { ProjectJsonLd } from "@/component/seo/PageStructuredData";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { absoluteMediaUrl, getSiteConfig } from "@/lib/seo/site";
 import {
     createPageMetadata,
     stripHtml,
@@ -33,29 +37,33 @@ export async function generateMetadata({
     params,
 }: AboutUsProps): Promise<Metadata> {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const apiLocale = getApiLocale(locale);
+    const dictionary = getDictionary(locale);
+    const siteConfig = getSiteConfig(locale);
 
     try {
         const project = (await getProjectBySlug(
             "tmt-consulting-group",
-            "RU",
+            apiLocale,
             slug,
         )) as unknown as ProjectSeoData;
 
         const title =
             project.translation?.title ||
             project.title ||
-            "Проект TMT Consulting Group";
+            `${dictionary.sections.about.projectsTitle} TMT Consulting Group`;
         const description = truncateText(
             stripHtml(
                 project.translation?.description ||
                     project.description ||
-                    "Проекты TMT Consulting Group в сфере консалтинга, мероприятий, бизнеса, дизайна и цифровых решений в Туркменистане.",
+                    dictionary.sections.about.projectsSubtitle,
             ),
         );
         const image = absoluteMediaUrl(project.coverImage);
 
         return createPageMetadata({
-            title: `${title} | Проекты TMT Consulting Group`,
+            title: `${title} | ${dictionary.seo.projectsLabel} TMT Consulting Group`,
             description,
             path: `/about-us/projects/${slug}`,
             images: image
@@ -68,38 +76,43 @@ export async function generateMetadata({
                       },
                   ]
                 : undefined,
-            keywords: [
-                title,
-                "проекты TMT Consulting Group",
-                "реализованные проекты в Туркменистане",
-            ],
+            keywords: [title, ...dictionary.seo.projectKeywords],
+            locale,
         });
     } catch {
         return createPageMetadata({
-            title: `Проект TMT Consulting Group | ${siteConfig.name}`,
-            description:
-                "Реализованные проекты TMT Consulting Group в Туркменистане.",
+            title: `${dictionary.sections.about.projectsTitle} | ${siteConfig.name}`,
+            description: dictionary.sections.about.projectsSubtitle,
             path: `/about-us/projects/${slug}`,
+            locale,
         });
     }
 }
 
 export default async function AboutUs({ params }: AboutUsProps) {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const apiLocale = getApiLocale(locale);
+    const dictionary = getDictionary(locale);
 
-    const project = await getProjectBySlug("tmt-consulting-group", "RU", slug);
+    const project = await getProjectBySlug(
+        "tmt-consulting-group",
+        apiLocale,
+        slug,
+    );
 
     return (
         <div className="bg-main-gradient-top py-12.5">
+            <ProjectJsonLd project={project} slug={slug} locale={locale} />
             <Container>
                 <div className="flex">
                     <Logo />
                 </div>
                 <SectionTop
-                    titleTop="НАШИ ПРОЕКТЫ"
-                    titleBottom="Реализованные проекты, которыми мы гордимся."
+                    titleTop={dictionary.sections.about.projectsTitle}
+                    titleBottom={dictionary.sections.about.projectsSubtitle}
                 />
-                <ProjectsGallery project={project} />
+                <ProjectsGallery project={project} locale={locale} />
                 <ProjectContent project={project} />
             </Container>
         </div>

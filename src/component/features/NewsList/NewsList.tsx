@@ -1,6 +1,7 @@
 import NewsCard from "./NewsCard";
 import { getPosts } from "@/services/posts/posts.service";
 import cn from "@/lib/utils/cn";
+import { getRequestLocale } from "@/lib/i18n/server";
 type NewsListProps = {
     page: number;
     limit: number;
@@ -16,6 +17,7 @@ export default async function NewsList({
     type,
     className,
 }: NewsListProps) {
+    const locale = await getRequestLocale();
     const response = await getPosts({
         page: page,
         limit: limit,
@@ -36,7 +38,12 @@ export default async function NewsList({
             )}
         >
             {news.map((item) => (
-                <NewsCard key={item.id} item={item} link={link} />
+                <NewsCard
+                    key={item.id}
+                    item={item}
+                    link={link}
+                    locale={locale}
+                />
             ))}
         </div>
     );

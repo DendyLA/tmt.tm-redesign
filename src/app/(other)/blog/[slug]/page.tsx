@@ -6,7 +6,10 @@ import Container from "@/component/layout/Container/Container";
 import BlogMain from "@/component/sections/blog/BlogMain/BlogMain";
 import NewsArticleJsonLd from "@/component/seo/NewsArticleJsonLd";
 import { getPostBySlug } from "@/services/posts/posts.service";
-import { absoluteMediaUrl, siteConfig } from "@/lib/seo/site";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { absoluteMediaUrl, getSiteConfig } from "@/lib/seo/site";
 import {
     createPageMetadata,
     stripHtml,
@@ -21,9 +24,13 @@ export async function generateMetadata({
     params,
 }: BlogDetailProps): Promise<Metadata> {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const apiLocale = getApiLocale(locale);
+    const dictionary = getDictionary(locale);
+    const siteConfig = getSiteConfig(locale);
 
     try {
-        const post = await getPostBySlug({ slug, lang: "RU" });
+        const post = await getPostBySlug({ slug, lang: apiLocale });
         const title = post.translation?.title || post.title;
         const description = truncateText(
             stripHtml(
@@ -42,7 +49,7 @@ export async function generateMetadata({
         );
 
         return createPageMetadata({
-            title: `${title} | Блог ${siteConfig.name}`,
+            title: `${title} | ${dictionary.seo.blogLabel} ${siteConfig.name}`,
             description,
             path: `/blog/${slug}`,
             type: "article",
@@ -61,24 +68,23 @@ export async function generateMetadata({
                       },
                   ]
                 : undefined,
-            keywords: [
-                title,
-                "блог TMT Consulting Group",
-                "консалтинг в Туркменистане",
-                "сопровождение бизнеса в Ашхабаде",
-            ],
+            keywords: [title, ...dictionary.seo.blogKeywords],
+            locale,
         });
     } catch {
         return createPageMetadata({
-            title: `Блог | ${siteConfig.name}`,
+            title: `${dictionary.sections.blog.title} | ${siteConfig.name}`,
             description: siteConfig.description,
             path: `/blog/${slug}`,
+            locale,
         });
     }
 }
 
 export default async function BlogDetail({ params }: BlogDetailProps) {
 	const {slug} = await params;
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
 
     return (
         <div className="bg-main-gradient-bottom py-8 sm:py-12.5">
@@ -88,8 +94,8 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
                     <Logo />
                 </div>
                 <SectionTop
-                    titleTop="БЛОГ"
-                    titleBottom="Делимся опытом, идеями и актуальными новостями."
+                    titleTop={dictionary.sections.blog.title}
+                    titleBottom={dictionary.sections.blog.detailSubtitle}
                     className="mt-6 sm:mt-0"
                 />
                 <div className="mt-8 sm:mt-10">

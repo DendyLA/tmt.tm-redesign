@@ -3,6 +3,8 @@ import Tag from "@/component/ui/Tag/Tag";
 import { MapPin, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { VacancyTag } from "@/services/vacancy/vacancy.types";
+import type { Locale } from "@/lib/i18n/config";
+import { defaultLocale, withLocalePath } from "@/lib/i18n/config";
 
 type VacancyCardProps = {
 	title: string;
@@ -11,14 +13,16 @@ type VacancyCardProps = {
 	salary?: string;
 	descr: string;
 	date: string;
+	slug: string;
+    locale?: Locale;
 	className?: string;
 }
 
 
-export default function VacancyCard({className, title, tag, location, salary, descr, date}: VacancyCardProps){
+export default function VacancyCard({className, title, tag, location, salary, descr, date, slug, locale = defaultLocale}: VacancyCardProps){
 
 	return(
-		<Link href='' className="block">
+		<Link href={withLocalePath(`/vacancy/${slug}`, locale)} className="block">
 			<div className={cn("h-auto rounded-xl bg-white px-5 py-5 sm:px-10 sm:py-6.5 lg:h-55", className)}>
 				
 					<div className="flex flex-col gap-4 lg:flex-row lg:justify-between">

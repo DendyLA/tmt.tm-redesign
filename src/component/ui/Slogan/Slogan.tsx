@@ -6,7 +6,7 @@ type PromoSloganProps = {
 };
 
 export default function Slogan({
-    text = "Вдохновляй · Объединяй · Развивай",
+    text = "Inspire · Connect · Grow",
     className,
 }: PromoSloganProps) {
     return (

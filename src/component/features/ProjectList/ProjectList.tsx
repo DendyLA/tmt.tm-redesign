@@ -2,13 +2,19 @@ import Image from "next/image";
 import { getProject } from "@/services/projects/projects.service";
 import cn from "@/lib/utils/cn";
 import { mediaUrl } from "@/constants/constants";
+import { getApiLocale, withLocalePath } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type projectsListProps = {
     className?: string;
 };
 
 export default async function ProjectList({ className }: projectsListProps) {
-    const projects = await getProject("tmt-consulting-group", "RU");
+    const locale = await getRequestLocale();
+    const projects = await getProject(
+        "tmt-consulting-group",
+        getApiLocale(locale),
+    );
     const disableOptimization = process.env.NODE_ENV === "development";
 
     return (
@@ -17,7 +23,10 @@ export default async function ProjectList({ className }: projectsListProps) {
                 return (
                     <a
                         key={project.slug ?? project.title ?? index}
-                        href={`/about-us/projects/${project.slug}`}
+                        href={withLocalePath(
+                            `/about-us/projects/${project.slug}`,
+                            locale,
+                        )}
                         className="w-full max-w-[320px] transition-transform duration-300 ease-in-out hover:scale-105"
                     >
                         <li
@@ -49,7 +58,6 @@ export default async function ProjectList({ className }: projectsListProps) {
                             >
                                 {project.title}
                             </h3>
-                            {/*Объяснить это заменив на .text чтобы пкоазать суть типов*/}
                         </li>
                     </a>
                 );

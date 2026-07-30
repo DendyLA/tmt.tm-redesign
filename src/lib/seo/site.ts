@@ -1,9 +1,14 @@
+import { defaultLocale, type Locale, withLocalePath } from "@/lib/i18n/config";
+
 export const siteUrl = normalizeUrl(
     process.env.NEXT_PUBLIC_SITE_URL || "https://tmt.tm",
 );
 
 export const mediaBaseUrl = normalizeUrl(
-    process.env.NEXT_PUBLIC_MEDIA_URL || process.env.ORIGIN_URL || siteUrl,
+    process.env.NEXT_PUBLIC_MEDIA_URL ||
+        process.env.NEXT_PUBLIC_ORIGIN_URL ||
+        process.env.ORIGIN_URL ||
+        siteUrl,
 );
 
 export const siteConfig = {
@@ -68,12 +73,33 @@ export const seoKeywords = [
     "форумы в Ашхабаде",
     "форумы в Туркменистане",
     "деловые форумы",
+    "новости Туркменистана",
+    "новости в Туркменистане",
+    "бизнес новости в Туркменистане",
+    "туризм в Туркменистане",
+    "путешествие в Туркменистан",
+    "путешествия в Туркменистан",
+    "туристическое агентство Туркменистан",
+    "туристическое агентство в Туркменистане",
     "B2G консалтинг",
     "Ashgabat consulting",
     "Turkmenistan consulting",
+    "Turkmenistan news",
+    "news in Turkmenistan",
+    "travel to Turkmenistan",
+    "tourism agency Turkmenistan",
     "business consulting Turkmenistan",
     "foreign business representation Turkmenistan",
 ];
+
+export type SeoRoute = {
+    path: string;
+    title: string;
+    description: string;
+    priority: number;
+    changeFrequency: "weekly" | "monthly";
+    keywords: readonly string[];
+};
 
 export const seoRoutes = [
     {
@@ -110,14 +136,18 @@ export const seoRoutes = [
     },
     {
         path: "/tourism",
-        title: "Туризм в Туркменистане — TMT Travel | TMT Consulting Group",
+        title: "Туризм в Туркменистане и путешествия | TMT Travel",
         description:
-            "TMT Travel организует профессиональные поездки и туры по Туркменистану с вниманием к маршрутам, гостеприимству и деталям.",
-        priority: 0.7,
+            "TMT Travel — туристическое агентство в Туркменистане: путешествия в Туркменистан, туры, маршруты, сопровождение гостей и профессиональная организация поездок.",
+        priority: 0.8,
         changeFrequency: "monthly",
         keywords: [
             "туризм в Туркменистане",
             "TMT Travel",
+            "путешествие в Туркменистан",
+            "путешествия в Туркменистан",
+            "туристическое агентство Туркменистан",
+            "туристическое агентство в Туркменистане",
             "туры в Туркменистан",
             "поездки по Туркменистану",
         ],
@@ -155,15 +185,19 @@ export const seoRoutes = [
     },
     {
         path: "/news",
-        title: "Новости бизнеса и организация форумов в Туркменистане | TMT Consulting Group",
+        title: "Новости Туркменистана | бизнес, события и форумы",
         description:
-            "Новости TMT Consulting Group о бизнесе, инвестициях, организации форумов в Ашхабаде и Туркменистане, деловых мероприятиях и возможностях для компаний.",
-        priority: 0.8,
+            "Новости Туркменистана от TMT Consulting Group: бизнес-новости, события в Ашхабаде, форумы, инвестиции, консалтинг и возможности для компаний.",
+        priority: 0.85,
         changeFrequency: "weekly",
         keywords: [
             "новости Туркменистана",
+            "новости в Туркменистане",
             "бизнес новости Туркменистан",
+            "бизнес новости в Туркменистане",
+            "новости Ашхабада",
             "мероприятия Туркменистан",
+            "события в Ашхабаде",
             "организация форумов Туркменистан",
             "организация форумов Ашхабад",
             "инвестиции Туркменистан",
@@ -201,7 +235,370 @@ export const seoRoutes = [
             "деловые возможности Туркменистан",
         ],
     },
-] as const;
+] satisfies readonly SeoRoute[];
+
+const siteConfigByLocale: Record<Locale, typeof siteConfig> = {
+    ru: siteConfig,
+    en: {
+        ...siteConfig,
+        locale: "en_US",
+        language: "en-US",
+        title: "TMT Consulting Group — business support in Ashgabat and Turkmenistan",
+        description:
+            "Consulting and business support in Ashgabat and Turkmenistan: foreign company representation, investments, forum and event organization, web development and design.",
+    },
+    tm: {
+        ...siteConfig,
+        locale: "tk_TM",
+        language: "tk-TM",
+        title: "TMT Consulting Group — Aşgabatda we Türkmenistanda biznes goldawy",
+        description:
+            "Aşgabatda we Türkmenistanda konsalting we biznes goldawy: daşary ýurt kompaniýalarynyň wekilçiligi, maýa goýumlar, forum we çäre guramak, web saýtlary we dizaýn.",
+    },
+};
+
+const seoKeywordsByLocale: Record<Locale, readonly string[]> = {
+    ru: seoKeywords,
+    en: [
+        "TMT Consulting Group",
+        "TMT",
+        "TMT Turkmenistan",
+        "TMT Ashgabat",
+        "consulting",
+        "consulting in Turkmenistan",
+        "consulting in Ashgabat",
+        "business consulting Turkmenistan",
+        "investment consulting",
+        "foreign business representation in Turkmenistan",
+        "market entry Turkmenistan",
+        "business support in Turkmenistan",
+        "business support in Ashgabat",
+        "forum organization Ashgabat",
+        "forum organization Turkmenistan",
+        "event organization Turkmenistan",
+        "Turkmenistan news",
+        "news in Turkmenistan",
+        "business news in Turkmenistan",
+        "Ashgabat news",
+        "travel to Turkmenistan",
+        "tourism in Turkmenistan",
+        "tourism agency Turkmenistan",
+        "tourism agency in Turkmenistan",
+        "Turkmenistan travel agency",
+        "web development in Turkmenistan",
+        "design services in Ashgabat",
+        "B2G consulting",
+    ],
+    tm: [
+        "TMT Consulting Group",
+        "TMT",
+        "TMT Türkmenistan",
+        "TMT Aşgabat",
+        "konsalting",
+        "Türkmenistanda konsalting",
+        "Aşgabatda konsalting",
+        "Türkmenistanda biznes konsalting",
+        "maýa goýum konsaltingi",
+        "Türkmenistanda daşary ýurt biznesiniň wekilçiligi",
+        "Türkmenistan bazaryna çykmak",
+        "Türkmenistanda biznes goldawy",
+        "Aşgabatda biznes goldawy",
+        "Aşgabatda forum guramak",
+        "Türkmenistanda forum guramak",
+        "Türkmenistanda çäre guramak",
+        "Türkmenistan täzelikleri",
+        "Türkmenistanda täzelikler",
+        "Aşgabat täzelikleri",
+        "Türkmenistana syýahat",
+        "Türkmenistanda syýahatçylyk",
+        "Türkmenistanda syýahatçylyk agentligi",
+        "Türkmenistanda web saýt döretmek",
+        "Aşgabatda dizaýn hyzmatlary",
+        "B2G konsalting",
+    ],
+};
+
+const seoRoutesByLocale: Record<Locale, readonly SeoRoute[]> = {
+    ru: seoRoutes,
+    en: [
+        {
+            path: "/",
+            title: siteConfigByLocale.en.title,
+            description: siteConfigByLocale.en.description,
+            priority: 1,
+            changeFrequency: "weekly",
+            keywords: [
+                "consulting",
+                "consulting in Turkmenistan",
+                "consulting in Ashgabat",
+                "business support in Ashgabat and Turkmenistan",
+                "foreign business representation in Turkmenistan",
+                "forum organization Ashgabat",
+                "forum organization Turkmenistan",
+            ],
+        },
+        {
+            path: "/about-us",
+            title: "Business support in Ashgabat and Turkmenistan | TMT Consulting Group",
+            description:
+                "TMT Consulting Group helps foreign companies, investors and partners enter the Turkmenistan market, build representation and receive business support in Ashgabat and across Turkmenistan.",
+            priority: 0.9,
+            changeFrequency: "monthly",
+            keywords: [
+                "about TMT Consulting Group",
+                "consulting company in Turkmenistan",
+                "business support",
+                "business support in Ashgabat",
+                "foreign business in Turkmenistan",
+            ],
+        },
+        {
+            path: "/tourism",
+            title: "Travel to Turkmenistan | TMT Travel Tourism Agency",
+            description:
+                "TMT Travel is a tourism agency in Turkmenistan for travel to Turkmenistan, tours, routes, guest support and professional trip organization.",
+            priority: 0.8,
+            changeFrequency: "monthly",
+            keywords: [
+                "travel to Turkmenistan",
+                "tourism in Turkmenistan",
+                "tourism agency Turkmenistan",
+                "tourism agency in Turkmenistan",
+                "Turkmenistan tourism agency",
+                "TMT Travel",
+                "tours to Turkmenistan",
+                "travel in Turkmenistan",
+                "Turkmenistan travel agency",
+                "Ashgabat tours",
+            ],
+        },
+        {
+            path: "/services",
+            title: "Web development and design in Turkmenistan | TMT Consulting Group",
+            description:
+                "Design and IT services in Turkmenistan: website development, web platforms, branding, interfaces and digital products for business.",
+            priority: 0.85,
+            changeFrequency: "monthly",
+            keywords: [
+                "web development",
+                "web development in Turkmenistan",
+                "order website development",
+                "order design services",
+                "design services in Ashgabat",
+            ],
+        },
+        {
+            path: "/contacts",
+            title: "TMT Consulting Group contacts in Ashgabat",
+            description:
+                "Contact TMT Consulting Group in Ashgabat for consulting, business support, company representation, forum organization and business events.",
+            priority: 0.75,
+            changeFrequency: "monthly",
+            keywords: [
+                "TMT Consulting Group contacts",
+                "consulting Ashgabat contacts",
+                "consulting company Ashgabat",
+                "TMT Consulting Group Ashgabat",
+            ],
+        },
+        {
+            path: "/news",
+            title: "Turkmenistan News | Business, Events and Consulting Updates",
+            description:
+                "News in Turkmenistan from TMT Consulting Group: business news, events in Ashgabat, forums, investments, consulting updates and company opportunities.",
+            priority: 0.85,
+            changeFrequency: "weekly",
+            keywords: [
+                "Turkmenistan news",
+                "news in Turkmenistan",
+                "Turkmenistan latest news",
+                "Ashgabat news",
+                "business news in Turkmenistan",
+                "business news Turkmenistan",
+                "events Turkmenistan",
+                "events in Ashgabat",
+                "forum organization Turkmenistan",
+                "investments Turkmenistan",
+                "consulting news Turkmenistan",
+            ],
+        },
+        {
+            path: "/blog",
+            title: "Blog about consulting and forum organization in Turkmenistan | TMT Consulting Group",
+            description:
+                "TMT Consulting Group blog about consulting, business support in Ashgabat and Turkmenistan, foreign company representation, forum organization and digital solutions.",
+            priority: 0.7,
+            changeFrequency: "weekly",
+            keywords: [
+                "TMT Consulting Group blog",
+                "consulting blog",
+                "business in Turkmenistan",
+                "forum organization Turkmenistan",
+                "business representation in Turkmenistan",
+            ],
+        },
+        {
+            path: "/vacancy",
+            title: "Vacancies and tenders in Turkmenistan | TMT Consulting Group",
+            description:
+                "Current vacancies, tenders and business opportunities from TMT Consulting Group in Ashgabat and Turkmenistan for professionals, companies and partners.",
+            priority: 0.65,
+            changeFrequency: "weekly",
+            keywords: [
+                "TMT Consulting Group vacancies",
+                "vacancies in Turkmenistan",
+                "vacancies in Ashgabat",
+                "tenders in Turkmenistan",
+                "tenders Ashgabat",
+            ],
+        },
+    ],
+    tm: [
+        {
+            path: "/",
+            title: siteConfigByLocale.tm.title,
+            description: siteConfigByLocale.tm.description,
+            priority: 1,
+            changeFrequency: "weekly",
+            keywords: [
+                "konsalting",
+                "Türkmenistanda konsalting",
+                "Aşgabatda konsalting",
+                "Aşgabatda we Türkmenistanda biznes goldawy",
+                "Türkmenistanda daşary ýurt biznesiniň wekilçiligi",
+                "Aşgabatda forum guramak",
+                "Türkmenistanda forum guramak",
+            ],
+        },
+        {
+            path: "/about-us",
+            title: "Aşgabatda we Türkmenistanda biznes goldawy | TMT Consulting Group",
+            description:
+                "TMT Consulting Group daşary ýurt kompaniýalaryna, maýadarlara we hyzmatdaşlara Türkmenistan bazaryna çykmaga, wekilçilik gurmaga we biznes goldawyny almaga kömek edýär.",
+            priority: 0.9,
+            changeFrequency: "monthly",
+            keywords: [
+                "TMT Consulting Group barada",
+                "Türkmenistanda konsalting kompaniýasy",
+                "biznes goldawy",
+                "Aşgabatda biznes goldawy",
+                "Türkmenistanda daşary ýurt biznesi",
+            ],
+        },
+        {
+            path: "/tourism",
+            title: "Türkmenistana syýahat we syýahatçylyk | TMT Travel",
+            description:
+                "TMT Travel Türkmenistana syýahat, ugurlar, turlar, myhmanlary goldamak we professional syýahat guramak boýunça Türkmenistandaky syýahatçylyk agentligidir.",
+            priority: 0.8,
+            changeFrequency: "monthly",
+            keywords: [
+                "Türkmenistana syýahat",
+                "Türkmenistanda syýahatçylyk",
+                "Türkmenistanda syýahatçylyk agentligi",
+                "Türkmenistan syýahatçylyk agentligi",
+                "TMT Travel",
+                "Türkmenistana syýahatlar",
+                "Türkmenistan boýunça gezelençler",
+                "Aşgabat turlary",
+            ],
+        },
+        {
+            path: "/services",
+            title: "Türkmenistanda web saýt döretmek we dizaýn | TMT Consulting Group",
+            description:
+                "Türkmenistanda dizaýn we IT hyzmatlary: web saýtlar, web-platformalar, brending, interfeýsler we biznes üçin sanly önümler.",
+            priority: 0.85,
+            changeFrequency: "monthly",
+            keywords: [
+                "web saýt döretmek",
+                "Türkmenistanda web saýt döretmek",
+                "saýt taýýarlatmak",
+                "dizaýn hyzmatlaryny sargyt etmek",
+                "Aşgabatda dizaýn hyzmatlary",
+            ],
+        },
+        {
+            path: "/contacts",
+            title: "Aşgabatdaky TMT Consulting Group habarlaşmak",
+            description:
+                "Konsalting, biznes goldawy, kompaniýa wekilçiligi, forum we işewürlik çärelerini guramak boýunça TMT Consulting Group bilen habarlaşyň.",
+            priority: 0.75,
+            changeFrequency: "monthly",
+            keywords: [
+                "TMT Consulting Group habarlaşmak",
+                "Aşgabat konsalting habarlaşmak",
+                "Aşgabat konsalting kompaniýasy",
+                "TMT Consulting Group Aşgabat",
+            ],
+        },
+        {
+            path: "/news",
+            title: "Türkmenistan täzelikleri | biznes, wakalar we forumlar",
+            description:
+                "TMT Consulting Group tarapyndan Türkmenistan täzelikleri: biznes täzelikleri, Aşgabatdaky wakalar, forumlar, maýa goýumlar, konsalting we kompaniýalar üçin mümkinçilikler.",
+            priority: 0.85,
+            changeFrequency: "weekly",
+            keywords: [
+                "Türkmenistan täzelikleri",
+                "Türkmenistanda täzelikler",
+                "Aşgabat täzelikleri",
+                "Türkmenistan biznes täzelikleri",
+                "Türkmenistanda çäreler",
+                "Aşgabatdaky çäreler",
+                "Türkmenistanda forum guramak",
+                "Türkmenistan maýa goýumlar",
+                "Türkmenistanda konsalting täzelikleri",
+            ],
+        },
+        {
+            path: "/blog",
+            title: "Türkmenistanda konsalting we forum guramak barada blog | TMT Consulting Group",
+            description:
+                "TMT Consulting Group blogy: konsalting, Aşgabatda we Türkmenistanda biznes goldawy, daşary ýurt kompaniýalarynyň wekilçiligi, forum guramak we sanly çözgütler.",
+            priority: 0.7,
+            changeFrequency: "weekly",
+            keywords: [
+                "TMT Consulting Group blog",
+                "konsalting blogy",
+                "Türkmenistanda biznes",
+                "Türkmenistanda forum guramak",
+                "Türkmenistanda biznes wekilçiligi",
+            ],
+        },
+        {
+            path: "/vacancy",
+            title: "Türkmenistanda iş orunlary we tenderler | TMT Consulting Group",
+            description:
+                "Aşgabatda we Türkmenistanda TMT Consulting Group tarapyndan hünärmenler, kompaniýalar we hyzmatdaşlar üçin iş orunlary, tenderler we biznes mümkinçilikleri.",
+            priority: 0.65,
+            changeFrequency: "weekly",
+            keywords: [
+                "TMT Consulting Group iş orunlary",
+                "Türkmenistanda iş orunlary",
+                "Aşgabatda iş orunlary",
+                "Türkmenistanda tenderler",
+                "Aşgabat tenderler",
+            ],
+        },
+    ],
+};
+
+export function getSiteConfig(locale: Locale = defaultLocale) {
+    return siteConfigByLocale[locale];
+}
+
+export function getSeoKeywords(locale: Locale = defaultLocale) {
+    return seoKeywordsByLocale[locale];
+}
+
+export function getSeoRoutes(locale: Locale = defaultLocale) {
+    return seoRoutesByLocale[locale];
+}
+
+export function getSeoRoute(path: string, locale: Locale = defaultLocale) {
+    return getSeoRoutes(locale).find((route) => route.path === path);
+}
 
 export const siteJsonLd = {
     "@context": "https://schema.org",
@@ -317,6 +714,105 @@ export const siteJsonLd = {
         })),
     ],
 };
+
+export function getSiteJsonLd(locale: Locale = defaultLocale) {
+    const config = getSiteConfig(locale);
+    const routes = getSeoRoutes(locale);
+    const keywords = getSeoKeywords(locale);
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": ["Organization", "ProfessionalService"],
+                "@id": `${config.url}/#organization`,
+                name: config.name,
+                legalName: config.name,
+                alternateName: config.shortName,
+                slogan:
+                    locale === "en"
+                        ? "A bridge between capital and opportunity"
+                        : locale === "tm"
+                          ? "Maýa bilen mümkinçilikleriň arasyndaky köpri"
+                          : "Мост между капиталом и возможностью",
+                url: config.url,
+                logo: absoluteUrl("/images/logo.png"),
+                image: absoluteUrl("/images/logo.png"),
+                description: config.description,
+                email: config.email,
+                telephone: config.phone,
+                address: {
+                    "@type": "PostalAddress",
+                    ...config.address,
+                },
+                geo: {
+                    "@type": "GeoCoordinates",
+                    latitude: config.geo.latitude,
+                    longitude: config.geo.longitude,
+                },
+                sameAs: config.socialLinks,
+                knowsLanguage: ["ru", "en", "tk"],
+                areaServed: [
+                    {
+                        "@type": "Country",
+                        name: "Turkmenistan",
+                    },
+                    {
+                        "@type": "City",
+                        name: "Ashgabat",
+                    },
+                    {
+                        "@type": "Place",
+                        name: "Central Asia",
+                    },
+                ],
+                knowsAbout: keywords,
+                contactPoint: [
+                    {
+                        "@type": "ContactPoint",
+                        telephone: config.phone,
+                        email: config.email,
+                        contactType: "customer service",
+                        areaServed: "TM",
+                        availableLanguage: ["Russian", "English", "Turkmen"],
+                    },
+                ],
+            },
+            {
+                "@type": "WebSite",
+                "@id": `${config.url}/#website`,
+                url: config.url,
+                name: config.name,
+                description: config.description,
+                inLanguage: config.language,
+                publisher: {
+                    "@id": `${config.url}/#organization`,
+                },
+                hasPart: routes.map((route) => ({
+                    "@id": `${absoluteUrl(withLocalePath(route.path, locale))}#webpage`,
+                })),
+            },
+            ...routes.map((route) => ({
+                "@type": "WebPage",
+                "@id": `${absoluteUrl(withLocalePath(route.path, locale))}#webpage`,
+                url: absoluteUrl(withLocalePath(route.path, locale)),
+                name: route.title,
+                description: route.description,
+                inLanguage: config.language,
+                isPartOf: {
+                    "@id": `${config.url}/#website`,
+                },
+                about: {
+                    "@id": `${config.url}/#organization`,
+                },
+                primaryImageOfPage: {
+                    "@type": "ImageObject",
+                    url: absoluteUrl("/images/logo.png"),
+                },
+            })),
+        ],
+    };
+}
 
 export function absoluteUrl(path = "/") {
     return new URL(path, siteConfig.url).toString();

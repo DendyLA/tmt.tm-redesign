@@ -1,18 +1,66 @@
 "use client";
 import cn from "@/lib/utils/cn";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { menuItems } from "@/constants/constants";
-const languages = ["RU", "EN", "TM"];
+import { useEffect, useState, type MouseEvent } from "react";
+import { getMenuItems } from "@/constants/constants";
+import {
+    getLocaleFromPathname,
+    languageLabels,
+    locales,
+    type Locale,
+    withLocalePath,
+} from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 type HeaderProps = {
     className?: string;
 };
 
 export default function Header({ className = "fixed top-5 " }: HeaderProps) {
-    const [activeLang, setActiveLang] = useState("RU");
     const [isOpen, setIsOpen] = useState(false);
+    const [pendingLanguagePathname, setPendingLanguagePathname] = useState<
+        string | null
+    >(null);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const locale = getLocaleFromPathname(pathname);
+    const dictionary = getDictionary(locale);
+    const menuItems = getMenuItems(locale);
+    const search = searchParams.toString();
+
+    const getLanguageHref = (nextLocale: Locale) =>
+        withLocalePath(`${pathname}${search ? `?${search}` : ""}`, nextLocale);
+
+    const handleLanguageClick = (
+        event: MouseEvent<HTMLAnchorElement>,
+        nextLocale: Locale,
+    ) => {
+        if (
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            event.button !== 0
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+        setIsOpen(false);
+
+        if (nextLocale === locale) {
+            return;
+        }
+
+        const href = getLanguageHref(nextLocale);
+        const [nextPathname] = href.split("?");
+
+        setPendingLanguagePathname(nextPathname || `/${nextLocale}`);
+        router.push(href, { scroll: false });
+    };
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -21,6 +69,15 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
             document.body.style.overflow = "";
         };
     }, [isOpen]);
+
+    useEffect(() => {
+        if (!pendingLanguagePathname || pathname !== pendingLanguagePathname) {
+            return;
+        }
+
+        router.refresh();
+        setPendingLanguagePathname(null);
+    }, [pathname, pendingLanguagePathname, router]);
 
     return (
         <>
@@ -32,7 +89,7 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
             >
                 <button
                     type="button"
-                    aria-label="Открыть меню"
+                    aria-label={dictionary.common.openMenu}
                     aria-controls="mobile-menu"
                     aria-expanded={isOpen}
                     onClick={() => setIsOpen(true)}
@@ -54,22 +111,26 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
                 </nav>
 
                 <ul className="hidden shrink-0 items-center justify-center gap-3.5 lg:flex">
-                    {languages.map((lang) => {
-                        const isActive = activeLang === lang;
+                    {locales.map((lang) => {
+                        const isActive = locale === lang;
 
                         return (
                             <li key={lang}>
-                                <button
-                                    type="button"
-                                    onClick={() => setActiveLang(lang)}
+                                <a
+                                    href={getLanguageHref(lang)}
+                                    hrefLang={lang}
+                                    aria-current={isActive ? "page" : undefined}
+                                    onClick={(event) =>
+                                        handleLanguageClick(event, lang)
+                                    }
                                     className={`border-primary cursor-pointer rounded-[5px] border border-solid px-2.5 py-1 text-sm font-semibold transition duration-300 ${
                                         isActive
                                             ? "bg-primary text-white"
                                             : " text-primary hover:bg-primary bg-white hover:text-white"
-                                    }`}
+                                        }`}
                                 >
-                                    {lang}
-                                </button>
+                                    {languageLabels[lang]}
+                                </a>
                             </li>
                         );
                     })}
@@ -84,11 +145,11 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
                     <div className="flex items-center justify-end">
                         <button
                             type="button"
-                            aria-label="Закрыть меню"
+                            aria-label={dictionary.common.closeMenu}
                             onClick={() => setIsOpen(false)}
                             className="text-primary border-primary/30 font-main flex h-12 items-center justify-center gap-2 rounded-full border px-4 text-sm font-semibold"
                         >
-                            <span>Закрыть</span>
+                            <span>{dictionary.common.closeMenu}</span>
                             <X size={22} />
                         </button>
                     </div>
@@ -107,22 +168,28 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
                     </nav>
 
                     <ul className="mt-auto flex items-center gap-3 pb-3">
-                        {languages.map((lang) => {
-                            const isActive = activeLang === lang;
+                        {locales.map((lang) => {
+                            const isActive = locale === lang;
 
                             return (
                                 <li key={lang}>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveLang(lang)}
+                                    <a
+                                        href={getLanguageHref(lang)}
+                                        hrefLang={lang}
+                                        aria-current={
+                                            isActive ? "page" : undefined
+                                        }
+                                        onClick={(event) =>
+                                            handleLanguageClick(event, lang)
+                                        }
                                         className={`border-primary rounded-[5px] border border-solid px-3 py-1.5 text-sm font-semibold transition duration-300 ${
                                             isActive
                                                 ? "bg-primary text-white"
                                                 : "text-primary hover:bg-primary bg-white hover:text-white"
-                                        }`}
+                                            }`}
                                     >
-                                        {lang}
-                                    </button>
+                                        {languageLabels[lang]}
+                                    </a>
                                 </li>
                             );
                         })}

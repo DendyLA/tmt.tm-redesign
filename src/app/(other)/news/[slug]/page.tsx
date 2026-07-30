@@ -8,7 +8,10 @@ import NewsInfo from "@/component/sections/news/NewsInfo/NewsInfo";
 import NewsExtra from "@/component/sections/news/NewsExtra/NewsExtra";
 import NewsArticleJsonLd from "@/component/seo/NewsArticleJsonLd";
 import { getPostBySlug } from "@/services/posts/posts.service";
-import { absoluteMediaUrl, siteConfig } from "@/lib/seo/site";
+import { getApiLocale, withLocalePath } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { absoluteMediaUrl, getSiteConfig } from "@/lib/seo/site";
 import {
     createPageMetadata,
     stripHtml,
@@ -28,9 +31,13 @@ export async function generateMetadata({
     params,
 }: NewsPageProps): Promise<Metadata> {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const apiLocale = getApiLocale(locale);
+    const dictionary = getDictionary(locale);
+    const siteConfig = getSiteConfig(locale);
 
     try {
-        const post = await getPostBySlug({ slug, lang: "RU" });
+        const post = await getPostBySlug({ slug, lang: apiLocale });
         const title = post.translation?.title || post.title;
         const description = truncateText(
             stripHtml(
@@ -68,19 +75,23 @@ export async function generateMetadata({
                       },
                   ]
                 : undefined,
-            keywords: [title, "новости TMT Consulting Group"],
+            keywords: [title, dictionary.seo.newsKeyword],
+            locale,
         });
     } catch {
         return createPageMetadata({
-            title: `Новости | ${siteConfig.name}`,
+            title: `${dictionary.sections.news.title} | ${siteConfig.name}`,
             description: siteConfig.description,
             path: `/news/${slug}`,
+            locale,
         });
     }
 }
 
 export default async function NewsCurrent({ params }: NewsPageProps) {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
 
     return (
         <div className="bg-second-gradient-bottom py-12.5">
@@ -90,12 +101,12 @@ export default async function NewsCurrent({ params }: NewsPageProps) {
                     <Logo />
                 </div>
                 <SectionTop
-                    titleTop="НОВОСТИ"
-                    titleBottom="Будьте в курсе последних событий в Туркменистане."
+                    titleTop={dictionary.sections.news.title}
+                    titleBottom={dictionary.sections.news.subtitle}
                 />
-                <Link href="/news" className="mt-9 block">
+                <Link href={withLocalePath("/news", locale)} className="mt-9 block">
                     <button className="bg-button-gradient text-primary font-main flex h-12.25 w-90 items-center justify-start rounded-[10px] px-[37px] py-3.25 text-[20px] shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
-                        Вернуться к Новостям
+                        {dictionary.common.backToNews}
                     </button>
                 </Link>
                 <div className="mt-9.5 flex gap-10">

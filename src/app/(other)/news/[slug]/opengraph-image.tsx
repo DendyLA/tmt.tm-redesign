@@ -3,12 +3,15 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import { stripHtml, truncateText } from "@/lib/seo/metadata";
-import { siteConfig } from "@/lib/seo/site";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { getSiteConfig } from "@/lib/seo/site";
 import { getPostBySlug } from "@/services/posts/posts.service";
 
 export const runtime = "nodejs";
 
-export const alt = "Новость TMT Consulting Group";
+export const alt = "TMT Consulting Group news article";
 
 export const size = {
     width: 1200,
@@ -25,15 +28,21 @@ type ImageProps = {
 
 export default async function Image({ params }: ImageProps) {
     const { slug } = await params;
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+    const siteConfig = getSiteConfig(locale);
     const fontData = await readFile(
         join(process.cwd(), "public/fonts/Manrope-VariableFont.ttf"),
     );
 
-    let title = "Новости TMT Consulting Group";
+    let title = `${dictionary.sections.news.title} TMT Consulting Group`;
     let description = siteConfig.description;
 
     try {
-        const post = await getPostBySlug({ slug, lang: "RU" });
+        const post = await getPostBySlug({
+            slug,
+            lang: getApiLocale(locale),
+        });
 
         title = post.translation?.title || post.title || title;
         description = truncateText(
@@ -48,7 +57,7 @@ export default async function Image({ params }: ImageProps) {
         );
     } catch {
         description =
-            "Новости бизнеса, инвестиций и мероприятий в Туркменистане.";
+            dictionary.sections.news.subtitle;
     }
 
     return new ImageResponse(
@@ -75,7 +84,7 @@ export default async function Image({ params }: ImageProps) {
                 }}
             >
                 <span>{siteConfig.name}</span>
-                <span>Новости</span>
+                <span>{dictionary.sections.news.title}</span>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -111,7 +120,7 @@ export default async function Image({ params }: ImageProps) {
                     color: "#51618f",
                 }}
             >
-                <span>Консалтинг в Туркменистане</span>
+                <span>{dictionary.menu.services}</span>
                 <span>tmt.tm</span>
             </div>
         </div>,

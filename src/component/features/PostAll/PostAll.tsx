@@ -2,6 +2,8 @@ import cn from "@/lib/utils/cn";
 import { getPosts } from "@/services/posts/posts.service";
 import Link from "next/link";
 import NewsCard from "@/component/features/NewsList/NewsCard";
+import { getApiLocale, withLocalePath } from "@/lib/i18n/config";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type NewsAllProps = {
     className?: string;
@@ -16,10 +18,12 @@ export default async function PostAll({
     type,
     link,
 }: NewsAllProps) {
+    const locale = await getRequestLocale();
+    const apiLocale = getApiLocale(locale);
     const posts = await getPosts({
         page,
         limit: 9,
-        lang: "RU",
+        lang: apiLocale,
         type,
     });
 
@@ -53,13 +57,17 @@ export default async function PostAll({
                         item={item}
                         className="sm:mt-8 lg:mt-20"
                         link={link}
+                        locale={locale}
                     />
                 ))}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-7">
                 {page > 1 && (
-                    <Link href={`/${link}?page=${page - 1}`} className="h-10">
+                    <Link
+                        href={withLocalePath(`/${link}?page=${page - 1}`, locale)}
+                        className="h-10"
+                    >
                         <img
                             src="/icons/left-arrow-primary.svg"
                             alt="left-arrow-primary"
@@ -79,7 +87,7 @@ export default async function PostAll({
                     ) : (
                         <Link
                             key={item}
-                            href={`/${link}?page=${item}`}
+                            href={withLocalePath(`/${link}?page=${item}`, locale)}
                             className={
                                 page === item
                                     ? "bg-primary font-main flex h-7.25 w-6.75 items-center justify-center rounded-sm px-2 text-base font-semibold text-white"
@@ -92,7 +100,10 @@ export default async function PostAll({
                 )}
 
                 {page < totalPages && (
-                    <Link href={`/${link}?page=${page + 1}`} className="h-10">
+                    <Link
+                        href={withLocalePath(`/${link}?page=${page + 1}`, locale)}
+                        className="h-10"
+                    >
                         <img
                             src="/icons/right-arrow-primary.svg"
                             alt="right-arrow-primary"

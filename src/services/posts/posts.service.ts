@@ -1,5 +1,6 @@
 import { apiClient } from "../api/api-client";
 import type { PostResponse, Post } from "./posts.types";
+import { getApiLocaleCandidates } from "@/lib/i18n/config";
 
 type GetPostsProps = {
     page?: number;
@@ -14,28 +15,37 @@ export async function getPosts({
     lang = "RU",
     type,
 }: GetPostsProps = {}): Promise<PostResponse | null> {
-    const params = new URLSearchParams({
-        page: String(page),
-        limit: String(limit),
-        locale: lang.toUpperCase(),
-        deleted: "false",
-    });
+    for (const locale of getApiLocaleCandidates(lang)) {
+        const params = new URLSearchParams({
+            page: String(page),
+            limit: String(limit),
+            locale,
+            deleted: "false",
+        });
 
-    if (type) {
-        params.append("type", type);
+        if (type) {
+            params.append("type", type);
+        }
+
+        try {
+            const response = await apiClient<PostResponse>(
+                `/posts/public?${params.toString()}`,
+                {
+                    next: { revalidate: 300, tags: ["posts"] },
+                },
+            );
+
+            if (response?.data?.length || locale === "RU") {
+                return response;
+            }
+        } catch (error) {
+            if (locale === "RU") {
+                console.log(error);
+            }
+        }
     }
 
-    try {
-        return await apiClient<PostResponse>(
-            `/posts/public?${params.toString()}`,
-            {
-                next: { revalidate: 300, tags: ["posts"] },
-            },
-        );
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
+    return null;
 }
 
 type GetPostBySlugProps = {
@@ -44,15 +54,36 @@ type GetPostBySlugProps = {
     deleted?: boolean;
 };
 
-export function getPostBySlug({
+export async function getPostBySlug({
     slug,
     lang = "RU",
     deleted = false,
 }: GetPostBySlugProps): Promise<Post> {
-    return apiClient<Post>(
-        `/posts/public/${slug}?locale=${lang.toUpperCase()}&deleted=${deleted}`,
-        {
-            next: { revalidate: 300, tags: ["posts"] },
-        },
-    );
+    let fallbackPost: Post | null = null;
+    let lastError: unknown;
+
+    for (const locale of getApiLocaleCandidates(lang)) {
+        try {
+            const post = await apiClient<Post>(
+                `/posts/public/${slug}?locale=${locale}&deleted=${deleted}`,
+                {
+                    next: { revalidate: 300, tags: ["posts"] },
+                },
+            );
+
+            if (post.translation || locale === "RU") {
+                return post;
+            }
+
+            fallbackPost = post;
+        } catch (error) {
+            lastError = error;
+        }
+    }
+
+    if (fallbackPost) {
+        return fallbackPost;
+    }
+
+    throw lastError;
 }

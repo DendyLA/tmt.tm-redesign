@@ -4,14 +4,28 @@ import Button from "@/component/ui/Button/Button";
 import { mediaUrl } from "@/constants/constants";
 import type { Post } from "@/services/posts/posts.types";
 import cn from "@/lib/utils/cn";
+import {
+    defaultLocale,
+    hreflangByLocale,
+    type Locale,
+    withLocalePath,
+} from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 type NewsCardProps = {
     item: Post;
     link: "blog" | "news";
     className?: string;
+    locale?: Locale;
 };
 
-export default function NewsCard({ item, link, className }: NewsCardProps) {
+export default function NewsCard({
+    item,
+    link,
+    className,
+    locale = defaultLocale,
+}: NewsCardProps) {
+    const dictionary = getDictionary(locale);
     const disableOptimization = process.env.NODE_ENV === "development";
     const imageSrc = item.coverMedia?.url
         ? `${mediaUrl}${item.coverMedia.url}`
@@ -21,7 +35,9 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
 
     const title = item.translation?.title || item.title;
     const date = item.publishedAt
-        ? new Date(item.publishedAt).toLocaleDateString("ru-RU")
+        ? new Date(item.publishedAt).toLocaleDateString(
+              hreflangByLocale[locale],
+          )
         : "";
 
 
@@ -33,7 +49,7 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
             )}
         >
             <Link
-                href={`/${link}/${item.slug}`}
+                href={withLocalePath(`/${link}/${item.slug}`, locale)}
                 className="relative flex h-[55%] sm:h-[60%]"
             >
                 <Image
@@ -48,7 +64,7 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
 
             <div className="flex h-[45%] flex-col justify-between gap-4 bg-[#EEF2FF] px-4 py-5 sm:h-[40%] sm:gap-6 sm:px-5 sm:py-8">
                 <Link
-                    href={`/${link}/${item.slug}`}
+                    href={withLocalePath(`/${link}/${item.slug}`, locale)}
                     className="font-main text-dark hover:text-primary text-[17px] leading-6 font-semibold transition-colors duration-300 ease-in-out sm:text-[20px] sm:leading-normal"
                 >
                     <h3 className="wrap-break-word">{title.length > 80
@@ -57,9 +73,9 @@ export default function NewsCard({ item, link, className }: NewsCardProps) {
                 </Link>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                    <Link href={`/${link}/${item.slug}`}>
+                    <Link href={withLocalePath(`/${link}/${item.slug}`, locale)}>
                         <Button className="text-primary hover:bg-primary h-auto bg-white px-2.75 py-2 text-sm hover:text-white sm:h-6 sm:py-4 sm:text-base">
-                            Подробнее...
+                            {dictionary.common.readMore}
                         </Button>
                     </Link>
 

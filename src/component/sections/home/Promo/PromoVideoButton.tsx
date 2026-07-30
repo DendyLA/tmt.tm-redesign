@@ -7,10 +7,14 @@ import Button from "@/component/ui/Button/Button";
 import { mediaUrl } from "@/constants/constants";
 
 type PromoVideoButtonProps = {
+    label: string;
     videoUrl?: string | undefined;
 };
 
-export default function PromoVideoButton({ videoUrl }: PromoVideoButtonProps) {
+export default function PromoVideoButton({
+    label,
+    videoUrl,
+}: PromoVideoButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
 
@@ -62,7 +66,7 @@ export default function PromoVideoButton({ videoUrl }: PromoVideoButtonProps) {
                 icon={<Play size={30} fill="currentColor" />}
                 onClick={() => setIsOpen(true)}
             >
-                Смотреть IFT 2026
+                {label}
             </Button>
 
             {mounted && isOpen && createPortal(modal, document.body)}

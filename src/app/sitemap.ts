@@ -1,33 +1,130 @@
 import type { MetadataRoute } from "next";
 
 import { getPosts } from "@/services/posts/posts.service";
-import { absoluteMediaUrl, absoluteUrl, seoRoutes } from "@/lib/seo/site";
+import {
+    defaultLocale,
+    getApiLocale,
+    locales,
+    type Locale,
+    withLocalePath,
+} from "@/lib/i18n/config";
+import { absoluteMediaUrl, absoluteUrl, getSeoRoutes } from "@/lib/seo/site";
 import type { Post } from "@/services/posts/posts.types";
 import { getProject } from "@/services/projects/projects.service";
 import type { Project } from "@/services/projects/projects.types";
+import { getTenders } from "@/services/tenders/tenders.service";
+import type { TendersData } from "@/services/tenders/tenders.types";
+import { getVacancies } from "@/services/vacancy/vacancy.service";
+import type { VacancyData } from "@/services/vacancy/vacancy.types";
 
 const POST_SITEMAP_PAGE_SIZE = 20;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastModified = new Date();
-    const staticRoutes = seoRoutes.map((route) => ({
-        url: absoluteUrl(route.path),
-        lastModified,
-        changeFrequency: route.changeFrequency,
-        priority: route.priority,
-    }));
+    const staticRoutes = locales.flatMap((locale) =>
+        getSeoRoutes(locale).map((route) => ({
+            url: absoluteUrl(withLocalePath(route.path, locale)),
+            lastModified,
+            changeFrequency: route.changeFrequency,
+            priority: route.priority,
+        })),
+    );
 
     try {
-        const [newsRoutes, blogRoutes, projectRoutes] = await Promise.all([
-            getPostRoutesForSitemap("NEWS", "/news", 0.65, lastModified),
-            getPostRoutesForSitemap("BLOG", "/blog", 0.6, lastModified),
-            getProjectRoutesForSitemap(lastModified),
+        const [
+            newsRoutes,
+            blogRoutes,
+            projectRoutes,
+            vacancyRoutes,
+            tenderRoutes,
+        ] = await Promise.all([
+            getLocalizedRoutes((locale) =>
+                getPostRoutesForSitemap(
+                    "NEWS",
+                    "/news",
+                    0.65,
+                    lastModified,
+                    locale,
+                ),
+            ),
+            getLocalizedRoutes((locale) =>
+                getPostRoutesForSitemap(
+                    "BLOG",
+                    "/blog",
+                    0.6,
+                    lastModified,
+                    locale,
+                ),
+            ),
+            getLocalizedRoutes((locale) =>
+                getProjectRoutesForSitemap(lastModified, locale),
+            ),
+            getLocalizedRoutes((locale) =>
+                getVacancyRoutesForSitemap(lastModified, locale),
+            ),
+            getLocalizedRoutes((locale) =>
+                getTenderRoutesForSitemap(lastModified, locale),
+            ),
         ]);
 
-        return [...staticRoutes, ...newsRoutes, ...blogRoutes, ...projectRoutes];
+        return [
+            ...staticRoutes,
+            ...newsRoutes,
+            ...blogRoutes,
+            ...projectRoutes,
+            ...vacancyRoutes,
+            ...tenderRoutes,
+        ];
     } catch {
         return staticRoutes;
     }
+}
+
+async function getLocalizedRoutes(
+    getRoutes: (locale: Locale) => Promise<MetadataRoute.Sitemap>,
+) {
+    const routes = await Promise.all(locales.map((locale) => getRoutes(locale)));
+    return routes.flat();
+}
+
+async function getVacancyRoutesForSitemap(
+    fallbackLastModified: Date,
+    locale: Locale,
+): Promise<MetadataRoute.Sitemap> {
+    const vacancies = await getAllVacanciesForSitemap(locale);
+
+    return vacancies
+        .filter(
+            (vacancy) =>
+                vacancy.slug &&
+                hasRequestedLocale(vacancy.translation?.locale, locale),
+        )
+        .map((vacancy) => ({
+            url: absoluteUrl(withLocalePath(`/vacancy/${vacancy.slug}`, locale)),
+            lastModified: vacancy.createdAt || fallbackLastModified,
+            changeFrequency: "weekly" as const,
+            priority: 0.55,
+        }));
+}
+
+async function getTenderRoutesForSitemap(
+    fallbackLastModified: Date,
+    locale: Locale,
+): Promise<MetadataRoute.Sitemap> {
+    const tenders = await getAllTendersForSitemap(locale);
+
+    return tenders
+        .filter(
+            (tender) =>
+                tender.slug &&
+                hasRequestedLocale(tender.translation?.locale, locale),
+        )
+        .map((tender) => ({
+            url: absoluteUrl(withLocalePath(`/tender/${tender.slug}`, locale)),
+            lastModified: tender.createdAt || fallbackLastModified,
+            changeFrequency: "weekly" as const,
+            priority: 0.55,
+        }));
 }
 
 async function getPostRoutesForSitemap(
@@ -35,11 +132,17 @@ async function getPostRoutesForSitemap(
     basePath: "/news" | "/blog",
     priority: number,
     fallbackLastModified: Date,
+    locale: Locale,
 ): Promise<MetadataRoute.Sitemap> {
-    const posts = await getAllPostsForSitemap(type);
+    const posts = await getAllPostsForSitemap(type, locale);
 
     return posts
-        .filter((post) => post.slug && post.status === "PUBLISHED")
+        .filter(
+            (post) =>
+                post.slug &&
+                post.status === "PUBLISHED" &&
+                hasRequestedLocale(post.translation?.locale, locale),
+        )
         .map((post) => {
             const image = absoluteMediaUrl(
                 post.translation?.coverMedia?.url ||
@@ -49,7 +152,7 @@ async function getPostRoutesForSitemap(
             );
 
             return {
-                url: absoluteUrl(`${basePath}/${post.slug}`),
+                url: absoluteUrl(withLocalePath(`${basePath}/${post.slug}`, locale)),
                 lastModified:
                     post.updatedAt || post.publishedAt || fallbackLastModified,
                 changeFrequency: "weekly" as const,
@@ -61,16 +164,27 @@ async function getPostRoutesForSitemap(
 
 async function getProjectRoutesForSitemap(
     fallbackLastModified: Date,
+    locale: Locale,
 ): Promise<MetadataRoute.Sitemap> {
-    const projects = await getProject("tmt-consulting-group", "RU");
+    const projects = await getProject(
+        "tmt-consulting-group",
+        getApiLocale(locale),
+    );
 
     return projects
-        .filter((project) => project.slug && project.status === "PUBLISHED")
+        .filter(
+            (project) =>
+                project.slug &&
+                project.status === "PUBLISHED" &&
+                hasRequestedLocale(project.translations?.locale, locale),
+        )
         .map((project: Project) => {
             const image = absoluteMediaUrl(project.coverImage);
 
             return {
-                url: absoluteUrl(`/about-us/projects/${project.slug}`),
+                url: absoluteUrl(
+                    withLocalePath(`/about-us/projects/${project.slug}`, locale),
+                ),
                 lastModified: fallbackLastModified,
                 changeFrequency: "monthly" as const,
                 priority: 0.7,
@@ -79,7 +193,10 @@ async function getProjectRoutesForSitemap(
         });
 }
 
-async function getAllPostsForSitemap(type: "NEWS" | "BLOG"): Promise<Post[]> {
+async function getAllPostsForSitemap(
+    type: "NEWS" | "BLOG",
+    locale: Locale,
+): Promise<Post[]> {
     const posts: Post[] = [];
     let page = 1;
     let pages = 1;
@@ -88,7 +205,7 @@ async function getAllPostsForSitemap(type: "NEWS" | "BLOG"): Promise<Post[]> {
         const response = await getPosts({
             page,
             limit: POST_SITEMAP_PAGE_SIZE,
-            lang: "RU",
+            lang: getApiLocale(locale),
             type,
         });
 
@@ -102,4 +219,62 @@ async function getAllPostsForSitemap(type: "NEWS" | "BLOG"): Promise<Post[]> {
     } while (page <= pages);
 
     return posts;
+}
+
+async function getAllVacanciesForSitemap(
+    locale: Locale,
+): Promise<VacancyData[]> {
+    const vacancies: VacancyData[] = [];
+    let page = 1;
+    let pages = 1;
+
+    do {
+        const response = await getVacancies({
+            page,
+            locale: getApiLocale(locale),
+        });
+
+        if (!response?.data?.length) {
+            break;
+        }
+
+        vacancies.push(...response.data);
+        pages = response.meta?.pages ?? page;
+        page += 1;
+    } while (page <= pages);
+
+    return vacancies;
+}
+
+async function getAllTendersForSitemap(locale: Locale): Promise<TendersData[]> {
+    const tenders: TendersData[] = [];
+    let page = 1;
+    let pages = 1;
+
+    do {
+        const response = await getTenders({
+            page,
+            locale: getApiLocale(locale),
+        });
+
+        if (!response?.data?.length) {
+            break;
+        }
+
+        tenders.push(...response.data);
+        pages = response.meta?.pages ?? page;
+        page += 1;
+    } while (page <= pages);
+
+    return tenders;
+}
+
+function hasRequestedLocale(
+    translationLocale: string | null | undefined,
+    locale: Locale,
+) {
+    return (
+        locale === defaultLocale ||
+        translationLocale?.toUpperCase() === getApiLocale(locale)
+    );
 }

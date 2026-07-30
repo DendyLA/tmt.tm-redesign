@@ -5,11 +5,12 @@ type TendersTranslation = {
 }
 
 
-type TendersData = {
+export type TendersData = {
 	id: string;
 	sortOrder: number;
 	createdAt: string;
 	translation: TendersTranslation;	
+	slug:string;
 }
 
 type TendersMeta = {

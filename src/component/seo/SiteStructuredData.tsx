@@ -1,4 +1,5 @@
-import { siteJsonLd } from "@/lib/seo/site";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { getSiteJsonLd } from "@/lib/seo/site";
 
 type JsonLdScriptProps = {
     id: string;
@@ -17,6 +18,8 @@ export function JsonLdScript({ id, data }: JsonLdScriptProps) {
     );
 }
 
-export default function SiteStructuredData() {
-    return <JsonLdScript id="site-json-ld" data={siteJsonLd} />;
+export default async function SiteStructuredData() {
+    const locale = await getRequestLocale();
+
+    return <JsonLdScript id="site-json-ld" data={getSiteJsonLd(locale)} />;
 }

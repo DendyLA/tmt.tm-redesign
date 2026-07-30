@@ -7,23 +7,33 @@ import ContactsInfo from "@/component/sections/contacts/ContactsInfo/ContactsInf
 import ContactsForm from "@/component/sections/contacts/ContactsForm/ContactsForm";
 import ContactsMap from "@/component/sections/contacts/ContactsMap/ContactsMap";
 import ContactsBanner from "@/component/sections/contacts/ContactsBanner/ContactsBanner";
+import { ContactPageJsonLd } from "@/component/seo/PageStructuredData";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { seoRoutes } from "@/lib/seo/site";
+import { getSeoRoute } from "@/lib/seo/site";
 
-const contactsRoute = seoRoutes.find((route) => route.path === "/contacts")!;
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getRequestLocale();
+    const contactsRoute = getSeoRoute("/contacts", locale)!;
 
-export const metadata: Metadata = createPageMetadata(contactsRoute);
+    return createPageMetadata({ ...contactsRoute, locale });
+}
 
 export default async function Contacts() {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+
     return (
         <div className="bg-main-gradient-top py-8 sm:py-12.5">
+            <ContactPageJsonLd />
             <Container>
                 <div className="flex justify-center sm:justify-start">
                     <Logo />
                 </div>
                 <SectionTop
-                    titleTop="КОНТАКТЫ"
-                    titleBottom="Будем рады сотрудничеству и новым партнёрствам."
+                    titleTop={dictionary.sections.contacts.title}
+                    titleBottom={dictionary.sections.contacts.subtitle}
                     className="mt-6 sm:mt-0"
                 />
                 <div className="px-0 xl:px-35">

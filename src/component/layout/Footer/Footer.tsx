@@ -1,8 +1,13 @@
 import Image from "next/image";
 import Container from "../Container/Container";
 import Slogan from "@/component/ui/Slogan/Slogan";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 
-export default function Footer() {
+export default async function Footer() {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+
     return (
         <footer className="py-8 sm:py-11">
             <Container>
@@ -15,16 +20,18 @@ export default function Footer() {
                             alt="TMT Consulting Group"
                             className="h-auto w-52 sm:w-[245px]"
                         />
-                        <Slogan className="text-primary font-main text-xs leading-5" />
+                        <Slogan
+                            text={dictionary.common.slogan}
+                            className="text-primary font-main text-xs leading-5"
+                        />
                         <div className="text-primary max-w-83.75 text-left text-[13px] leading-5 font-normal">
-                            Ведущая консалтинговая группа в Центральной Азии.
-                            Инвестиции. Форумы. Партнёрства. B2G.
+                            {dictionary.footer.description}
                         </div>
                     </div>
 
                     <div className="flex max-w-full flex-col gap-4 sm:gap-6">
                         <div className="font-main text-dark text-[15px] font-bold uppercase">
-                            Контакты
+                            {dictionary.footer.contacts}
                         </div>
                         <div className="text-primary font-main flex flex-col gap-4 text-base">
                             <a
@@ -63,7 +70,7 @@ export default function Footer() {
 
                 <div className="border-primary/40 mt-8 flex flex-col gap-5 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
                     <div className="text-primary font-main text-sm leading-5">
-                        © 2026 TMT Consulting Group · Все права защищены
+                        © 2026 TMT Consulting Group · {dictionary.footer.rights}
                     </div>
                     <div className="flex items-center gap-3">
                         <a

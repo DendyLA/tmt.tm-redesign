@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
 
-import { absoluteUrl, seoKeywords, siteConfig } from "./site";
+import {
+    defaultLocale,
+    getLocaleAlternates,
+    hreflangByLocale,
+    type Locale,
+    withLocalePath,
+} from "@/lib/i18n/config";
+import {
+    absoluteUrl,
+    getSeoKeywords,
+    getSiteConfig,
+    siteConfig,
+} from "./site";
 
 type PageMetadataOptions = {
     title: string;
@@ -16,6 +28,7 @@ type PageMetadataOptions = {
     type?: "website" | "article";
     publishedTime?: string | null;
     modifiedTime?: string | null;
+    locale?: Locale;
 };
 
 export function createPageMetadata({
@@ -27,10 +40,21 @@ export function createPageMetadata({
     type = "website",
     publishedTime,
     modifiedTime,
+    locale = defaultLocale,
 }: PageMetadataOptions): Metadata {
-    const canonical = absoluteUrl(path);
+    const localizedPath = withLocalePath(path, locale);
+    const canonical = absoluteUrl(localizedPath);
     const openGraphImages = images;
-    const metadataKeywords = Array.from(new Set([...seoKeywords, ...keywords]));
+    const localizedSiteConfig = getSiteConfig(locale);
+    const metadataKeywords = Array.from(
+        new Set([...getSeoKeywords(locale), ...keywords]),
+    );
+    const languageAlternates = Object.fromEntries(
+        Object.entries(getLocaleAlternates(path)).map(([key, value]) => [
+            key,
+            absoluteUrl(value),
+        ]),
+    );
 
     const openGraph: NonNullable<Metadata["openGraph"]> =
         type === "article"
@@ -38,42 +62,44 @@ export function createPageMetadata({
                   title,
                   description,
                   url: canonical,
-                  siteName: siteConfig.name,
-                  locale: siteConfig.locale,
+                  siteName: localizedSiteConfig.name,
+                  locale: localizedSiteConfig.locale,
                   type: "article",
                   publishedTime: publishedTime ?? undefined,
                   modifiedTime: modifiedTime ?? undefined,
-                  authors: [siteConfig.name],
+                  authors: [localizedSiteConfig.name],
                   ...(openGraphImages ? { images: openGraphImages } : {}),
               }
             : {
                   title,
                   description,
                   url: canonical,
-                  siteName: siteConfig.name,
-                  locale: siteConfig.locale,
+                  siteName: localizedSiteConfig.name,
+                  locale: localizedSiteConfig.locale,
                   type: "website",
                   ...(openGraphImages ? { images: openGraphImages } : {}),
               };
 
     return {
-        metadataBase: new URL(siteConfig.url),
+        metadataBase: new URL(localizedSiteConfig.url),
         title,
         description,
-        applicationName: siteConfig.name,
+        applicationName: localizedSiteConfig.name,
         generator: "Next.js",
         referrer: "origin-when-cross-origin",
         keywords: metadataKeywords,
-        authors: [{ name: siteConfig.name, url: siteConfig.url }],
-        creator: siteConfig.name,
-        publisher: siteConfig.name,
+        authors: [
+            { name: localizedSiteConfig.name, url: localizedSiteConfig.url },
+        ],
+        creator: localizedSiteConfig.name,
+        publisher: localizedSiteConfig.name,
         category: "business consulting",
         classification:
             "Consulting, investment consulting, web development, design, events, foreign business representation in Turkmenistan",
         alternates: {
             canonical,
             languages: {
-                "ru-RU": canonical,
+                ...languageAlternates,
                 "x-default": canonical,
             },
         },
@@ -136,11 +162,12 @@ export function createPageMetadata({
         other: {
             "geo.region": "TM-S",
             "geo.placename": "Ashgabat, Turkmenistan",
-            ICBM: `${siteConfig.geo.latitude}, ${siteConfig.geo.longitude}`,
+            ICBM: `${localizedSiteConfig.geo.latitude}, ${localizedSiteConfig.geo.longitude}`,
             "business:contact_data:country_name": "Turkmenistan",
             "business:contact_data:locality": "Ashgabat",
-            "business:contact_data:email": siteConfig.email,
-            "business:contact_data:phone_number": siteConfig.phone,
+            "business:contact_data:email": localizedSiteConfig.email,
+            "business:contact_data:phone_number": localizedSiteConfig.phone,
+            "content-language": hreflangByLocale[locale],
         },
     };
 }

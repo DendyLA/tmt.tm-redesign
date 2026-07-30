@@ -1,4 +1,6 @@
 import cn from "@/lib/utils/cn";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 import Image from "next/image";
 
@@ -6,14 +8,11 @@ type TourismMainProps = {
     className?: string;
 };
 
-export default function TourismMain({ className }: TourismMainProps) {
-    const tourismPoints = [
-        "Авиабилеты и проживание",
-        "Гастрономические приключения",
-        "Местные туры и гиды",
-        "Индивидуальные путешествия",
-        "Туристическая фотосъемка",
-    ];
+export default async function TourismMain({ className }: TourismMainProps) {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
+    const tourismPoints = dictionary.tourism.points;
+    const tourismText = dictionary.tourism.text.split("\n");
 
     return (
         <section
@@ -24,18 +23,20 @@ export default function TourismMain({ className }: TourismMainProps) {
         >
             <div className="flex w-full flex-col gap-6 xl:max-w-[58%] min-[1800px]:max-w-[60%] min-[1800px]:gap-11">
                 <h1 className="font-main text-primary text-[26px] leading-tight font-bold sm:text-[30px] xl:text-[32px]">
-                    ТУРЫ ПО ТУРКМЕНИСТАНУ:
+                    {dictionary.tourism.heading}
                 </h1>
                 <p className="font-main text-dark text-base leading-7 font-medium sm:text-[20px] sm:leading-8 lg:text-[24px] xl:text-[22px] min-[1800px]:text-[28px] min-[1800px]:leading-normal">
-                    TMT Travel — это надежный и профессиональный партнер в сфере
-                    путешествий с высококвалифицированной командой, стремящейся
-                    к совершенству. Мы специализируемся на создании безупречных,
-                    хорошо организованных и незабываемых путешествий. <br />
-                    <br />
-                    Благодаря сильной страсти к гостеприимству и вниманию к
-                    каждой детали, мы гарантируем, что каждое путешествие будет
-                    уникальным, вдохновляющим и по-настоящему запоминающимся для
-                    наших гостей.
+                    {tourismText.map((line, index) => (
+                        <span key={line || index}>
+                            {line}
+                            {index < tourismText.length - 1 && (
+                                <>
+                                    <br />
+                                    <br />
+                                </>
+                            )}
+                        </span>
+                    ))}
                 </p>
                 <div className="flex w-full max-w-237.5 flex-col items-center gap-6 rounded-[20px] bg-white px-5 py-6 sm:px-8 sm:py-7 lg:flex-row lg:justify-center lg:gap-10 xl:px-8 min-[1800px]:gap-28.75 min-[1800px]:px-12.5">
                     <Image
@@ -69,7 +70,7 @@ export default function TourismMain({ className }: TourismMainProps) {
             <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 xl:relative xl:block xl:h-[560px] xl:w-[520px] xl:max-w-[38%] min-[1800px]:h-175 min-[1800px]:w-175 min-[1800px]:max-w-[40%]">
                 <Image
                     src="/images/tourism/darvaza.png"
-                    alt=""
+                    alt={dictionary.tourism.imageAlt[0]}
                     width={363}
                     height={324}
                     className="h-52 w-full rounded-3xl object-cover sm:h-60 xl:absolute xl:-top-6 xl:right-0 xl:h-auto xl:w-[300px] min-[1800px]:-top-10 min-[1800px]:w-auto"
@@ -77,7 +78,7 @@ export default function TourismMain({ className }: TourismMainProps) {
 
                 <Image
                     src="/images/tourism/mausoleum.png"
-                    alt=""
+                    alt={dictionary.tourism.imageAlt[1]}
                     width={316}
                     height={312}
                     className="h-52 w-full rounded-3xl object-cover sm:h-60 xl:absolute xl:top-40 xl:left-0 xl:z-10 xl:h-auto xl:w-[280px] min-[1800px]:top-50 min-[1800px]:w-auto"
@@ -85,7 +86,7 @@ export default function TourismMain({ className }: TourismMainProps) {
 
                 <Image
                     src="/images/tourism/kutlug.png"
-                    alt=""
+                    alt={dictionary.tourism.imageAlt[2]}
                     width={363}
                     height={324}
                     className="h-52 w-full rounded-3xl object-cover sm:h-60 xl:absolute xl:right-0 xl:bottom-0 xl:h-auto xl:w-[300px] min-[1800px]:w-auto"

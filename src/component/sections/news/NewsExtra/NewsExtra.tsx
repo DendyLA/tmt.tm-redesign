@@ -3,16 +3,21 @@ import { getPosts } from "@/services/posts/posts.service";
 import Image from "next/image";
 import { mediaUrl } from "@/constants/constants";
 import Advertising from "@/component/ui/Advertising/Advertising";
+import { getApiLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 type NewsExtraProps = {
     className?: string;
 };
 
 export default async function NewsExtra({ className }: NewsExtraProps) {
+    const locale = await getRequestLocale();
+    const dictionary = getDictionary(locale);
     const posts = await getPosts({
         page: 1,
         limit: 4,
-        lang: "RU",
+        lang: getApiLocale(locale),
         type: "NEWS",
     });
 
@@ -22,7 +27,7 @@ export default async function NewsExtra({ className }: NewsExtraProps) {
         <div className={cn("flex flex-col gap-29", className)}>
             <div className="rounded-[10px] bg-[linear-gradient(90deg,rgba(254,247,242,0.2)_0%,rgba(232,101,10,0.2)_100%)] px-4 py-6 shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
                 <div className="font-main text-primary flex justify-center text-[24px] font-semibold">
-                    Последние Новости
+                    {dictionary.sections.news.latest}
                 </div>
                 <div className="mt-10 flex flex-col gap-11">
                     {news.map((item, index) => {
@@ -40,7 +45,11 @@ export default async function NewsExtra({ className }: NewsExtraProps) {
                                     src={imageSrc}
                                     width={250}
                                     height={163}
-                                    alt="Image"
+                                    alt={
+                                        item.translation?.title ||
+                                        item.title ||
+                                        `${dictionary.sections.news.title} TMT Consulting Group`
+                                    }
                                     className="w-[30%] object-cover"
                                 />
                                 <div className="font-main text-primary flex w-[70%] items-center justify-start px-15 py-10 text-left text-[20px] font-semibold">
