@@ -1,4 +1,4 @@
-type ProjectsTranslation = {
+export type ProjectsTranslation = {
     locale: string;
     title: string;
     description: string | null;
@@ -17,7 +17,14 @@ export type Project = {
     description: string | null;
     coverImage: string;
     status: string;
-    translations: ProjectsTranslation;
+    translations?: ProjectsTranslation[];
+    translation?: ProjectsTranslation | null;
     tags: ProjectsTags[];
     slug: string;
+    gallery?: {
+        id: string;
+        url: string;
+        altText: string | null;
+        title: string | null;
+    }[];
 };

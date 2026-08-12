@@ -41,7 +41,7 @@ export default async function Tours({ className }: ToursProps) {
                         <div
                             key={index}
                             className={cn(
-                                "relative flex flex-col gap-4 xl:min-h-[330px] xl:flex-row xl:gap-0 min-[1800px]:min-h-[405px]",
+                                "relative flex flex-col gap-4 xl:min-h-[330px] xl:flex-row xl:gap-0 min-[1800px]:min-h-[405px] overflow-hidden",
                                 isReversed && "xl:justify-end",
                             )}
                         >
@@ -50,11 +50,11 @@ export default async function Tours({ className }: ToursProps) {
                                 title={item?.translation?.title}
                                 descr={item?.translation?.description}
                                 index={index}
-                                className="w-full max-w-full xl:w-[50%] xl:max-w-none min-[1800px]:w-[900px] min-[1800px]:max-w-225"
+                                className="w-full max-w-full xl:w-[50%] xl:max-w-none min-[1800px]:w-[900px] min-[1800px]:max-w-225 "
                             />
                             <div
                                 className={cn(
-                                    "relative z-0 overflow-hidden rounded-[10px] xl:absolute xl:-top-7 xl:w-[55%] xl:overflow-visible min-[1800px]:w-[994px]",
+                                    "relative z-0 overflow-hidden rounded-[10px] xl:absolute xl:-top-7 xl:w-[55%] xl:overflow-visible min-[1800px]:w-[994px] ",
                                     isReversed
                                         ? "xl:left-0"
                                         : "xl:right-0 min-[1800px]:right-30",

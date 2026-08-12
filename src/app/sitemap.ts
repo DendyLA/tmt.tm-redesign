@@ -176,7 +176,7 @@ async function getProjectRoutesForSitemap(
             (project) =>
                 project.slug &&
                 project.status === "PUBLISHED" &&
-                hasRequestedLocale(project.translations?.locale, locale),
+                hasRequestedLocale(project.translation?.locale, locale),
         )
         .map((project: Project) => {
             const image = absoluteMediaUrl(project.coverImage);

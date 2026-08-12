@@ -6,6 +6,7 @@ import Advertising from "@/component/ui/Advertising/Advertising";
 import { getApiLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getRequestLocale } from "@/lib/i18n/server";
+import Link from "next/link";
 
 type NewsExtraProps = {
     className?: string;
@@ -37,25 +38,27 @@ export default async function NewsExtra({ className }: NewsExtraProps) {
                               ? `${mediaUrl}${item.translation.coverMedia.url}`
                               : "/images/news-placeholder.png";
                         return (
-                            <div
-                                className="flex h-40.5 w-full overflow-hidden rounded-[10px] bg-[#FEF4EE]"
-                                key={index}
-                            >
-                                <Image
-                                    src={imageSrc}
-                                    width={250}
-                                    height={163}
-                                    alt={
-                                        item.translation?.title ||
-                                        item.title ||
-                                        `${dictionary.sections.news.title} TMT Consulting Group`
-                                    }
-                                    className="w-[30%] object-cover"
-                                />
-                                <div className="font-main text-primary flex w-[70%] items-center justify-start px-15 py-10 text-left text-[20px] font-semibold">
-                                    {item?.translation?.title}
-                                </div>
-                            </div>
+							<Link href={`/news/${item.slug}`} key={index} className="w-full">
+								<div
+									className="flex h-40.5 w-full overflow-hidden rounded-[10px] bg-[#FEF4EE]"
+								>
+									<Image
+										src={imageSrc}
+										width={250}
+										height={163}
+										alt={
+											item.translation?.title ||
+											item.title ||
+											`${dictionary.sections.news.title} TMT Consulting Group`
+										}
+										className="w-[30%] object-cover"
+									/>
+									<div className="font-main text-primary flex w-[70%] items-center justify-start px-15 py-10 text-left text-[20px] font-semibold">
+										{item?.translation?.title}
+									</div>
+								</div>
+							</Link>
+                            
                         );
                     })}
                 </div>

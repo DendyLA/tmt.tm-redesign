@@ -22,9 +22,9 @@ export default async function Home() {
         <div className="">
             <Promo />
             <Ticker items={[...dictionary.home.ticker]} />
-            <div className="relative pt-10">
+            <div className=" pt-10">
                 <Suspense fallback={null}>
-                    <Header className="fixed top-3 right-4 translate-x-0 sm:top-7.5 lg:sticky lg:right-auto lg:left-1/2 lg:mx-0 lg:-translate-x-1/2" />
+                    <Header className="fixed top-3 right-4 translate-x-0 sm:top-7.5 lg:right-auto lg:left-1/2 lg:mx-0 lg:-translate-x-1/2" />
                 </Suspense>
                 <About />
                 {/* <Advertising className="mt-10" /> */}

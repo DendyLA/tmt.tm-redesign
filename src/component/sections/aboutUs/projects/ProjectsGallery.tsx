@@ -10,16 +10,21 @@ import Image from "next/image";
 import { mediaUrl } from "@/constants/constants";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
+import type { Project } from "@/services/projects/projects.types";
+import { getProjectTitle } from "@/services/projects/projects.utils";
 
 type ProjectsGalleryProps = {
-    project: any;
+    project: Project | null;
     locale: Locale;
 };
 
 export default function ProjectsGallery({ project, locale }: ProjectsGalleryProps) {
+    if (!project) {
+        return null;
+    }
+
     const dictionary = getDictionary(locale);
-    const projectTitle =
-        project.translation?.title || project.translations?.title || project.title;
+    const projectTitle = getProjectTitle(project);
 
     return (
         <div className="min-h-137,5 mt-10">
@@ -44,7 +49,7 @@ export default function ProjectsGallery({ project, locale }: ProjectsGalleryProp
                 className="py-10"
             >
                 {project.gallery ? (
-                    project.gallery.map((image: any) => (
+                    project.gallery.map((image) => (
                         <SwiperSlide key={image.id} className="w-175!">
                             <Image
                                 src={`${mediaUrl}${image.url}`}

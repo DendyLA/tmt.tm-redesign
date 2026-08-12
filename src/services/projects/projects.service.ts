@@ -32,25 +32,28 @@ export async function getProjectBySlug(
     company: string,
     lang: string,
     project: string,
-): Promise<Project[]> {
+): Promise<Project | null> {
     for (const locale of getApiLocaleCandidates(lang)) {
         try {
-            const projectData = await apiClient<Project[]>(
+            const projectData = await apiClient<Project | Project[]>(
                 `/companies/${company}/projects/${project}?locale=${locale}&deleted=false`,
                 {
                     next: { revalidate: 300, tags: ["projects"] },
                 },
             );
+            const normalizedProject = Array.isArray(projectData)
+                ? (projectData[0] ?? null)
+                : projectData;
 
-            if (projectData.length || locale === "RU") {
-                return projectData;
+            if (normalizedProject || locale === "RU") {
+                return normalizedProject;
             }
         } catch {
             if (locale === "RU") {
-                return [];
+                return null;
             }
         }
     }
 
-    return [];
+    return null;
 }

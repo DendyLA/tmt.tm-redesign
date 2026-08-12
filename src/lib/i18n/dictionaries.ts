@@ -203,7 +203,7 @@ export const dictionaries = {
             message: "Сообщение",
             messagePlaceholder: "Расскажите, чем мы можем вам помочь...",
             submit: "Отправить сообщение",
-            bannerTitle: "Заинтересованы в сотрудечестве?",
+            bannerTitle: "Заинтересованы в сотрудничестве?",
             bannerText:
                 "Давайте обсудим, как мы можем помочь вашему бизнесу развиваться и расти.",
             bannerCta: "Подробнее о наших услугах",
@@ -236,7 +236,7 @@ export const dictionaries = {
     en: {
         menu: {
             home: "Home",
-            about: "About",
+            about: "About Us",
             services: "Services",
             tourism: "Tourism",
             blog: "Blog",
@@ -257,7 +257,7 @@ export const dictionaries = {
             vacancy: "Vacancy",
             tender: "Tender",
             apply: "Apply",
-            slogan: "Inspire · Connect · Grow",
+            slogan: "Inspire · Unite · Grow",
             advertisingAlt: "TMT Consulting Group advertisement",
             projectPhotoAlt: "Project photo",
         },
@@ -307,7 +307,7 @@ export const dictionaries = {
             },
             about: {
                 title: "ABOUT US",
-                subtitle: "A bridge between capital and opportunity",
+                subtitle: "The Bridge Between Capital and Opportunity",
                 projectsTitle: "OUR PROJECTS",
                 projectsSubtitle: "Selected projects we are proud of.",
             },
@@ -346,8 +346,8 @@ export const dictionaries = {
             ],
             promo: {
                 location: "Turkmenistan · Central Asia · Global reach",
-                subtitle: "Your partner in Turkmenistan",
-                cta: "Start cooperation",
+                subtitle: "Your Partner in Turkmenistan",
+                cta: "Partner with us",
                 video: "Watch IFT 2026",
             },
             about: {
@@ -357,7 +357,7 @@ export const dictionaries = {
                 text:
                     "is a consulting company specializing in foreign investment support, international cooperation development and business event management in Central Asia. We provide end-to-end support for investment and business projects, helping companies enter regional markets efficiently and build long-term partnerships.",
                 advantages: [
-                    "Direct access to government institutions in Turkmenistan",
+                    "Direct access to government agencies in Turkmenistan",
                     "Own network of 500+ investors and partners",
                     "Organizer of the flagship IFT forum",
                     "Full-cycle support from idea to deal",
@@ -379,8 +379,8 @@ export const dictionaries = {
             },
             news: {
                 label: "NEWS",
-                darkText: "What is",
-                primaryText: "new",
+                darkText: "What's",
+                primaryText: "New",
                 cta: "All news",
             },
             contact: {

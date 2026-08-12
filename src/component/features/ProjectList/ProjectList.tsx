@@ -4,6 +4,7 @@ import cn from "@/lib/utils/cn";
 import { mediaUrl } from "@/constants/constants";
 import { getApiLocale, withLocalePath } from "@/lib/i18n/config";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { getProjectTitle } from "@/services/projects/projects.utils";
 
 type projectsListProps = {
     className?: string;
@@ -20,9 +21,11 @@ export default async function ProjectList({ className }: projectsListProps) {
     return (
         <ul className="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-10 xl:grid-cols-5 xl:gap-14">
             {projects.map((project, index) => {
+                const title = getProjectTitle(project);
+
                 return (
                     <a
-                        key={project.slug ?? project.title ?? index}
+                        key={project.slug ?? title ?? index}
                         href={withLocalePath(
                             `/about-us/projects/${project.slug}`,
                             locale,
@@ -41,7 +44,7 @@ export default async function ProjectList({ className }: projectsListProps) {
                             <div className="relative h-28 w-full sm:h-37.5">
                                 <Image
                                     src={`${mediaUrl}${project.coverImage}`}
-                                    alt={project.title}
+                                    alt={title}
                                     fill
                                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 320px"
                                     unoptimized={disableOptimization}
@@ -56,7 +59,7 @@ export default async function ProjectList({ className }: projectsListProps) {
                                         : "text-dark",
                                 )}
                             >
-                                {project.title}
+                                {title}
                             </h3>
                         </li>
                     </a>

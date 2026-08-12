@@ -55,6 +55,7 @@ export default async function Vacancy({ searchParams }: PageProps) {
                     titleBottom={dictionary.sections.vacancy.subtitle}
                     className="mt-6 sm:mt-0"
                 />
+				
             </Container>
             <Suspense fallback={null}>
                 <VacancyMain

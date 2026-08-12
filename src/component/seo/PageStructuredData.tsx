@@ -1,6 +1,10 @@
 import getServices from "@/services/service/service.service";
 import getTours from "@/services/tours/tours.service";
 import type { Project } from "@/services/projects/projects.types";
+import {
+    getProjectDescription,
+    getProjectTitle,
+} from "@/services/projects/projects.utils";
 import type { Tenders, TendersData } from "@/services/tenders/tenders.types";
 import type { Vacancy, VacancyData } from "@/services/vacancy/vacancy.types";
 import {
@@ -258,16 +262,9 @@ export function ProjectJsonLd({
     }
 
     const typedProject = projectData as ProjectLike;
-    const title =
-        typedProject.translation?.title ||
-        typedProject.translations?.title ||
-        typedProject.title;
+    const title = getProjectTitle(typedProject);
     const description = truncateText(
-        stripHtml(
-            typedProject.translation?.description ||
-                typedProject.translations?.description ||
-                typedProject.description,
-        ),
+        stripHtml(getProjectDescription(typedProject)),
         220,
     );
 

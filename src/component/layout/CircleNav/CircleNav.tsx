@@ -1,8 +1,12 @@
 import Image from "next/image";
-import { menuItems } from "@/constants/constants";
+import { getMenuItems } from "@/constants/constants";
 import Link from "next/link";
+import { getRequestLocale } from "@/lib/i18n/server";
 
-export default function CircleNav() {
+export default async function CircleNav() {
+    const locale = await getRequestLocale();
+    const menuItems = getMenuItems(locale);
+
     return (
         <nav className="pointer-events-none absolute top-0 right-0 hidden h-full w-[42vw] min-w-105 overflow-visible xl:block">
             <Image

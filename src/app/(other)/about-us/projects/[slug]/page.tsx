@@ -5,6 +5,10 @@ import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
 import ProjectsGallery from "@/component/sections/aboutUs/projects/ProjectsGallery";
 import { getProjectBySlug } from "@/services/projects/projects.service";
+import {
+    getProjectDescription,
+    getProjectTitle,
+} from "@/services/projects/projects.utils";
 import ProjectContent from "@/component/sections/aboutUs/projects/ProjectContent";
 import { ProjectJsonLd } from "@/component/seo/PageStructuredData";
 import { getApiLocale } from "@/lib/i18n/config";
@@ -23,16 +27,6 @@ type AboutUsProps = {
     }>;
 };
 
-type ProjectSeoData = {
-    title?: string;
-    description?: string | null;
-    coverImage?: string | null;
-    translation?: {
-        title?: string | null;
-        description?: string | null;
-    } | null;
-};
-
 export async function generateMetadata({
     params,
 }: AboutUsProps): Promise<Metadata> {
@@ -43,24 +37,22 @@ export async function generateMetadata({
     const siteConfig = getSiteConfig(locale);
 
     try {
-        const project = (await getProjectBySlug(
+        const project = await getProjectBySlug(
             "tmt-consulting-group",
             apiLocale,
             slug,
-        )) as unknown as ProjectSeoData;
+        );
 
         const title =
-            project.translation?.title ||
-            project.title ||
+            getProjectTitle(project) ||
             `${dictionary.sections.about.projectsTitle} TMT Consulting Group`;
         const description = truncateText(
             stripHtml(
-                project.translation?.description ||
-                    project.description ||
+                getProjectDescription(project) ||
                     dictionary.sections.about.projectsSubtitle,
             ),
         );
-        const image = absoluteMediaUrl(project.coverImage);
+        const image = absoluteMediaUrl(project?.coverImage);
 
         return createPageMetadata({
             title: `${title} | ${dictionary.seo.projectsLabel} TMT Consulting Group`,
