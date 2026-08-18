@@ -1,28 +1,45 @@
 import { apiClient } from "../api/api-client";
+import { getApiLocaleCandidates } from "@/lib/i18n/config";
 
 import type { Tag } from "./tags.types";
 
 
 type getTagsProps = {
-	exact: boolean;
+	exact?: boolean;
+	locale?: string;
 	scope?: 'VACANCY' | 'GENERAL' | 'POST' | 'PROJECT';
 }
 
-export async function getTags({ scope, exact = false }: getTagsProps): Promise<Tag[] | null>{
+export async function getTags({ scope, exact = false, locale }: getTagsProps): Promise<Tag[] | null>{
 
 
-	try{
-		const params = new URLSearchParams({
-			exact: exact.toString(),
-		});
+	const localeCandidates = locale ? getApiLocaleCandidates(locale) : [null];
 
-		if(scope) {
-			params.set('scope', scope)
+	for (const candidateLocale of localeCandidates) {
+		try{
+			const params = new URLSearchParams({
+				exact: exact.toString(),
+			});
+
+			if(scope) {
+				params.set('scope', scope)
+			}
+
+			if(candidateLocale) {
+				params.set('locale', candidateLocale)
+			}
+
+			const tags = await apiClient<Tag[]>(`/tags?${params.toString()}`)
+
+			if (tags.length || candidateLocale === "RU" || !candidateLocale) {
+				return tags;
+			}
+		}catch(error){
+			if (candidateLocale === "RU" || !candidateLocale) {
+				console.log(error);
+			}
 		}
-
-		return await apiClient(`/tags?${params.toString()}`)
-	}catch(error){
-		console.log(error);
-		return null;
 	}
+
+	return null;
 }

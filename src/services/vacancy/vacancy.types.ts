@@ -16,11 +16,17 @@ export type VacancyTag = {
 
 export type VacancyData = {
 	id: string;
+	title: string;
+	description: string;
+	requirements: string;
+	location: string;
 	contactEmail: string;
 	salary?: string;
 	status: string;
 	createdAt: string;
-	translation: VacancyTranslation;
+	updatedAt?: string;
+	translation?: VacancyTranslation | null;
+	translations?: VacancyTranslation[];
 	tags: VacancyTag[];
 	slug: string;
 }

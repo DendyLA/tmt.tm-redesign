@@ -13,6 +13,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getSeoRoute } from "@/lib/seo/site";
+import VacancyRegisterBtn from "@/component/ui/VacancyRegisterBtn/VacancyRegisterBtn";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRequestLocale();
@@ -47,14 +48,16 @@ export default async function Vacancy({ searchParams }: PageProps) {
                 locale={locale}
             />
             <Container>
-                <div className="flex justify-center sm:justify-start">
+                <div className="flex justify-between items-center sm:justify-between">
                     <Logo />
+					<VacancyRegisterBtn/>
                 </div>
                 <SectionTop
                     titleTop={dictionary.sections.vacancy.title}
                     titleBottom={dictionary.sections.vacancy.subtitle}
                     className="mt-6 sm:mt-0"
                 />
+				
 				
             </Container>
             <Suspense fallback={null}>

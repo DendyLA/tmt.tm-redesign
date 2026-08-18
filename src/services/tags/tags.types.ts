@@ -4,8 +4,9 @@ type TagTranslation = {
 }
 
 export type Tag = {
+	id: string;
 	scope: 'VACANCY' | 'GENERAL' | 'POST' | 'PROJECT';
 	name: string;
 	slug: string;
-	translation: TagTranslation;
+	translation?: TagTranslation | null;
 }

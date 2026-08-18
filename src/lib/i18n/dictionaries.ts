@@ -216,6 +216,7 @@ export const dictionaries = {
         vacancy: {
             vacancies: "Вакансии",
             tenders: "Тендеры",
+            employerCta: "Стать нанимателем",
             allCategories: "Все категории",
             allRegions: "Все регионы",
             categories: "Категории:",
@@ -224,7 +225,195 @@ export const dictionaries = {
             noTenders: "На данный момент нет тендеров.",
             description: "описание",
             requirements: "Требования",
+            register: {
+                title: "Зарегистрироваться",
+                description:
+                    "Создайте аккаунт, чтобы размещать вакансии и находить лучших специалистов для вашей компании.",
+                email: "Электронная почта",
+                emailPlaceholder: "example@gmail.com",
+                password: "Пароль",
+                passwordHint:
+                    "* Пароль должен содержать не менее 6 символов, включая буквы и цифры.",
+                termsStart: "Я согласен с",
+                privacy: "Политикой Конфиденциальности",
+                termsMiddle: "и",
+                terms: "Условиями использования",
+                submit: "Зарегистрироваться",
+                hasAccount: "Уже есть аккаунт?",
+                login: "Войти",
+                success:
+                    "Аккаунт создан. Проверьте почту, чтобы подтвердить регистрацию.",
+                errors: {
+                    fields: "Заполните электронную почту и пароль.",
+                    terms: "Подтвердите согласие с условиями.",
+                    password:
+                        "Пароль должен содержать не менее 6 символов.",
+                    exists: "Этот email уже зарегистрирован.",
+                    failed:
+                        "Не удалось зарегистрироваться. Попробуйте позже.",
+                    network:
+                        "Не удалось подключиться к серверу. Попробуйте позже.",
+                },
+            },
+            login: {
+                title: "Войти",
+                description:
+                    "Войдите в аккаунт, чтобы размещать вакансии и находить лучших специалистов для вашей компании.",
+                email: "Электронная почта",
+                emailPlaceholder: "example@gmail.com",
+                password: "Пароль",
+                forgotPassword: "Забыли пароль?",
+                submit: "Войти",
+                noAccount: "Нету аккаунта?",
+                signup: "Зарегистрироваться",
+                success: "Вход выполнен.",
+                errors: {
+                    fields: "Заполните электронную почту и пароль.",
+                    password:
+                        "Пароль должен содержать не менее 6 символов.",
+                    credentials: "Неверная электронная почта или пароль.",
+                    banned: "Этот аккаунт заблокирован.",
+                    failed: "Не удалось войти. Попробуйте позже.",
+                    network:
+                        "Не удалось подключиться к серверу. Попробуйте позже.",
+                },
+            },
+            verifyEmail: {
+                title: "Подтвердите почту",
+                sentTitle: "Письмо отправлено",
+                sentText:
+                    "Мы отправили ссылку для подтверждения на вашу электронную почту.",
+                spamText:
+                    "Если письма нет, проверьте папку «Спам» или отправьте ссылку ещё раз.",
+                verifiedTitle: "Почта подтверждена",
+                verifiedText:
+                    "Email подтверждён. Теперь вы можете пользоваться аккаунтом.",
+                failedTitle: "Не удалось подтвердить почту",
+                failedText:
+                    "Ссылка недействительна или срок её действия истёк.",
+                resend: "Отправить письмо ещё раз",
+                resent: "Письмо отправлено повторно.",
+                login: "Войти",
+                vacancies: "Перейти к вакансиям",
+                errors: {
+                    unauthorized:
+                        "Войдите в аккаунт, чтобы отправить письмо повторно.",
+                    failed:
+                        "Не удалось отправить письмо. Попробуйте позже.",
+                    network:
+                        "Не удалось подключиться к серверу. Попробуйте позже.",
+                },
+            },
+            reset: {
+                back: "Назад",
+                title: "Введите почту",
+                email: "Электронная почта",
+                emailPlaceholder: "example@gmail.com",
+                submit: "Далее",
+                noAccount: "Нету аккаунта?",
+                signup: "Зарегистрироваться",
+                success:
+                    "Если аккаунт с такой почтой существует, мы отправим инструкцию для восстановления.",
+                errors: {
+                    email: "Введите корректную электронную почту.",
+                    failed:
+                        "Не удалось отправить письмо. Попробуйте позже.",
+                },
+                create: {
+                    title: "Создайте пароль",
+                    successTitle: "Пароль обновлен",
+                    newPassword: "Новый пароль",
+                    confirmPassword: "Подтвердите Пароль",
+                    passwordHint:
+                        "* Пароль должен содержать не менее 6 символов, включая буквы и цифры.",
+                    submit: "Создать",
+                    success:
+                        "Пароль обновлен. Теперь вы можете войти в аккаунт.",
+                    errors: {
+                        token: "Ссылка для сброса пароля недействительна.",
+                        password:
+                            "Пароль должен содержать не менее 6 символов.",
+                        match: "Пароли должны совпадать.",
+                        failed:
+                            "Не удалось обновить пароль. Попробуйте позже.",
+                    },
+                },
+            },
             regionsList: ["Ашхабад", "Ахал", "Мары", "Лебап", "Дашогуз", "Балкан"],
+        },
+        profile: {
+            title: "Профиль",
+            description: "Профиль пользователя TMT Consulting Group",
+            statusMessages: {
+                registered:
+                    "Аккаунт создан. Мы отправили письмо для подтверждения email.",
+                "email-verified": "Email подтверждён.",
+                "vacancy-created":
+                    "Вакансия создана и отправлена на модерацию.",
+                "vacancy-updated":
+                    "Вакансия обновлена и отправлена на модерацию.",
+                "vacancy-deleted": "Вакансия удалена.",
+            },
+            errors: {
+                "vacancy-delete":
+                    "Не удалось удалить вакансию. Попробуйте позже.",
+            },
+            vacancies: {
+                title: "Управление вакансиями",
+                subtitle: "Добавляйте, редактируйте и управляйте вакансиями.",
+                add: "Добавить вакансию",
+                edit: "Редактировать",
+                delete: "Удалить",
+                deleteConfirm: {
+                    title: "Удалить вакансию?",
+                    text: "Вы уверены, что хотите удалить эту вакансию? Она исчезнет из вашего кабинета.",
+                    cancel: "Отмена",
+                    submit: "Удалить",
+                },
+                empty: "У вас пока нет вакансий.",
+                noCategory: "—",
+                previous: "Предыдущая страница",
+                next: "Следующая страница",
+                regions: ["Ашхабад", "Ахал", "Мары", "Лебап", "Дашогуз", "Балкан"],
+                columns: {
+                    position: "Должность",
+                    category: "Категория",
+                    location: "Локация",
+                    date: "Дата",
+                    status: "Статус",
+                    actions: "Действия",
+                },
+                statuses: {
+                    APPROVED: "Опубликована",
+                    PENDING: "На модерации",
+                    DRAFT: "Черновик",
+                    REJECTED: "Отклонена",
+                    ARCHIVED: "Архив",
+                },
+                form: {
+                    createTitle: "Добавить вакансию",
+                    editTitle: "Редактировать вакансию",
+                    subtitle: "Заполните данные вакансии.",
+                    back: "Назад",
+                    title: "Должность",
+                    category: "Категория",
+                    selectCategory: "Выберите категорию",
+                    location: "Локация",
+                    selectLocation: "Выберите локацию",
+                    contactEmail: "Контактная почта",
+                    salary: "Зарплата",
+                    description: "Описание",
+                    requirements: "Требования",
+                    createSubmit: "Создать вакансию",
+                    editSubmit: "Сохранить изменения",
+                    errors: {
+                        fields: "Заполните все обязательные поля.",
+                        email: "Введите корректную электронную почту.",
+                        failed:
+                            "Не удалось сохранить вакансию. Попробуйте позже.",
+                    },
+                },
+            },
         },
         footer: {
             description:
@@ -447,6 +636,7 @@ export const dictionaries = {
         vacancy: {
             vacancies: "Vacancies",
             tenders: "Tenders",
+            employerCta: "Become an employer",
             allCategories: "All categories",
             allRegions: "All regions",
             categories: "Categories:",
@@ -455,7 +645,192 @@ export const dictionaries = {
             noTenders: "There are no tenders at the moment.",
             description: "description",
             requirements: "Requirements",
+            register: {
+                title: "Register",
+                description:
+                    "Create an account to publish vacancies and find the best specialists for your company.",
+                email: "Email",
+                emailPlaceholder: "example@gmail.com",
+                password: "Password",
+                passwordHint:
+                    "* Password must contain at least 6 characters, including letters and numbers.",
+                termsStart: "I agree with the",
+                privacy: "Privacy Policy",
+                termsMiddle: "and",
+                terms: "Terms of Use",
+                submit: "Register",
+                hasAccount: "Already have an account?",
+                login: "Log in",
+                success:
+                    "Account created. Check your email to confirm registration.",
+                errors: {
+                    fields: "Fill in email and password.",
+                    terms: "Please accept the terms.",
+                    password:
+                        "Password must contain at least 6 characters.",
+                    exists: "This email is already registered.",
+                    failed: "Could not register. Please try again later.",
+                    network:
+                        "Could not connect to the server. Please try again later.",
+                },
+            },
+            login: {
+                title: "Log in",
+                description:
+                    "Log in to publish vacancies and find the best specialists for your company.",
+                email: "Email",
+                emailPlaceholder: "example@gmail.com",
+                password: "Password",
+                forgotPassword: "Forgot password?",
+                submit: "Log in",
+                noAccount: "No account?",
+                signup: "Register",
+                success: "You are logged in.",
+                errors: {
+                    fields: "Fill in email and password.",
+                    password:
+                        "Password must contain at least 6 characters.",
+                    credentials: "Invalid email or password.",
+                    banned: "This account is blocked.",
+                    failed: "Could not log in. Please try again later.",
+                    network:
+                        "Could not connect to the server. Please try again later.",
+                },
+            },
+            verifyEmail: {
+                title: "Confirm email",
+                sentTitle: "Verification email sent",
+                sentText:
+                    "We have sent a confirmation link to your email address.",
+                spamText:
+                    "If you do not see the email, check your spam folder or send the link again.",
+                verifiedTitle: "Email confirmed",
+                verifiedText:
+                    "Your email has been confirmed. You can now use your account.",
+                failedTitle: "Could not confirm email",
+                failedText:
+                    "The confirmation link is invalid or has expired.",
+                resend: "Send email again",
+                resent: "Verification email sent again.",
+                login: "Log in",
+                vacancies: "Go to vacancies",
+                errors: {
+                    unauthorized:
+                        "Log in to your account to send the email again.",
+                    failed: "Could not send the email. Please try again later.",
+                    network:
+                        "Could not connect to the server. Please try again later.",
+                },
+            },
+            reset: {
+                back: "Back",
+                title: "Enter email",
+                email: "Email",
+                emailPlaceholder: "example@gmail.com",
+                submit: "Next",
+                noAccount: "No account?",
+                signup: "Register",
+                success:
+                    "If an account with this email exists, we will send password recovery instructions.",
+                errors: {
+                    email: "Enter a valid email address.",
+                    failed: "Could not send the email. Please try again later.",
+                },
+                create: {
+                    title: "Create password",
+                    successTitle: "Password updated",
+                    newPassword: "New password",
+                    confirmPassword: "Confirm password",
+                    passwordHint:
+                        "* Password must contain at least 6 characters, including letters and numbers.",
+                    submit: "Create",
+                    success:
+                        "Password updated. You can now log in to your account.",
+                    errors: {
+                        token: "The password reset link is invalid.",
+                        password:
+                            "Password must contain at least 6 characters.",
+                        match: "Passwords must match.",
+                        failed:
+                            "Could not update password. Please try again later.",
+                    },
+                },
+            },
             regionsList: ["Ashgabat", "Ahal", "Mary", "Lebap", "Dashoguz", "Balkan"],
+        },
+        profile: {
+            title: "Profile",
+            description: "TMT Consulting Group user profile",
+            statusMessages: {
+                registered:
+                    "Account created. We have sent an email confirmation link.",
+                "email-verified": "Email confirmed.",
+                "vacancy-created":
+                    "Vacancy created and sent for moderation.",
+                "vacancy-updated":
+                    "Vacancy updated and sent for moderation.",
+                "vacancy-deleted": "Vacancy deleted.",
+            },
+            errors: {
+                "vacancy-delete":
+                    "Could not delete the vacancy. Please try again later.",
+            },
+            vacancies: {
+                title: "Vacancy management",
+                subtitle: "Add, edit, and manage vacancies.",
+                add: "Add vacancy",
+                edit: "Edit",
+                delete: "Delete",
+                deleteConfirm: {
+                    title: "Delete vacancy?",
+                    text: "Are you sure you want to delete this vacancy? It will disappear from your dashboard.",
+                    cancel: "Cancel",
+                    submit: "Delete",
+                },
+                empty: "You do not have vacancies yet.",
+                noCategory: "—",
+                previous: "Previous page",
+                next: "Next page",
+                regions: ["Ashgabat", "Ahal", "Mary", "Lebap", "Dashoguz", "Balkan"],
+                columns: {
+                    position: "Position",
+                    category: "Category",
+                    location: "Location",
+                    date: "Date",
+                    status: "Status",
+                    actions: "Actions",
+                },
+                statuses: {
+                    APPROVED: "Published",
+                    PENDING: "In moderation",
+                    DRAFT: "Draft",
+                    REJECTED: "Rejected",
+                    ARCHIVED: "Archived",
+                },
+                form: {
+                    createTitle: "Add vacancy",
+                    editTitle: "Edit vacancy",
+                    subtitle: "Fill in vacancy details.",
+                    back: "Back",
+                    title: "Position",
+                    category: "Category",
+                    selectCategory: "Select category",
+                    location: "Location",
+                    selectLocation: "Select location",
+                    contactEmail: "Contact email",
+                    salary: "Salary",
+                    description: "Description",
+                    requirements: "Requirements",
+                    createSubmit: "Create vacancy",
+                    editSubmit: "Save changes",
+                    errors: {
+                        fields: "Fill in all required fields.",
+                        email: "Enter a valid email address.",
+                        failed:
+                            "Could not save the vacancy. Please try again later.",
+                    },
+                },
+            },
         },
         footer: {
             description:
@@ -678,6 +1053,7 @@ export const dictionaries = {
         vacancy: {
             vacancies: "Iş orunlary",
             tenders: "Tenderler",
+            employerCta: "Iş beriji bolmak",
             allCategories: "Ähli kategoriýalar",
             allRegions: "Ähli sebitler",
             categories: "Kategoriýalar:",
@@ -686,7 +1062,192 @@ export const dictionaries = {
             noTenders: "Häzirki wagtda tender ýok.",
             description: "beýany",
             requirements: "Talaplar",
+            register: {
+                title: "Hasaba alynmak",
+                description:
+                    "Wakansiýalary ýerleşdirmek we kompaniýaňyz üçin iň gowy hünärmenleri tapmak üçin hasap dörediň.",
+                email: "Elektron poçta",
+                emailPlaceholder: "example@gmail.com",
+                password: "Açar söz",
+                passwordHint:
+                    "* Açar söz azyndan 6 belgiden, harplardan we sanlardan ybarat bolmaly.",
+                termsStart: "Men",
+                privacy: "Gizlinlik syýasaty",
+                termsMiddle: "we",
+                terms: "Ulanyş şertleri",
+                submit: "Hasaba alynmak",
+                hasAccount: "Hasabyňyz barmy?",
+                login: "Girmek",
+                success:
+                    "Hasap döredildi. Hasaba alyşy tassyklamak üçin poçtaňyzy barlaň.",
+                errors: {
+                    fields: "Elektron poçtany we açar sözi dolduryň.",
+                    terms: "Şertler bilen razylygyňyzy tassyklaň.",
+                    password: "Açar söz azyndan 6 belgiden ybarat bolmaly.",
+                    exists: "Bu email eýýäm hasaba alnan.",
+                    failed: "Hasaba almak başartmady. Biraz soň synanyşyň.",
+                    network:
+                        "Serwere birikmek başartmady. Biraz soň synanyşyň.",
+                },
+            },
+            login: {
+                title: "Girmek",
+                description:
+                    "Wakansiýalary ýerleşdirmek we kompaniýaňyz üçin iň gowy hünärmenleri tapmak üçin hasabyňyza giriň.",
+                email: "Elektron poçta",
+                emailPlaceholder: "example@gmail.com",
+                password: "Açar söz",
+                forgotPassword: "Açar sözi unutdyňyzmy?",
+                submit: "Girmek",
+                noAccount: "Hasabyňyz ýokmy?",
+                signup: "Hasaba alynmak",
+                success: "Giriş ýerine ýetirildi.",
+                errors: {
+                    fields: "Elektron poçtany we açar sözi dolduryň.",
+                    password: "Açar söz azyndan 6 belgiden ybarat bolmaly.",
+                    credentials: "Elektron poçta ýa-da açar söz nädogry.",
+                    banned: "Bu hasap petiklendi.",
+                    failed: "Girmek başartmady. Biraz soň synanyşyň.",
+                    network:
+                        "Serwere birikmek başartmady. Biraz soň synanyşyň.",
+                },
+            },
+            verifyEmail: {
+                title: "Poçtany tassyklaň",
+                sentTitle: "Tassyklama haty ugradyldy",
+                sentText:
+                    "Elektron poçtaňyza tassyklama baglanyşygyny iberdik.",
+                spamText:
+                    "Hat görünmese, «Spam» bukjasyny barlaň ýa-da baglanyşygy täzeden iberiň.",
+                verifiedTitle: "Poçta tassyklandy",
+                verifiedText:
+                    "Email tassyklandy. Indi hasabyňyzy ulanyp bilersiňiz.",
+                failedTitle: "Poçtany tassyklap bolmady",
+                failedText:
+                    "Tassyklama baglanyşygy nädogry ýa-da möhleti gutaran.",
+                resend: "Haty täzeden ibermek",
+                resent: "Tassyklama haty täzeden ugradyldy.",
+                login: "Girmek",
+                vacancies: "Wakansiýalara geçmek",
+                errors: {
+                    unauthorized:
+                        "Haty täzeden ibermek üçin hasabyňyza giriň.",
+                    failed:
+                        "Haty ibermek başartmady. Biraz soň synanyşyň.",
+                    network:
+                        "Serwere birikmek başartmady. Biraz soň synanyşyň.",
+                },
+            },
+            reset: {
+                back: "Yza",
+                title: "Poçtaňyzy giriziň",
+                email: "Elektron poçta",
+                emailPlaceholder: "example@gmail.com",
+                submit: "Indiki",
+                noAccount: "Hasabyňyz ýokmy?",
+                signup: "Hasaba alynmak",
+                success:
+                    "Bu email bilen hasap bar bolsa, dikeltmek boýunça görkezme ibereris.",
+                errors: {
+                    email: "Dogry elektron poçta giriziň.",
+                    failed:
+                        "Haty ibermek başartmady. Biraz soň synanyşyň.",
+                },
+                create: {
+                    title: "Açar söz dörediň",
+                    successTitle: "Açar söz täzelendi",
+                    newPassword: "Täze açar söz",
+                    confirmPassword: "Açar sözi tassyklaň",
+                    passwordHint:
+                        "* Açar söz azyndan 6 belgiden, harplardan we sanlardan ybarat bolmaly.",
+                    submit: "Döretmek",
+                    success:
+                        "Açar söz täzelendi. Indi hasabyňyza girip bilersiňiz.",
+                    errors: {
+                        token:
+                            "Açar sözi dikeltmek üçin baglanyşyk nädogry.",
+                        password: "Açar söz azyndan 6 belgiden ybarat bolmaly.",
+                        match: "Açar sözler gabat gelmeli.",
+                        failed:
+                            "Açar sözi täzelemek başartmady. Biraz soň synanyşyň.",
+                    },
+                },
+            },
             regionsList: ["Aşgabat", "Ahal", "Mary", "Lebap", "Daşoguz", "Balkan"],
+        },
+        profile: {
+            title: "Profil",
+            description: "TMT Consulting Group ulanyjy profili",
+            statusMessages: {
+                registered:
+                    "Hasap döredildi. Email tassyklama hatyny iberdik.",
+                "email-verified": "Email tassyklandy.",
+                "vacancy-created":
+                    "Wakansiýa döredildi we moderasiýa iberildi.",
+                "vacancy-updated":
+                    "Wakansiýa täzelendi we moderasiýa iberildi.",
+                "vacancy-deleted": "Wakansiýa öçürildi.",
+            },
+            errors: {
+                "vacancy-delete":
+                    "Wakansiýany öçürmek başartmady. Biraz soň synanyşyň.",
+            },
+            vacancies: {
+                title: "Wakansiýalary dolandyrmak",
+                subtitle: "Wakansiýalary goşuň, redaktirläň we dolandyryň.",
+                add: "Wakansiýa goşmak",
+                edit: "Redaktirlemek",
+                delete: "Öçürmek",
+                deleteConfirm: {
+                    title: "Wakansiýany öçürmelimi?",
+                    text: "Bu wakansiýany öçürmek isleýändigiňize ynamyňyz barmy? Ol kabinetiňizden aýrylar.",
+                    cancel: "Ýatyrmak",
+                    submit: "Öçürmek",
+                },
+                empty: "Sizde entek wakansiýa ýok.",
+                noCategory: "—",
+                previous: "Öňki sahypa",
+                next: "Indiki sahypa",
+                regions: ["Aşgabat", "Ahal", "Mary", "Lebap", "Daşoguz", "Balkan"],
+                columns: {
+                    position: "Wezipe",
+                    category: "Kategoriýa",
+                    location: "Ýerleşýän ýeri",
+                    date: "Sene",
+                    status: "Status",
+                    actions: "Hereketler",
+                },
+                statuses: {
+                    APPROVED: "Çap edildi",
+                    PENDING: "Moderasiýada",
+                    DRAFT: "Garalama",
+                    REJECTED: "Ret edildi",
+                    ARCHIVED: "Arhiw",
+                },
+                form: {
+                    createTitle: "Wakansiýa goşmak",
+                    editTitle: "Wakansiýany redaktirlemek",
+                    subtitle: "Wakansiýanyň maglumatlaryny dolduryň.",
+                    back: "Yza",
+                    title: "Wezipe",
+                    category: "Kategoriýa",
+                    selectCategory: "Kategoriýany saýlaň",
+                    location: "Ýerleşýän ýeri",
+                    selectLocation: "Ýeri saýlaň",
+                    contactEmail: "Habarlaşmak üçin email",
+                    salary: "Aýlyk",
+                    description: "Beýany",
+                    requirements: "Talaplar",
+                    createSubmit: "Wakansiýa döretmek",
+                    editSubmit: "Üýtgetmeleri saklamak",
+                    errors: {
+                        fields: "Ähli hökmany meýdanlary dolduryň.",
+                        email: "Dogry elektron poçta giriziň.",
+                        failed:
+                            "Wakansiýany saklamak başartmady. Biraz soň synanyşyň.",
+                    },
+                },
+            },
         },
         footer: {
             description:
