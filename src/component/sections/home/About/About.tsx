@@ -2,12 +2,17 @@ import SectionLabel from "@/component/ui/SectionLabel/SectionLabel";
 import Container from "@/component/layout/Container/Container";
 import SectionTitle from "@/component/ui/SectionTitle/SectionTitle";
 import AboutFeatures from "@/component/features/AboutFeatures/AboutFeatures";
+import { mediaUrl } from "@/constants/constants";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { getPromoSettings } from "@/services/promos/promo.service";
 
 export default async function About() {
     const locale = await getRequestLocale();
     const dictionary = getDictionary(locale);
+    const promos = await getPromoSettings("companySlug=tmt-consulting-group");
+    const promoMediaUrl = promos?.[0]?.media?.url;
+    const promoUrl = promoMediaUrl ? `${mediaUrl}${promoMediaUrl}` : undefined;
 
     return (
         <section className="bg-main-gradient-to py-20 lg:py-40">
@@ -32,6 +37,15 @@ export default async function About() {
                         className="justify-end lg:w-1/2"
                     />
                 </div>
+				{promoUrl && (
+					<video
+						src={promoUrl}
+						controls
+						playsInline
+						preload="metadata"
+						className="mx-auto w-full max-w-[1000px] rounded-[20px] bg-black mt-20"
+					/>
+				)}
             </Container>
         </section>
     );

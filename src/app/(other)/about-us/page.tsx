@@ -4,6 +4,7 @@ import SectionTop from "@/component/ui/SectionTop/SectionTop";
 import Logo from "@/component/ui/Logo/Logo";
 import Container from "@/component/layout/Container/Container";
 import AboutMain from "@/component/sections/aboutUs/AboutMain";
+import CertificatesSection from "@/component/sections/aboutUs/CertificatesSection";
 import ProjectList from "@/component/features/ProjectList/ProjectList";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getRequestLocale } from "@/lib/i18n/server";
@@ -41,6 +42,12 @@ export default async function AboutUs() {
                 <div className="mt-8 sm:mt-10">
                     <ProjectList />
                 </div>
+                <CertificatesSection
+                    titleTop={dictionary.sections.about.certificatesTitle}
+                    titleBottom={dictionary.sections.about.certificatesSubtitle}
+                />
+
+
             </Container>
         </div>
     );

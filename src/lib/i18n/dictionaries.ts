@@ -79,6 +79,9 @@ export const dictionaries = {
                 projectsTitle: "НАШИ ПРОЕКТЫ",
                 projectsSubtitle:
                     "Реализованные проекты, которыми мы гордимся.",
+                certificatesTitle: "СЕРТИФИКАТЫ И ПАРТНЁРСТВА",
+                certificatesSubtitle:
+                    "Подтверждения экспертизы, доверия и международного сотрудничества TMT Consulting Group.",
             },
             services: {
                 title: "УСЛУГИ ДИЗАЙНА И IT",
@@ -499,6 +502,9 @@ export const dictionaries = {
                 subtitle: "The Bridge Between Capital and Opportunity",
                 projectsTitle: "OUR PROJECTS",
                 projectsSubtitle: "Selected projects we are proud of.",
+                certificatesTitle: "CERTIFICATES AND PARTNERSHIPS",
+                certificatesSubtitle:
+                    "Proof of TMT Consulting Group expertise, trust and international cooperation.",
             },
             services: {
                 title: "DESIGN AND IT SERVICES",
@@ -916,6 +922,9 @@ export const dictionaries = {
                 subtitle: "Maýa bilen mümkinçilikleriň arasyndaky köpri",
                 projectsTitle: "TASLAMALARYMYZ",
                 projectsSubtitle: "Buýsanýan amala aşyran taslamalarymyz.",
+                certificatesTitle: "SERTIFIKATLAR WE HYZMATDAŞLYKLAR",
+                certificatesSubtitle:
+                    "TMT Consulting Group tejribesini, ynamy we halkara hyzmatdaşlygy tassyklaýan resminamalar.",
             },
             services: {
                 title: "DIZAÝN WE IT HYZMATLARY",
