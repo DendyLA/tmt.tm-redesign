@@ -1,7 +1,7 @@
 import Container from "@/component/layout/Container/Container";
 import Promo from "@/component/sections/home/Promo/Promo";
 import Ticker from "@/component/ui/Ticker/Ticker";
-import Header from "@/component/layout/Header/Header";
+import HeaderWithForum from "@/component/layout/Header/HeaderWithForum";
 import About from "@/component/sections/home/About/About";
 import Advertising from "@/component/ui/Advertising/Advertising";
 import OurServices from "@/component/sections/home/OurServices/OurServices";
@@ -24,10 +24,10 @@ export default async function Home() {
             <Ticker items={[...dictionary.home.ticker]} />
             <div className=" pt-10">
                 <Suspense fallback={null}>
-                    <Header className="fixed top-3 right-4 translate-x-0 sm:top-7.5 lg:right-auto lg:left-1/2 lg:mx-0 lg:-translate-x-1/2" />
+                    <HeaderWithForum />
                 </Suspense>
                 <About />
-                {/* <Advertising className="mt-10" /> */}
+                <Advertising className="mt-10" />
                 <OurServices />
                 <Projects />
                 <News />

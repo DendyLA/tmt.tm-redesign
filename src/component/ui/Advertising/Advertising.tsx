@@ -19,7 +19,8 @@ export default async function Advertising({ className }: AdvertisingProps) {
         location: "home.about",
         lang: getApiLocale(locale),
     });
-    const adImg = ads[0]?.ad.translation?.imageUrl;
+    const ad = ads[0]?.ad;
+    const adImg = ad?.translation?.imageUrl || ad?.imageUrl;
 
     if (!adImg) {
         return null;
@@ -28,7 +29,7 @@ export default async function Advertising({ className }: AdvertisingProps) {
     return (
         <Container>
             <a
-                href={ads[0].ad.targetUrl ? ads[0].ad.targetUrl : "#"}
+                href={ad.targetUrl || "#"}
                 target="_blank"
                 className="block h-54 w-full"
             >

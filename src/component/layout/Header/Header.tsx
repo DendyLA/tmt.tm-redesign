@@ -12,17 +12,22 @@ import {
     type Locale,
     withLocalePath,
 } from "@/lib/i18n/config";
+import { mediaUrl } from "@/constants/constants";
+import { featuredForumSlug } from "@/services/forums/forums.constants";
+import { getForumSignupHref } from "@/services/forums/forums.utils";
+
 import { getDictionary } from "@/lib/i18n/dictionaries";
+
 
 type HeaderProps = {
     className?: string;
+    forumName?: string;
+    forumLogo?: string;
 };
 
-export default function Header({ className = "fixed top-5 " }: HeaderProps) {
+export default function Header({ className, forumName = "", forumLogo = "" }: HeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [pendingLanguagePathname, setPendingLanguagePathname] = useState<
-        string | null
-    >(null);
+    const [pendingLanguagePathname, setPendingLanguagePathname] = useState<string | null>(null);
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -30,6 +35,15 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
     const dictionary = getDictionary(locale);
     const menuItems = getMenuItems(locale);
     const search = searchParams.toString();
+    const isForumSignupPage = pathname.includes("/forums/signup");
+    const isForumDetailPage =
+        pathname.includes("/forums/") && !isForumSignupPage;
+    const forumCtaHref = isForumDetailPage
+        ? getForumSignupHref(pathname.split("/").filter(Boolean).at(-1) || featuredForumSlug, locale)
+        : withLocalePath(`/forums/${featuredForumSlug}`, locale);
+    const forumCtaLabel = isForumDetailPage
+        ? dictionary.common.forumDelegateCta
+        : dictionary.common.forumInfoCta;
 
     const getLanguageHref = (nextLocale: Locale) =>
         withLocalePath(`${pathname}${search ? `?${search}` : ""}`, nextLocale);
@@ -81,66 +95,86 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
 
     return (
         <>
-            <header
-                className={cn(
-                    "right-4 left-auto z-20 flex h-auto w-auto max-w-[calc(100vw-2rem)] translate-x-0 items-center justify-end rounded-3xl bg-white p-2 shadow-[0px_4px_4px_rgba(232,101,10,0.2)] lg:right-auto lg:left-1/2 lg:h-15 lg:w-max lg:max-w-none lg:-translate-x-1/2 lg:justify-center lg:gap-11.25 lg:px-7.25 lg:py-3.75",
-                    className,
-                )}
-            >
-                <button
-                    type="button"
-                    aria-label={dictionary.common.openMenu}
-                    aria-controls="mobile-menu"
-                    aria-expanded={isOpen}
-                    onClick={() => setIsOpen(true)}
-                    className="text-primary flex size-11 items-center justify-center rounded-full lg:hidden"
-                >
-                    <Menu size={28} />
-                </button>
+			<div className="fixed top-15 left-1/2 z-20 w-max -translate-x-1/2">
+				<header
+					className={cn(
+						"flex h-auto w-auto max-w-[calc(100vw-2rem)] items-center justify-end rounded-3xl bg-white p-2 shadow-[0px_4px_4px_rgba(232,101,10,0.2)] lg:h-15 lg:w-max lg:max-w-none lg:justify-center lg:gap-11.25 lg:px-7.25 lg:py-3.75",
+						className,
+					)}
+				>
+					<button
+						type="button"
+						aria-label={dictionary.common.openMenu}
+						aria-controls="mobile-menu"
+						aria-expanded={isOpen}
+						onClick={() => setIsOpen(true)}
+						className="text-primary flex size-11 items-center justify-center rounded-full lg:hidden"
+					>
+						<Menu size={28} />
+					</button>
 
-                <nav className="hidden shrink-0 items-center justify-center gap-7.5 lg:flex">
-                    {menuItems.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.link}
-                            className="text-manrope text-dark hover:text-primary text-sm font-semibold transition-colors duration-300 ease-in-out"
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
-                </nav>
+					<nav className="hidden shrink-0 items-center justify-center gap-7.5 lg:flex">
+						{menuItems.map((item, index) => (
+							<Link
+								key={index}
+								href={item.link}
+								className="text-manrope text-dark hover:text-primary text-sm font-semibold transition-colors duration-300 ease-in-out"
+							>
+								{item.name}
+							</Link>
+						))}
+					</nav>
 
-                <ul className="hidden shrink-0 items-center justify-center gap-3.5 lg:flex">
-                    {locales.map((lang) => {
-                        const isActive = locale === lang;
+					<ul className="hidden shrink-0 items-center justify-center gap-3.5 lg:flex">
+						{locales.map((lang) => {
+							const isActive = locale === lang;
 
-                        return (
-                            <li key={lang}>
-                                <a
-                                    href={getLanguageHref(lang)}
-                                    hrefLang={lang}
-                                    aria-current={isActive ? "page" : undefined}
-                                    onClick={(event) =>
-                                        handleLanguageClick(event, lang)
-                                    }
-                                    className={`border-primary cursor-pointer rounded-[5px] border border-solid px-2.5 py-1 text-sm font-semibold transition duration-300 ${
-                                        isActive
-                                            ? "bg-primary text-white"
-                                            : " text-primary hover:bg-primary bg-white hover:text-white"
-                                        }`}
-                                >
-                                    {languageLabels[lang]}
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </header>
+							return (
+								<li key={lang}>
+									<a
+										href={getLanguageHref(lang)}
+										hrefLang={lang}
+										aria-current={isActive ? "page" : undefined}
+										onClick={(event) =>
+											handleLanguageClick(event, lang)
+										}
+										className={`border-primary cursor-pointer rounded-[5px] border border-solid px-2.5 py-1 text-sm font-semibold transition duration-300 ${
+											isActive
+												? "bg-primary text-white"
+												: " text-primary hover:bg-primary bg-white hover:text-white"
+											}`}
+									>
+										{languageLabels[lang]}
+									</a>
+								</li>
+							);
+						})}
+					</ul>
+				</header>
+				{!isForumSignupPage && (
+					<Link
+						href={forumCtaHref}
+						className="absolute top-1/2 left-full ml-3 hidden h-15 w-max -translate-y-1/2 items-center gap-2.5 rounded-full bg-[#07843F] px-3.5 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#066F36] hover:shadow-lg lg:flex"
+					>
+                            {forumLogo ? (
+                                <img
+                                    src={`${mediaUrl}${forumLogo}`}
+                                    alt={forumName}
+                                    className="size-8 rounded-full object-cover"
+                                />
+                            ) : null}
+
+						<span className="whitespace-nowrap">
+							{forumCtaLabel}
+						</span>
+					</Link>
+				)}
+			</div>
 
             {isOpen && (
                 <div
                     id="mobile-menu"
-                    className="fixed inset-0 z-50 flex flex-col bg-white px-6 py-6 lg:hidden"
+                    className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white px-6 py-6 lg:hidden"
                 >
                     <div className="flex items-center justify-end">
                         <button
@@ -165,6 +199,13 @@ export default function Header({ className = "fixed top-5 " }: HeaderProps) {
                                 {item.name}
                             </Link>
                         ))}
+                        <Link
+                            href={forumCtaHref}
+                            onClick={() => setIsOpen(false)}
+                            className="w-fit rounded-[4px] bg-[#07843F] px-5 py-3 font-main text-sm font-bold text-white"
+                        >
+                            {forumCtaLabel}
+                        </Link>
                     </nav>
 
                     <ul className="mt-auto flex items-center gap-3 pb-3">

@@ -16,18 +16,29 @@ import { getTenders } from "@/services/tenders/tenders.service";
 import type { TendersData } from "@/services/tenders/tenders.types";
 import { getVacancies } from "@/services/vacancy/vacancy.service";
 import type { VacancyData } from "@/services/vacancy/vacancy.types";
+import { featuredForumSlug } from "@/services/forums/forums.constants";
 
 const POST_SITEMAP_PAGE_SIZE = 20;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastModified = new Date();
     const staticRoutes = locales.flatMap((locale) =>
-        getSeoRoutes(locale).map((route) => ({
-            url: absoluteUrl(withLocalePath(route.path, locale)),
-            lastModified,
-            changeFrequency: route.changeFrequency,
-            priority: route.priority,
-        })),
+        [
+            ...getSeoRoutes(locale).map((route) => ({
+                url: absoluteUrl(withLocalePath(route.path, locale)),
+                lastModified,
+                changeFrequency: route.changeFrequency,
+                priority: route.priority,
+            })),
+            {
+                url: absoluteUrl(
+                    withLocalePath(`/forums/${featuredForumSlug}`, locale),
+                ),
+                lastModified,
+                changeFrequency: "weekly" as const,
+                priority: 0.72,
+            },
+        ],
     );
 
     try {

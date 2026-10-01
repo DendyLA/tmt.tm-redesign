@@ -1,4 +1,4 @@
-import Header from "@/component/layout/Header/Header";
+import HeaderWithForum from "@/component/layout/Header/HeaderWithForum";
 import Footer from "@/component/layout/Footer/Footer";
 import SiteStructuredData from "@/component/seo/SiteStructuredData";
 
@@ -56,7 +56,7 @@ export default async function OtherLayout({
                 </Script>
                 <SiteStructuredData />
                 <Suspense fallback={null}>
-                    <Header />
+                    <HeaderWithForum />
                 </Suspense>
                 {children}
                 <Footer />

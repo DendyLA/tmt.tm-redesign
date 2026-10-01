@@ -35,7 +35,7 @@ export default async function NewsInfo({ slug, className }: NewsInfoProps) {
             )}
         >
             <div className="flex flex-col">
-                <div className="flex max-h-157">
+                <div className="flex max-h-177">
                     <Image
                         src={imageSrc}
                         width={1055}
