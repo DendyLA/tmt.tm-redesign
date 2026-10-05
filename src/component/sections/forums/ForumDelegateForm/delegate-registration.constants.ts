@@ -41,4 +41,4 @@ export const emptyDelegateFiles: DelegateFiles = {
 export const delegateDraftKey = "tmt-forum-delegate-draft";
 export const delegateDraftMaxAge = 7 * 24 * 60 * 60 * 1000;
 export const maxDelegateImageSize = 4 * 1024 * 1024;
-export const maxDelegatePassportSize = 6 * 1024 * 1024;
+export const maxDelegatePassportSize = 10 * 1024 * 1024;

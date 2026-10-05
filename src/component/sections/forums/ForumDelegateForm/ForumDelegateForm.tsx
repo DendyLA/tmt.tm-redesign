@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { ForumRegistrationError, registerForumDelegate } from "@/services/forums/forum-registration.service";
+import { getDelegateCountryName } from "./delegate-registration.countries";
 import {
     delegateDraftKey,
     delegateDraftMaxAge,
@@ -143,7 +144,9 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
         }
 
         const data = new FormData();
-        for (const field of delegateTextFields) data.append(field, values[field].trim());
+        for (const field of delegateTextFields) {
+            data.append(field, field === "country" ? getDelegateCountryName(values.country) : values[field].trim());
+        }
         for (const field of delegateFileFields) {
             const file = files[field];
             if (file) data.append(field, file);
