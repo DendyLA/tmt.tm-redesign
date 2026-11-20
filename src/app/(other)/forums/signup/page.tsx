@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 import Container from "@/component/layout/Container/Container";
 import ForumDelegateForm from "@/component/sections/forums/ForumDelegateForm/ForumDelegateForm";
 import Logo from "@/component/ui/Logo/Logo";
-import { getApiLocale } from "@/lib/i18n/config";
+import { getApiLocale, withLocalePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { featuredForumSlug } from "@/services/forums/forums.constants";
 import { getForum } from "@/services/forums/forums.service";
-import { getForumTitle } from "@/services/forums/forums.utils";
+import { getForumTitle, hasForumEnded } from "@/services/forums/forums.utils";
 
 type ForumSignupPageProps = {
     searchParams: Promise<{ forum?: string }>;
@@ -32,6 +33,10 @@ export default async function ForumSignupPage({ searchParams }: ForumSignupPageP
         ? requestedSlug
         : featuredForumSlug;
     const forum = await getForum(forumSlug, getApiLocale(locale));
+
+    if (forum && hasForumEnded(forum.endDate)) {
+        redirect(withLocalePath(`/forums/${forum.slug}`, locale));
+    }
 
     return (
         <main className="bg-main-gradient-top py-10 sm:py-12.5">

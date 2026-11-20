@@ -73,6 +73,7 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
     const [success, setSuccess] = useState(false);
     const [requestError, setRequestError] = useState<string | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
+    const submissionInProgressRef = useRef(false);
     const storageKey = `${delegateDraftKey}:${forumSlug}`;
 
     useEffect(() => {
@@ -125,7 +126,7 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (submitting) return;
+        if (submissionInProgressRef.current) return;
 
         const nextErrors: FieldErrors = {};
         for (const field of delegateTextFields) {
@@ -152,6 +153,7 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
             if (file) data.append(field, file);
         }
 
+        submissionInProgressRef.current = true;
         setSubmitting(true);
         setRequestError(null);
         try {
@@ -180,6 +182,7 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
                 setRequestError(copy.requestError);
             }
         } finally {
+            submissionInProgressRef.current = false;
             setSubmitting(false);
         }
     };
@@ -190,6 +193,7 @@ export default function ForumDelegateForm({ forumSlug, locale, copy }: ForumDele
                 ref={formRef}
                 noValidate
                 onSubmit={handleSubmit}
+                aria-busy={submitting}
                 className="mx-auto mt-10 w-full max-w-[900px] rounded-[8px] border border-[#c9d9c9] bg-white px-5 py-7 shadow-sm sm:px-9 sm:py-10"
             >
                 <fieldset disabled={submitting}>

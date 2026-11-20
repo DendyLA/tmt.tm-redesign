@@ -10,15 +10,17 @@ import {
     getForumTitle,
     getForumVenue,
 } from "@/services/forums/forums.utils";
+import ForumFiles from "../ForumFiles/ForumFiles";
 import { formatForumDateRange } from "../forum-format";
 
 type ForumHeroProps = {
     forum: Forum;
     locale: Locale;
     copy: Dictionary["forums"];
+    registrationOpen: boolean;
 };
 
-export default function ForumHero({ forum, locale, copy }: ForumHeroProps) {
+export default function ForumHero({ forum, locale, copy, registrationOpen }: ForumHeroProps) {
     const title = getForumTitle(forum);
     const venue = getForumVenue(forum);
     const dates = formatForumDateRange(forum.startDate, forum.endDate, locale);
@@ -60,12 +62,17 @@ export default function ForumHero({ forum, locale, copy }: ForumHeroProps) {
                     )}
                 </div>
 
-                <Link
-                    href={getForumSignupHref(forum.slug, locale)}
-                    className="mt-6 inline-flex rounded-[4px] bg-[#087541] px-7 py-4 font-main text-[14px] font-bold text-white uppercase transition-colors duration-300 hover:bg-[#075a34]"
-                >
-                    {copy.delegateCta}
-                </Link>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                    {registrationOpen && (
+                        <Link
+                            href={getForumSignupHref(forum.slug, locale)}
+                            className="inline-flex rounded-[4px] bg-[#087541] px-7 py-4 font-main text-[14px] font-bold text-white uppercase transition-colors duration-300 hover:bg-[#075a34]"
+                        >
+                            {copy.delegateCta}
+                        </Link>
+                    )}
+                    <ForumFiles files={forum.files} locale={locale} />
+                </div>
             </div>
 
             <div className="flex justify-center lg:justify-end">

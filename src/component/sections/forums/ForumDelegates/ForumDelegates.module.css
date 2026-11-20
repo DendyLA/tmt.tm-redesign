@@ -1,0 +1,29 @@
+.viewport {
+    overflow: hidden;
+}
+
+.track {
+    display: flex;
+    width: max-content;
+    animation: forum-delegates-scroll 36s linear infinite;
+}
+
+@keyframes forum-delegates-scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .viewport {
+        overflow-x: auto;
+    }
+
+    .track {
+        animation: none;
+    }
+
+    .track > :last-child {
+        display: none;
+    }
+}

@@ -6,9 +6,24 @@ import { getApiLocaleCandidates } from "@/lib/i18n/config";
 
 export async function getForum(slug: string, locale: string): Promise<Forum | null> {
 	try{
-		return await apiClient<Forum>(`/forums/public/${slug}?locale=${locale}`, {
+		const forum = await apiClient<Forum>(`/forums/public/${slug}?locale=${locale}`, {
 			next: { revalidate: 300, tags: ["forums"] },
 		});
+		const locales = getApiLocaleCandidates(locale);
+
+		return {
+			...forum,
+			organizers: forum.organizers?.map((organizer) => {
+				const translation = locales
+					.map((candidate) => organizer.translations?.find((entry) => entry.locale === candidate))
+					.find(Boolean);
+
+				return {
+					...organizer,
+					name: translation?.name?.trim() || organizer.translation?.name?.trim() || organizer.name,
+				};
+			}),
+		};
 	}catch(error){
 		console.log(error);
 		return null;

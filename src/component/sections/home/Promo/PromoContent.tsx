@@ -15,7 +15,7 @@ export default async function PromoContent() {
     const locale = await getRequestLocale();
     const dictionary = getDictionary(locale);
     const promos = await getPromoSettings("companySlug=tmt-consulting-group");
-    const promoMediaUrl = promos?.[0]?.media?.url;
+    const promoMediaUrl = promos.find((promo) => promo.sortOrder === 1)?.media?.url;
 
     const promoUrl = promoMediaUrl ? `${mediaUrl}${promoMediaUrl}` : undefined;
 

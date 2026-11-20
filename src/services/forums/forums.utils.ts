@@ -6,8 +6,16 @@ export function getForumSignupHref(slug: string, locale: Locale) {
     return withLocalePath(`/forums/signup?forum=${encodeURIComponent(slug)}`, locale);
 }
 
+export function hasForumEnded(endDate: string | null | undefined, now = new Date()) {
+    if (!endDate) return false;
+
+    const endDay = endDate.slice(0, 10);
+    return !Number.isNaN(Date.parse(endDay)) && now.toISOString().slice(0, 10) > endDay;
+}
+
 export function getForumTitle(forum: Forum | null | undefined) {
-    return forum?.translation?.title ?? forum?.title ?? "";
+    const title = forum?.translation?.title ?? forum?.title ?? "";
+    return title.replace(/^Turkmenistan[–-]China Business Forum(?=,|$)/, "Turkmen-Chinese Business Forum");
 }
 
 export function getForumDescription(forum: Forum | null | undefined) {

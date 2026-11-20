@@ -23,9 +23,10 @@ type HeaderProps = {
     className?: string;
     forumName?: string;
     forumLogo?: string;
+    featuredForumEnded?: boolean;
 };
 
-export default function Header({ className, forumName = "", forumLogo = "" }: HeaderProps) {
+export default function Header({ className, forumName = "", forumLogo = "", featuredForumEnded = false }: HeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [pendingLanguagePathname, setPendingLanguagePathname] = useState<string | null>(null);
     const router = useRouter();
@@ -38,6 +39,10 @@ export default function Header({ className, forumName = "", forumLogo = "" }: He
     const isForumSignupPage = pathname.includes("/forums/signup");
     const isForumDetailPage =
         pathname.includes("/forums/") && !isForumSignupPage;
+    const isEndedFeaturedForumPage =
+        isForumDetailPage &&
+        featuredForumEnded &&
+        pathname.split("/").filter(Boolean).at(-1) === featuredForumSlug;
     const forumCtaHref = isForumDetailPage
         ? getForumSignupHref(pathname.split("/").filter(Boolean).at(-1) || featuredForumSlug, locale)
         : withLocalePath(`/forums/${featuredForumSlug}`, locale);
@@ -151,10 +156,10 @@ export default function Header({ className, forumName = "", forumLogo = "" }: He
 						})}
 					</ul>
 				</header>
-				{!isForumSignupPage && (
+				{!isForumSignupPage && !isEndedFeaturedForumPage && (
 					<Link
 						href={forumCtaHref}
-						className="absolute top-1/2 left-full ml-3 hidden h-15 w-max -translate-y-1/2 items-center gap-2.5 rounded-full bg-[#07843F] px-3.5 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#066F36] hover:shadow-lg lg:flex"
+						className="absolute top-full left-1/2 mt-3 hidden h-15 w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-2.5 rounded-full bg-[#07843F] px-3.5 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#066F36] hover:shadow-lg lg:flex 2xl:top-1/2 2xl:left-full 2xl:mt-0 2xl:ml-3 2xl:translate-x-0 2xl:-translate-y-1/2"
 					>
                             {forumLogo ? (
                                 <img
@@ -164,7 +169,7 @@ export default function Header({ className, forumName = "", forumLogo = "" }: He
                                 />
                             ) : null}
 
-						<span className="whitespace-nowrap">
+						<span className="text-center leading-tight">
 							{forumCtaLabel}
 						</span>
 					</Link>
@@ -199,13 +204,15 @@ export default function Header({ className, forumName = "", forumLogo = "" }: He
                                 {item.name}
                             </Link>
                         ))}
-                        <Link
-                            href={forumCtaHref}
-                            onClick={() => setIsOpen(false)}
-                            className="w-fit rounded-[4px] bg-[#07843F] px-5 py-3 font-main text-sm font-bold text-white"
-                        >
-                            {forumCtaLabel}
-                        </Link>
+                        {!isForumSignupPage && !isEndedFeaturedForumPage && (
+                            <Link
+                                href={forumCtaHref}
+                                onClick={() => setIsOpen(false)}
+                                className="w-fit rounded-[4px] bg-[#07843F] px-5 py-3 font-main text-sm font-bold text-white"
+                            >
+                                {forumCtaLabel}
+                            </Link>
+                        )}
                     </nav>
 
                     <ul className="mt-auto flex items-center gap-3 pb-3">

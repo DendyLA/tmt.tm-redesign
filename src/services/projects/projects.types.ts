@@ -24,6 +24,7 @@ export type Project = {
     gallery?: {
         id: string;
         url: string;
+        previewUrl?: string | null;
         altText: string | null;
         title: string | null;
     }[];

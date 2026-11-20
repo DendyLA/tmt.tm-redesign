@@ -10,14 +10,17 @@ type ForumSponsorsProps = {
 };
 
 export default function ForumSponsors({ levels, copy }: ForumSponsorsProps) {
-    const visibleLevels = levels
+    const orderedLevels = [...levels]
+        .sort((a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER))
         .map((level) => ({
             ...level,
-            sponsors: level.sponsors.filter((sponsor) => sponsor.logoUrl?.trim()),
+            sponsors: [...level.sponsors].sort(
+                (a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER),
+            ),
         }))
         .filter((level) => level.sponsors.length > 0);
 
-    if (!visibleLevels.length) return null;
+    if (!orderedLevels.length) return null;
 
     return (
         <section className="mt-20">
@@ -25,7 +28,7 @@ export default function ForumSponsors({ levels, copy }: ForumSponsorsProps) {
                 {copy.sponsorsTitle}
             </h2>
             <div className="mt-8 space-y-10">
-                {visibleLevels.map((level) => (
+                {orderedLevels.map((level) => (
                     <div key={level.id}>
                         <h3 className="font-second text-[22px] font-semibold text-[#a27c42] sm:text-[26px]">
                             {level.name}

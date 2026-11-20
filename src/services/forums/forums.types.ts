@@ -36,6 +36,16 @@ export type ForumSponsorLevel = {
     sponsors: ForumSponsor[];
 };
 
+export type ForumOrganizer = {
+    id: string;
+    name: string;
+    logoUrl?: string | null;
+    website?: string | null;
+    sortOrder?: number;
+    translation?: { locale: string; name: string } | null;
+    translations?: { locale: string; name: string }[];
+};
+
 export type ForumProgramItem = {
     id: string;
     startsAt: string;
@@ -64,6 +74,15 @@ export type ForumProgramDay = {
     items: ForumProgramItem[];
 };
 
+export type ForumFile = {
+    id: string;
+    locale: "RU" | "EN" | "TK";
+    title: string;
+    fileUrl: string;
+    isActive: boolean;
+    sortOrder: number;
+};
+
 export type Forum = {
 	id: string;
 	title: string;
@@ -79,6 +98,8 @@ export type Forum = {
 	updatedAt?: string;
 	translations?: ForumTranslation[];
 	translation?: ForumTranslation | null;
+	files?: ForumFile[];
 	participants?: ForumParticipant[];
+	organizers?: ForumOrganizer[];
 	sponsorLevels?: ForumSponsorLevel[];
 }

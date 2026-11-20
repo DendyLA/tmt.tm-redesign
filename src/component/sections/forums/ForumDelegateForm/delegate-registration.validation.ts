@@ -1,5 +1,5 @@
 import type { DelegateFileField, DelegateTextField } from "./delegate-registration.constants";
-import { maxDelegateImageSize, maxDelegatePassportSize } from "./delegate-registration.constants";
+import { maxDelegateFileSize } from "./delegate-registration.constants";
 import { isDelegateCountry } from "./delegate-registration.countries";
 
 export type DelegateValidationError =
@@ -57,7 +57,7 @@ export function validateDelegateFile(
         ? ["application/pdf", "image/jpeg", "image/png", "image/webp"]
         : ["image/jpeg", "image/png", "image/webp"];
     if (!allowed.includes(file.type)) return "fileTypeError";
-    if (file.size > (isPassport ? maxDelegatePassportSize : maxDelegateImageSize)) {
+    if (file.size > maxDelegateFileSize) {
         return "fileSizeError";
     }
     return null;
