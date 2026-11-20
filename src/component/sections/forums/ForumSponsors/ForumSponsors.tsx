@@ -10,15 +10,30 @@ type ForumSponsorsProps = {
 };
 
 export default function ForumSponsors({ levels, copy }: ForumSponsorsProps) {
-    const orderedLevels = [...levels]
-        .sort((a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER))
-        .map((level) => ({
-            ...level,
-            sponsors: [...level.sponsors].sort(
-                (a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER),
-            ),
-        }))
-        .filter((level) => level.sponsors.length > 0);
+    const groups = new Map<string, ForumSponsorLevel>();
+
+    for (const level of [...levels].sort(
+        (a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER),
+    )) {
+        if (!level.sponsors.length) continue;
+
+        const name = level.name.trim();
+        const key = name.toLocaleLowerCase();
+        const group = groups.get(key);
+
+        if (group) {
+            group.sponsors.push(...level.sponsors);
+        } else {
+            groups.set(key, { ...level, name, sponsors: [...level.sponsors] });
+        }
+    }
+
+    const orderedLevels = [...groups.values()].map((level) => ({
+        ...level,
+        sponsors: level.sponsors.sort(
+            (a, b) => (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER),
+        ),
+    }));
 
     if (!orderedLevels.length) return null;
 
