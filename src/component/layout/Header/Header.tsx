@@ -208,7 +208,7 @@ export default function Header({ className, forumName = "", forumLogo = "", feat
                             <Link
                                 href={forumCtaHref}
                                 onClick={() => setIsOpen(false)}
-                                className="w-fit rounded-[4px] bg-[#07843F] px-5 py-3 font-main text-sm font-bold text-white"
+                                className="w-fit rounded-sm bg-[#07843F] px-5 py-3 font-main text-sm font-bold text-white"
                             >
                                 {forumCtaLabel}
                             </Link>

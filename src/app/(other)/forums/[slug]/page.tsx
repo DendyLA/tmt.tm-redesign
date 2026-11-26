@@ -6,7 +6,7 @@ import ForumHero from "@/component/sections/forums/ForumHero/ForumHero";
 import ForumMeetingRequest from "@/component/sections/forums/ForumMeetingRequest/ForumMeetingRequest";
 import ForumOverview from "@/component/sections/forums/ForumOverview/ForumOverview";
 import ForumProgram from "@/component/sections/forums/ForumProgram/ForumProgram";
-import ForumVenue from "@/component/sections/forums/ForumVenue/ForumVenue";
+import ForumReport from "@/component/sections/forums/ForumReport/ForumReport";
 import ForumSpeakers from "@/component/sections/forums/ForumSpeakers/ForumSpeakers";
 import ForumOrganizers from "@/component/sections/forums/ForumOrganizers/ForumOrganizers";
 import ForumDelegates from "@/component/sections/forums/ForumDelegates/ForumDelegates";
@@ -107,7 +107,7 @@ export default async function ForumPage({ params }: ForumPageProps) {
                     <ForumMeetingRequest forumSlug={forum.slug} copy={dictionary.forums.meetingRequest} />
                 )}
                 <ForumOverview forum={forum} copy={dictionary.forums} />
-                {slug === featuredForumSlug && <ForumVenue copy={dictionary.forums} />}
+                {slug === featuredForumSlug && <ForumReport copy={dictionary.forums.report} />}
                 <ForumSpeakers participants={forum.participants || []} copy={dictionary.forums} />
                 <ForumOrganizers organizers={forum.organizers || []} copy={dictionary.forums} />
                 <ForumSponsors levels={forum.sponsorLevels || []} copy={dictionary.forums} />

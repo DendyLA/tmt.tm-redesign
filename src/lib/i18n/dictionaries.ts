@@ -210,6 +210,15 @@ export const dictionaries = {
                 "Платформа для делового диалога Туркменистана и Китая, новых партнёрств, инвестиционных возможностей и прямых встреч с компаниями в рамках CIIE.",
             dateLabel: "Даты",
             venueLabel: "Место проведения",
+            report: {
+                label: "Документ форума",
+                title: "Туркмено-Китайский бизнес-форум",
+                open: "Открыть отчёт",
+                download: "Скачать PDF",
+                page: "Страница",
+                previous: "Предыдущая страница",
+                next: "Следующая страница",
+            },
             delegateCta: "Принять участие",
             aboutTitle: "О форуме",
             aboutText:
@@ -734,6 +743,15 @@ export const dictionaries = {
                 "A platform for Turkmenistan-China business dialogue, new partnerships, investment opportunities and direct meetings with companies within the CIIE agenda.",
             dateLabel: "Dates",
             venueLabel: "Venue",
+            report: {
+                label: "Forum document",
+                title: "Turkmen-Chinese Business Forum",
+                open: "Open report",
+                download: "Download PDF",
+                page: "Page",
+                previous: "Previous page",
+                next: "Next page",
+            },
             delegateCta: "Participate",
             aboutTitle: "About the forum",
             aboutText:
@@ -1255,6 +1273,15 @@ export const dictionaries = {
                 "Türkmenistan bilen Hytaýyň işewür dialogy, täze hyzmatdaşlyklar, maýa goýum mümkinçilikleri we CIIE çäklerinde kompaniýalar bilen göni duşuşyklar üçin platforma.",
             dateLabel: "Seneler",
             venueLabel: "Geçirilýän ýeri",
+            report: {
+                label: "Forum resminamasy",
+                title: "Türkmen-hytaý işewürlik forumy",
+                open: "Hasabaty açmak",
+                download: "PDF-i ýükläp almak",
+                page: "Sahypa",
+                previous: "Öňki sahypa",
+                next: "Indiki sahypa",
+            },
             delegateCta: "Gatnaşmak",
             aboutTitle: "Forum barada",
             aboutText:
